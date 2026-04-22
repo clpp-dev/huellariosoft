@@ -205,8 +205,5 @@ Este es un proyecto privado. Para contribuir, contacta al equipo de desarrollo.
 
 ## 📄 Licencia
 
-Propietario - HuellarioSoft © 2024
+Propietario - HuellarioSoft © 2026
 
----
-
-Desarrollado con ❤️ por el equipo de HuellarioSoft

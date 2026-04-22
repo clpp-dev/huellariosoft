@@ -374,8 +374,8 @@ formatCurrency(precio) // "$50,000"
 ```jsx
 import { formatDate, formatDateTime } from '@utils/dateUtils'
 
-formatDate(new Date()) // "12 de ene de 2024"
-formatDateTime(new Date()) // "12 de ene de 2024, 10:30 AM"
+formatDate(new Date()) // "12 de ene de 2026"
+formatDateTime(new Date()) // "12 de ene de 2026, 10:30 AM"
 ```
 
 ### Validar Email/Teléfono

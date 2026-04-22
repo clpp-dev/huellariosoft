@@ -132,7 +132,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "rol": "administrador",
     "telefono": "3001234567",
     "activo": true,
-    "createdAt": "2024-01-15T10:30:00.000Z"
+    "createdAt": "2026-01-15T10:30:00.000Z"
   }
 }
 ```
@@ -189,7 +189,7 @@ GET /api/users?page=1&limit=10&rol=veterinario&activo=true
       "rol": "veterinario",
       "telefono": "3001234567",
       "activo": true,
-      "createdAt": "2024-01-15T10:30:00.000Z"
+      "createdAt": "2026-01-15T10:30:00.000Z"
     }
   ],
   "pagination": {
@@ -240,7 +240,7 @@ Crea un nuevo usuario en el sistema.
     "rol": "veterinario",
     "telefono": "3009876543",
     "activo": true,
-    "createdAt": "2024-01-15T11:00:00.000Z"
+    "createdAt": "2026-01-15T11:00:00.000Z"
   }
 }
 ```
@@ -275,7 +275,7 @@ Obtiene una lista paginada de propietarios.
       "email": "juan.perez@example.com",
       "direccion": "Calle 45 #12-34",
       "activo": true,
-      "createdAt": "2024-01-10T09:00:00.000Z"
+      "createdAt": "2026-01-10T09:00:00.000Z"
     }
   ],
   "pagination": {
@@ -327,7 +327,7 @@ Crea un nuevo propietario/cliente.
     "email": "maria.r@example.com",
     "direccion": "Carrera 30 #50-60, Apto 301",
     "activo": true,
-    "createdAt": "2024-01-15T14:30:00.000Z"
+    "createdAt": "2026-01-15T14:30:00.000Z"
   }
 }
 ```
@@ -427,7 +427,7 @@ Registra una nueva mascota en el sistema.
       "telefono": "3001112233"
     },
     "activo": true,
-    "createdAt": "2024-01-15T15:00:00.000Z"
+    "createdAt": "2026-01-15T15:00:00.000Z"
   }
 }
 ```
@@ -484,7 +484,7 @@ Agenda una nueva cita veterinaria.
   "mascota": "507f1f77bcf86cd799439015",
   "propietario": "507f1f77bcf86cd799439013",
   "veterinario": "507f1f77bcf86cd799439012",
-  "fecha": "2024-01-20",
+  "fecha": "2026-01-20",
   "hora": "14:30",
   "motivo": "Consulta general y vacunación",
   "observaciones": "Primera visita del año"
@@ -514,12 +514,12 @@ Agenda una nueva cita veterinaria.
       "_id": "507f1f77bcf86cd799439012",
       "nombre": "Dr. María López"
     },
-    "fecha": "2024-01-20T00:00:00.000Z",
+    "fecha": "2026-01-20T00:00:00.000Z",
     "hora": "14:30",
     "motivo": "Consulta general y vacunación",
     "estado": "Programada",
     "observaciones": "Primera visita del año",
-    "createdAt": "2024-01-15T16:00:00.000Z"
+    "createdAt": "2026-01-15T16:00:00.000Z"
   }
 }
 ```
@@ -535,7 +535,7 @@ Obtiene todas las citas de una fecha específica.
 
 **Ejemplo:**
 ```
-GET /api/citas/fecha/2024-01-20
+GET /api/citas/fecha/2026-01-20
 ```
 
 **Response (200 OK):**
@@ -557,7 +557,7 @@ GET /api/citas/fecha/2024-01-20
       "veterinario": {
         "nombre": "Dr. María López"
       },
-      "fecha": "2024-01-20T00:00:00.000Z",
+      "fecha": "2026-01-20T00:00:00.000Z",
       "hora": "14:30",
       "motivo": "Consulta general y vacunación",
       "estado": "Programada"
@@ -590,7 +590,7 @@ Actualiza el estado de una cita.
   "data": {
     "_id": "507f1f77bcf86cd799439017",
     "estado": "Confirmada",
-    "updatedAt": "2024-01-16T09:00:00.000Z"
+    "updatedAt": "2026-01-16T09:00:00.000Z"
   }
 }
 ```
@@ -612,7 +612,7 @@ Registra una nueva consulta veterinaria.
   "mascota": "507f1f77bcf86cd799439015",
   "cita": "507f1f77bcf86cd799439017",
   "veterinario": "507f1f77bcf86cd799439012",
-  "fechaConsulta": "2024-01-20T14:30:00.000Z",
+  "fechaConsulta": "2026-01-20T14:30:00.000Z",
   "motivoConsulta": "Consulta general y vacunación",
   "sintomas": "Ninguno, revisión de rutina",
   "diagnostico": "Paciente sano, desarrollo normal",
@@ -624,9 +624,9 @@ Registra una nueva consulta veterinaria.
   "vacunas": [
     {
       "nombre": "Antirrábica",
-      "fecha": "2024-01-20",
+      "fecha": "2026-01-20",
       "proximaDosis": "2025-01-20",
-      "lote": "VAC2024001"
+      "lote": "VAC2026001"
     }
   ],
   "observaciones": "Paciente en excelentes condiciones"
@@ -649,7 +649,7 @@ Registra una nueva consulta veterinaria.
       "_id": "507f1f77bcf86cd799439012",
       "nombre": "Dr. María López"
     },
-    "fechaConsulta": "2024-01-20T14:30:00.000Z",
+    "fechaConsulta": "2026-01-20T14:30:00.000Z",
     "motivoConsulta": "Consulta general y vacunación",
     "diagnostico": "Paciente sano, desarrollo normal",
     "peso": 28.5,
@@ -657,12 +657,12 @@ Registra una nueva consulta veterinaria.
     "vacunas": [
       {
         "nombre": "Antirrábica",
-        "fecha": "2024-01-20T00:00:00.000Z",
+        "fecha": "2026-01-20T00:00:00.000Z",
         "proximaDosis": "2025-01-20T00:00:00.000Z",
-        "lote": "VAC2024001"
+        "lote": "VAC2026001"
       }
     ],
-    "createdAt": "2024-01-20T15:00:00.000Z"
+    "createdAt": "2026-01-20T15:00:00.000Z"
   }
 }
 ```
@@ -684,7 +684,7 @@ Lista todas las historias clínicas de una mascota específica.
   "data": [
     {
       "_id": "507f1f77bcf86cd799439018",
-      "fechaConsulta": "2024-01-20T14:30:00.000Z",
+      "fechaConsulta": "2026-01-20T14:30:00.000Z",
       "veterinario": {
         "nombre": "Dr. María López"
       },
@@ -720,7 +720,7 @@ Registra un nuevo producto en el inventario.
   "precioVenta": 25000,
   "proveedor": "Droguería VetPharma",
   "fechaVencimiento": "2025-12-31",
-  "lote": "LOT2024001"
+  "lote": "LOT2026001"
 }
 ```
 
@@ -746,9 +746,9 @@ Registra un nuevo producto en el inventario.
     "precioVenta": 25000,
     "proveedor": "Droguería VetPharma",
     "fechaVencimiento": "2025-12-31T00:00:00.000Z",
-    "lote": "LOT2024001",
+    "lote": "LOT2026001",
     "activo": true,
-    "createdAt": "2024-01-15T17:00:00.000Z"
+    "createdAt": "2026-01-15T17:00:00.000Z"
   }
 }
 ```
@@ -893,8 +893,8 @@ Genera una nueva factura de venta.
     "total": 80000,
     "estado": "Pagada",
     "metodoPago": "Efectivo",
-    "fechaPago": "2024-01-20T16:00:00.000Z",
-    "createdAt": "2024-01-20T16:00:00.000Z"
+    "fechaPago": "2026-01-20T16:00:00.000Z",
+    "createdAt": "2026-01-20T16:00:00.000Z"
   }
 }
 ```
@@ -925,7 +925,7 @@ Actualiza el estado de una factura pendiente a pagada.
     "numeroFactura": "FAC00000001",
     "estado": "Pagada",
     "metodoPago": "Tarjeta",
-    "fechaPago": "2024-01-21T10:00:00.000Z"
+    "fechaPago": "2026-01-21T10:00:00.000Z"
   }
 }
 ```
@@ -945,7 +945,7 @@ Obtiene estadísticas de facturación por rango de fechas.
 
 **Ejemplo:**
 ```
-GET /api/facturas/estadisticas?fechaInicio=2024-01-01&fechaFin=2024-01-31
+GET /api/facturas/estadisticas?fechaInicio=2026-01-01&fechaFin=2026-01-31
 ```
 
 **Response (200 OK):**
@@ -1004,4 +1004,4 @@ Los tokens tienen una duración de 15 minutos. Usa el refresh token para obtener
 ---
 
 **Versión de API:** 1.0.0  
-**Última actualización:** Enero 2024
+**Última actualización:** Enero 2026

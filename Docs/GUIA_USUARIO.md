@@ -421,4 +421,4 @@ Si necesitas ayuda adicional:
 
 ---
 
-**HuellarioSoft © 2024** - Sistema de Gestión Veterinaria
+**HuellarioSoft © 2026** - Sistema de Gestión Veterinaria

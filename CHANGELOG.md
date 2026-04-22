@@ -4,7 +4,7 @@ Historial de cambios y versiones del sistema.
 
 ---
 
-## [1.0.0] - 2024-04-21
+## [1.0.0] - 2026-04-21
 
 ### ✨ Lanzamiento Inicial - Sistema Completo
 
@@ -360,4 +360,4 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-**HuellarioSoft © 2024** - Sistema de Gestión Veterinaria
+**HuellarioSoft © 2026** - Sistema de Gestión Veterinaria

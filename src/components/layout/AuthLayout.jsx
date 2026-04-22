@@ -124,7 +124,7 @@ function AuthLayout({ children }) {
 
           {/* Footer */}
           <div className="text-sm text-white/60">
-            © 2024 HuellarioSoft. Todos los derechos reservados.
+            © 2026 HuellarioSoft. Todos los derechos reservados.
           </div>
         </div>
       </div>
