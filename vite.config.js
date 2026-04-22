@@ -35,10 +35,18 @@ export default defineConfig({
     minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'form-vendor': ['react-hook-form', 'yup', '@hookform/resolvers'],
-          'ui-vendor': ['lucide-react', 'sonner'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('react-hook-form') || id.includes('yup') || id.includes('@hookform/resolvers')) {
+              return 'form-vendor';
+            }
+            if (id.includes('lucide-react') || id.includes('sonner')) {
+              return 'ui-vendor';
+            }
+          }
         },
       },
     },
