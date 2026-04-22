@@ -65,10 +65,10 @@ export function AuthProvider({ children }) {
       const response = await authService.login(credentials)
 
       if (response.success && response.data) {
-        const { user: userData, accessToken, refreshToken } = response.data
+        const { user: userData, token, refreshToken } = response.data
 
         // Guardar tokens
-        tokenService.setTokens(accessToken, refreshToken)
+        tokenService.setTokens(token, refreshToken)
 
         // Guardar usuario
         setUser(userData)

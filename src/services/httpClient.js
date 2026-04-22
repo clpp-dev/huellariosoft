@@ -51,15 +51,22 @@ class HttpClient {
       headers['Authorization'] = `Bearer ${token}`
     }
 
+    // Crear AbortController para timeout manual (mejor compatibilidad)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout)
+
     // Configuración de fetch
     const config = {
       ...options,
       headers,
-      signal: AbortSignal.timeout(this.timeout),
+      signal: controller.signal,
     }
 
     try {
       const response = await fetch(url, config)
+
+      // Limpiar timeout si la petición fue exitosa
+      clearTimeout(timeoutId)
 
       // Si es 401, intentar refresh del token
       if (response.status === 401) {
@@ -81,6 +88,9 @@ class HttpClient {
 
       return data
     } catch (error) {
+      // Limpiar timeout
+      clearTimeout(timeoutId)
+
       // Error de red o timeout
       if (error.name === 'AbortError') {
         throw new Error('La petición ha tardado demasiado')
@@ -249,13 +259,20 @@ class HttpClient {
       headers['Authorization'] = `Bearer ${token}`
     }
 
+    // Crear AbortController para timeout manual
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout)
+
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers,
         body: formData,
-        signal: AbortSignal.timeout(this.timeout),
+        signal: controller.signal,
       })
+
+      // Limpiar timeout
+      clearTimeout(timeoutId)
 
       const data = await response.json()
 
@@ -265,6 +282,9 @@ class HttpClient {
 
       return data
     } catch (error) {
+      // Limpiar timeout
+      clearTimeout(timeoutId)
+
       if (error.name === 'AbortError') {
         throw new Error('La carga ha tardado demasiado')
       }

@@ -2,63 +2,60 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@context/AuthContext'
 import Card from '@components/ui/Card'
+import Spinner from '@components/ui/Spinner'
 import { Icons } from '@constants/icons'
 import { formatCurrency } from '@utils/formatters'
 import { formatDate } from '@utils/dateUtils'
 import { ROLE_LABELS } from '@constants/enums'
+import dashboardService from '@services/dashboardService'
+import { toast } from 'sonner'
 
 function DashboardPage() {
   const { user } = useAuth()
+  const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
-    appointments: { today: 0, thisWeek: 0, total: 0 },
-    pets: { total: 0, thisMonth: 0 },
-    owners: { total: 0, thisMonth: 0 },
-    revenue: { today: 0, thisMonth: 0, pending: 0 },
+    citasHoy: 0,
+    totalMascotas: 0,
+    totalPropietarios: 0,
+    facturacionMensual: 0,
   })
 
   const [upcomingAppointments, setUpcomingAppointments] = useState([])
   const [lowStockItems, setLowStockItems] = useState([])
 
   useEffect(() => {
-    // Aquí cargarías los datos reales de la API
-    // Por ahora usaremos datos de ejemplo
-    setStats({
-      appointments: { today: 5, thisWeek: 23, total: 156 },
-      pets: { total: 89, thisMonth: 12 },
-      owners: { total: 67, thisMonth: 8 },
-      revenue: { today: 450000, thisMonth: 5600000, pending: 1200000 },
-    })
-
-    setUpcomingAppointments([
-      {
-        id: 1,
-        time: '09:00',
-        petName: 'Max',
-        ownerName: 'Juan Pérez',
-        service: 'Consulta general',
-      },
-      {
-        id: 2,
-        time: '10:30',
-        petName: 'Luna',
-        ownerName: 'María García',
-        service: 'Vacunación',
-      },
-      {
-        id: 3,
-        time: '11:00',
-        petName: 'Rocky',
-        ownerName: 'Carlos López',
-        service: 'Control',
-      },
-    ])
-
-    setLowStockItems([
-      { id: 1, name: 'Vacuna Antirrábica', stock: 3, minStock: 10 },
-      { id: 2, name: 'Amoxicilina 500mg', stock: 5, minStock: 15 },
-      { id: 3, name: 'Gasas estériles', stock: 2, minStock: 20 },
-    ])
+    loadDashboardData()
   }, [])
+
+  const loadDashboardData = async () => {
+    try {
+      setLoading(true)
+      const data = await dashboardService.getStats()
+      
+      setStats({
+        citasHoy: data.citasHoy,
+        totalMascotas: data.totalMascotas,
+        totalPropietarios: data.totalPropietarios,
+        facturacionMensual: data.facturacionMensual,
+      })
+
+      // Cargar próximas citas
+      const citas = await dashboardService.getProximasCitas()
+      setUpcomingAppointments(citas)
+
+      // Cargar productos con stock bajo
+      setLowStockItems(data.stockBajo)
+    } catch (error) {
+      console.error('Error al cargar dashboard:', error)
+      toast.error('Error al cargar datos del dashboard')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return <Spinner.Page message="Cargando dashboard..." />
+  }
 
   return (
     <div className="space-y-6">
@@ -90,12 +87,7 @@ function DashboardPage() {
                   </dt>
                   <dd className="flex items-baseline">
                     <div className="text-2xl font-semibold text-gray-900">
-                      {stats.appointments.today}
-                    </div>
-                    <div className="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                      <Icons.ArrowRight className="self-center flex-shrink-0 h-4 w-4 text-green-500" />
-                      <span className="sr-only">Increased by</span>
-                      {stats.appointments.thisWeek} esta semana
+                      {stats.citasHoy}
                     </div>
                   </dd>
                 </dl>
@@ -116,14 +108,11 @@ function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Mascotas
+                    Mascotas Registradas
                   </dt>
                   <dd className="flex items-baseline">
                     <div className="text-2xl font-semibold text-gray-900">
-                      {stats.pets.total}
-                    </div>
-                    <div className="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                      +{stats.pets.thisMonth} este mes
+                      {stats.totalMascotas}
                     </div>
                   </dd>
                 </dl>
@@ -144,14 +133,11 @@ function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Propietarios
+                    Clientes Activos
                   </dt>
                   <dd className="flex items-baseline">
                     <div className="text-2xl font-semibold text-gray-900">
-                      {stats.owners.total}
-                    </div>
-                    <div className="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                      +{stats.owners.thisMonth} este mes
+                      {stats.totalPropietarios}
                     </div>
                   </dd>
                 </dl>
@@ -172,11 +158,11 @@ function DashboardPage() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Ingresos del Mes
+                    Facturación del Mes
                   </dt>
                   <dd className="flex items-baseline">
                     <div className="text-2xl font-semibold text-gray-900">
-                      {formatCurrency(stats.revenue.thisMonth)}
+                      {formatCurrency(stats.facturacionMensual)}
                     </div>
                   </dd>
                 </dl>
@@ -202,37 +188,43 @@ function DashboardPage() {
             </div>
           </Card.Header>
           <Card.Content>
-            <div className="flow-root">
-              <ul className="-my-5 divide-y divide-gray-200">
-                {upcomingAppointments.map((appointment) => (
-                  <li key={appointment.id} className="py-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                          <span className="text-primary-700 font-semibold text-sm">
-                            {appointment.time}
-                          </span>
+            {upcomingAppointments.length === 0 ? (
+              <p className="text-sm text-gray-500 text-center py-4">
+                No hay citas próximas
+              </p>
+            ) : (
+              <div className="flow-root">
+                <ul className="-my-5 divide-y divide-gray-200">
+                  {upcomingAppointments.slice(0, 5).map((appointment) => (
+                    <li key={appointment._id} className="py-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                            <span className="text-primary-700 font-semibold text-sm">
+                              {appointment.hora}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {appointment.mascota?.nombre || 'N/A'}
+                          </p>
+                          <p className="text-sm text-gray-500 truncate">
+                            {appointment.propietario?.nombreCompleto || 'N/A'}
+                          </p>
+                          <p className="text-xs text-gray-400">
+                            {appointment.motivo}
+                          </p>
+                        </div>
+                        <div>
+                          <Icons.ChevronRight className="h-5 w-5 text-gray-400" />
                         </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
-                          {appointment.petName}
-                        </p>
-                        <p className="text-sm text-gray-500 truncate">
-                          {appointment.ownerName}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          {appointment.service}
-                        </p>
-                      </div>
-                      <div>
-                        <Icons.ChevronRight className="h-5 w-5 text-gray-400" />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </Card.Content>
         </Card>
 
@@ -253,29 +245,35 @@ function DashboardPage() {
             </Card.Description>
           </Card.Header>
           <Card.Content>
-            <div className="flow-root">
-              <ul className="-my-5 divide-y divide-gray-200">
-                {lowStockItems.map((item) => (
-                  <li key={item.id} className="py-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                          <Icons.AlertCircle className="h-5 w-5 text-red-600" />
+            {lowStockItems.length === 0 ? (
+              <p className="text-sm text-gray-500 text-center py-4">
+                No hay productos con stock bajo
+              </p>
+            ) : (
+              <div className="flow-root">
+                <ul className="-my-5 divide-y divide-gray-200">
+                  {lowStockItems.slice(0, 5).map((item) => (
+                    <li key={item._id} className="py-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                            <Icons.AlertCircle className="h-5 w-5 text-red-600" />
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {item.nombre}
+                          </p>
+                          <p className="text-sm text-red-600">
+                            Stock: {item.cantidad} / Mínimo: {item.stockMinimo}
+                          </p>
                         </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
-                          {item.name}
-                        </p>
-                        <p className="text-sm text-red-600">
-                          Stock: {item.stock} / Mínimo: {item.minStock}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </Card.Content>
         </Card>
       </div>
