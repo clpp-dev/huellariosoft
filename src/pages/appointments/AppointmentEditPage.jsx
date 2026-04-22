@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { format } from 'date-fns'
 import Card from '@components/ui/Card'
@@ -34,10 +34,23 @@ function AppointmentEditPage() {
     resolver: yupResolver(updateAppointmentSchema)
   })
 
+  // Observar cambios en el campo mascota
+  const selectedPetId = useWatch({ control, name: 'mascota' })
+
   useEffect(() => {
     loadData()
     loadAppointment()
   }, [id])
+
+  // Cuando cambia la mascota seleccionada, obtener su propietario
+  useEffect(() => {
+    if (selectedPetId && pets.length > 0) {
+      const selectedPet = pets.find(pet => pet._id === selectedPetId)
+      if (selectedPet?.propietario?._id) {
+        setValue('propietario', selectedPet.propietario._id)
+      }
+    }
+  }, [selectedPetId, pets, setValue])
 
   const loadData = async () => {
     try {
@@ -61,6 +74,7 @@ function AppointmentEditPage() {
       const appointment = await appointmentService.getById(id)
       
       setValue('mascota', appointment.mascota?._id || appointment.mascota)
+      setValue('propietario', appointment.propietario?._id || appointment.propietario)
       setValue('veterinario', appointment.veterinario?._id || appointment.veterinario)
       setValue('fecha', format(new Date(appointment.fecha), 'yyyy-MM-dd'))
       setValue('hora', appointment.hora)
@@ -77,6 +91,17 @@ function AppointmentEditPage() {
 
   const onSubmit = async (data) => {
     try {
+      // Asegurar que el propietario esté incluido
+      if (!data.propietario) {
+        const selectedPet = pets.find(pet => pet._id === data.mascota)
+        if (selectedPet?.propietario?._id) {
+          data.propietario = selectedPet.propietario._id
+        } else {
+          toast.error('La mascota seleccionada no tiene propietario asignado')
+          return
+        }
+      }
+      
       await appointmentService.update(id, data)
       toast.success('Cita actualizada exitosamente')
       navigate('/appointments')

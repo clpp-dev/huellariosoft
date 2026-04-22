@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { format } from 'date-fns'
 import Card from '@components/ui/Card'
@@ -36,12 +36,25 @@ function AppointmentCreatePage() {
     }
   })
 
+  // Observar cambios en el campo mascota
+  const selectedPetId = useWatch({ control, name: 'mascota' })
+
   useEffect(() => {
     loadData()
     if (petId) {
       setValue('mascota', petId)
     }
   }, [])
+
+  // Cuando cambia la mascota seleccionada, obtener su propietario
+  useEffect(() => {
+    if (selectedPetId && pets.length > 0) {
+      const selectedPet = pets.find(pet => pet._id === selectedPetId)
+      if (selectedPet?.propietario?._id) {
+        setValue('propietario', selectedPet.propietario._id)
+      }
+    }
+  }, [selectedPetId, pets, setValue])
 
   const loadData = async () => {
     try {
@@ -64,6 +77,17 @@ function AppointmentCreatePage() {
 
   const onSubmit = async (data) => {
     try {
+      // Asegurar que el propietario esté incluido
+      if (!data.propietario) {
+        const selectedPet = pets.find(pet => pet._id === data.mascota)
+        if (selectedPet?.propietario?._id) {
+          data.propietario = selectedPet.propietario._id
+        } else {
+          toast.error('La mascota seleccionada no tiene propietario asignado')
+          return
+        }
+      }
+      
       await appointmentService.create(data)
       toast.success('Cita agendada exitosamente')
       navigate('/appointments')
@@ -193,7 +217,7 @@ function AppointmentCreatePage() {
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="CREATE-APPOINTMENT flex justify-end space-x-3 pt-6 border-t border-gray-200">
               <Button
                 type="button"
                 variant="outline"
