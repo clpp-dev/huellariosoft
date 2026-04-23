@@ -44,6 +44,14 @@ import {
   Clock,
   Loader2,
   Lock,
+  User,
+  Activity,
+  Shield,
+  Palette,
+  Heart,
+  Thermometer,
+  Wind,
+  DollarSign,
 } from 'lucide-react'
 
 // Exportar todos los iconos usados en la aplicación
@@ -67,6 +75,7 @@ export const Icons = {
   Plus,
   Edit,
   Trash2,
+  Trash: Trash2,
   Eye,
   EyeOff,
   X,
@@ -104,6 +113,16 @@ export const Icons = {
   MapPin,
   Clock,
   Lock,
+  
+  // Adicionales
+  User,
+  Activity,
+  Shield,
+  Palette,
+  Heart,
+  Thermometer,
+  Wind,
+  DollarSign,
 }
 
 export default Icons
