@@ -185,7 +185,15 @@ class HttpClient {
    * @returns {Promise} - Respuesta de la API
    */
   async get(endpoint, params = {}) {
-    const queryString = new URLSearchParams(params).toString()
+    // Filtrar parámetros vacíos o undefined
+    const filteredParams = Object.entries(params).reduce((acc, [key, value]) => {
+      if (value !== '' && value !== null && value !== undefined) {
+        acc[key] = value
+      }
+      return acc
+    }, {})
+    
+    const queryString = new URLSearchParams(filteredParams).toString()
     const url = queryString ? `${endpoint}?${queryString}` : endpoint
 
     return this.request(url, {
