@@ -61,14 +61,13 @@ function Header({ onMenuClick, sidebarCollapsed }) {
         {/* Lado derecho - Acciones */}
         <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Botón de notificaciones */}
-          <button
-            className="relative p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+          {/* <button
+            className="NOTIFICACTION-HEADER relative p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
             aria-label="Notificaciones"
           >
             <Icons.Bell className="w-6 h-6" />
-            {/* Badge de notificaciones */}
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          </button> */}
 
           {/* Menú de usuario */}
           <div className="relative" ref={menuRef}>
@@ -78,7 +77,7 @@ function Header({ onMenuClick, sidebarCollapsed }) {
               aria-label="Menú de usuario"
             >
               <div className="w-9 h-9 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                <span className="text-white font-semibold text-sm">
+                <span className="text-primary-600 font-semibold text-sm">
                   {user?.nombre?.charAt(0)?.toUpperCase() || 'U'}
                 </span>
               </div>

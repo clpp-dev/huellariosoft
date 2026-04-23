@@ -3,6 +3,7 @@ import { useAuth } from '@context/AuthContext'
 import { Icons } from '@constants/icons'
 import { ROLES } from '@constants/enums'
 import { cn } from '@utils/helpers'
+import logoOnly from '@assets/img/ONLY_LOGO.png'
 
 /**
  * Sidebar principal de la aplicación
@@ -85,21 +86,21 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
         )}
       >
         {/* Logo */}
-        <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200">
+        <div className="LOGO-HUELALERIOSOFT-SIDEBAR flex h-16 items-center justify-between px-4 border-b border-gray-200">
           {!collapsed && (
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-                <Icons.PawPrint className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+                <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
               </div>
-              <span className="text-xl font-bold bg-gradient-primary text-gradient">
+              <span className="text-xl font-bold bg-gradient-primary text-primary-600">
                 HuellarioSoft
               </span>
             </div>
           )}
           
           {collapsed && (
-            <div className="mx-auto w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-              <Icons.PawPrint className="w-6 h-6 text-white" />
+            <div className="mx-auto w-10 h-10 rounded-xl flex items-center justify-center">
+              <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
             </div>
           )}
 
@@ -204,10 +205,10 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
         {/* Logo */}
         <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-              <Icons.PawPrint className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+              <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
             </div>
-            <span className="text-xl font-bold bg-gradient-primary text-gradient">
+            <span className="text-xl font-bold bg-gradient-primary text-primary-600">
               HuellarioSoft
             </span>
           </div>
