@@ -124,7 +124,7 @@ function AuthLayout({ children }) {
         <div className="w-full max-w-md">
           {/* Logo móvil */}
           <div className="lg:hidden flex items-center justify-center space-x-3 mb-8">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-[#0285c707] backdrop-blur-sm rounded-xl flex items-center justify-center p-2">
               <img src={logoOnly} alt="HuellarioSoft" className="w-12 h-12 object-contain" />
             </div>
             <span className="text-2xl font-bold text-primary-600">
