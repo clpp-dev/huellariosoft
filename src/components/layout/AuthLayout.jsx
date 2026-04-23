@@ -1,3 +1,5 @@
+import logoOnly from '@assets/img/ONLY_LOGO.png'
+
 /**
  * Layout para páginas de autenticación (Login, etc.)
  * Diseño minimalista y elegante con ilustraciones veterinarias
@@ -18,20 +20,8 @@ function AuthLayout({ children }) {
         <div className="relative z-10 flex flex-col justify-between p-12 text-white w-full">
           {/* Logo y nombre */}
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
-                />
-              </svg>
+            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center p-2">
+              <img src={logoOnly} alt="HuellarioSoft" className="w-full h-full object-contain" />
             </div>
             <span className="text-2xl font-bold">HuellarioSoft</span>
           </div>
@@ -134,22 +124,10 @@ function AuthLayout({ children }) {
         <div className="w-full max-w-md">
           {/* Logo móvil */}
           <div className="lg:hidden flex items-center justify-center space-x-3 mb-8">
-            <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
-                />
-              </svg>
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
+              <img src={logoOnly} alt="HuellarioSoft" className="w-12 h-12 object-contain" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">
+            <span className="text-2xl font-bold text-primary-600">
               HuellarioSoft
             </span>
           </div>
