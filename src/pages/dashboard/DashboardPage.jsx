@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@context/AuthContext'
 import Card from '@components/ui/Card'
 import Spinner from '@components/ui/Spinner'
 import { Icons } from '@constants/icons'
-import { formatCurrency } from '@utils/formatters'
+import { formatCurrency, formatTimeToAMPM } from '@utils/formatters'
 import { formatDate } from '@utils/dateUtils'
 import { ROLE_LABELS } from '@constants/enums'
 import dashboardService from '@services/dashboardService'
@@ -12,6 +12,7 @@ import { toast } from 'sonner'
 
 function DashboardPage() {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
     citasHoy: 0,
@@ -196,12 +197,16 @@ function DashboardPage() {
               <div className="flow-root">
                 <ul className="-my-5 divide-y divide-gray-200">
                   {upcomingAppointments.slice(0, 5).map((appointment) => (
-                    <li key={appointment._id} className="py-4">
+                    <li 
+                      key={appointment._id} 
+                      className="py-4 cursor-pointer hover:bg-gray-50 transition-colors rounded-lg px-2 -mx-2"
+                      onClick={() => navigate(`/appointments/${appointment._id}/edit`)}
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                          <div className="w-20 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                             <span className="text-primary-700 font-semibold text-sm">
-                              {appointment.hora}
+                              {formatTimeToAMPM(appointment.hora)}
                             </span>
                           </div>
                         </div>
