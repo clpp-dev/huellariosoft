@@ -153,8 +153,8 @@ function AppointmentsPage() {
       accessor: 'propietario',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-900">{row.mascota?.propietario?.nombreCompleto || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.mascota?.propietario?.telefono || ''}</p>
+          <p className="text-sm text-gray-900">{row.propietario?.nombreCompleto || 'N/A'}</p>
+          <p className="text-sm text-gray-500">{row.propietario?.telefono || ''}</p>
         </div>
       )
     },

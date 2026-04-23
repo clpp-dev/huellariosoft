@@ -128,7 +128,7 @@ function Header({ onMenuClick, sidebarCollapsed }) {
                     Mi Perfil
                   </button>
 
-                  <button
+                  {/* <button
                     onClick={() => {
                       navigate('/profile#settings')
                       setUserMenuOpen(false)
@@ -137,7 +137,7 @@ function Header({ onMenuClick, sidebarCollapsed }) {
                   >
                     <Icons.Settings className="w-5 h-5 mr-3 text-gray-400" />
                     Configuración
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Cerrar sesión */}
