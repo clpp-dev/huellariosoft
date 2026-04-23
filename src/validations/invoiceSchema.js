@@ -17,11 +17,19 @@ export const createInvoiceSchema = yup.object({
           .max(200, 'Máximo 200 caracteres'),
         cantidad: yup
           .number()
+          .transform((value, originalValue) => {
+            return originalValue === '' ? undefined : value
+          })
+          .typeError('Ingresa un número válido')
           .required('La cantidad es requerida')
           .positive('Debe ser mayor a 0')
           .integer('Debe ser un número entero'),
         precioUnitario: yup
           .number()
+          .transform((value, originalValue) => {
+            return originalValue === '' ? undefined : value
+          })
+          .typeError('Ingresa un número válido')
           .required('El precio unitario es requerido')
           .positive('Debe ser mayor a 0')
           .max(10000000, 'Precio no válido')
@@ -32,7 +40,11 @@ export const createInvoiceSchema = yup.object({
   
   descuento: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .min(0, 'El descuento no puede ser negativo')
     .max(100, 'El descuento no puede exceder 100%'),
   

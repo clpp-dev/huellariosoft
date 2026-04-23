@@ -25,6 +25,10 @@ export const createPetSchema = yup.object({
   edad: yup.object({
     valor: yup
       .number()
+      .transform((value, originalValue) => {
+        return originalValue === '' ? undefined : value
+      })
+      .typeError('Ingresa un número válido')
       .required('El valor de la edad es requerido')
       .positive('El valor debe ser positivo')
       .max(100, 'Valor no válido'),
@@ -37,7 +41,7 @@ export const createPetSchema = yup.object({
   sexo: yup
     .string()
     .required('El sexo es requerido')
-    .oneOf(['Macho', 'Hembra'], 'Sexo no válido'),
+    .test('is-not-empty', 'Selecciona el sexo de la mascota', value => value && value !== ''),
   
   color: yup
     .string()
@@ -46,7 +50,11 @@ export const createPetSchema = yup.object({
   
   peso: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('El peso debe ser positivo')
     .max(500, 'Peso no válido'),
   
@@ -80,6 +88,10 @@ export const updatePetSchema = yup.object({
   edad: yup.object({
     valor: yup
       .number()
+      .transform((value, originalValue) => {
+        return originalValue === '' ? undefined : value
+      })
+      .typeError('Ingresa un número válido')
       .required('El valor de la edad es requerido')
       .positive('El valor debe ser positivo')
       .max(100, 'Valor no válido'),
@@ -92,7 +104,7 @@ export const updatePetSchema = yup.object({
   sexo: yup
     .string()
     .required('El sexo es requerido')
-    .oneOf(['Macho', 'Hembra'], 'Sexo no válido'),
+    .test('is-not-empty', 'Selecciona el sexo de la mascota', value => value && value !== ''),
   
   color: yup
     .string()
@@ -101,7 +113,12 @@ export const updatePetSchema = yup.object({
   
   peso: yup
     .number()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a null
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('El peso debe ser positivo')
     .max(500, 'Peso no válido'),
   

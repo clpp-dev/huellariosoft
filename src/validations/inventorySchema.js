@@ -20,6 +20,10 @@ export const createInventorySchema = yup.object({
   
   cantidad: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? undefined : value
+    })
+    .typeError('Ingresa un número válido')
     .required('La cantidad es requerida')
     .min(0, 'La cantidad no puede ser negativa')
     .integer('La cantidad debe ser un número entero'),
@@ -31,12 +35,20 @@ export const createInventorySchema = yup.object({
   
   stockMinimo: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? undefined : value
+    })
+    .typeError('Ingresa un número válido')
     .required('El stock mínimo es requerido')
     .min(0, 'El stock mínimo no puede ser negativo')
     .integer('El stock mínimo debe ser un número entero'),
   
   precio: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? undefined : value
+    })
+    .typeError('Ingresa un número válido')
     .required('El precio es requerido')
     .positive('El precio debe ser positivo')
     .max(10000000, 'Precio no válido')

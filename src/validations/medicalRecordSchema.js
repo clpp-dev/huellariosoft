@@ -12,31 +12,56 @@ export const createMedicalRecordSchema = yup.object({
   
   fecha: yup
     .date()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a undefined
+      return originalValue === '' ? undefined : value
+    })
+    .typeError('Ingresa una fecha válida')
     .required('La fecha es requerida')
     .max(new Date(), 'La fecha no puede ser futura'),
   
   peso: yup
     .number()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a null
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('El peso debe ser positivo')
     .max(500, 'Peso no válido'),
   
   temperatura: yup
     .number()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a null
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('La temperatura debe ser positiva')
     .min(30, 'Temperatura muy baja')
     .max(45, 'Temperatura muy alta'),
   
   frecuenciaCardiaca: yup
     .number()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a null
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('La frecuencia cardíaca debe ser positiva')
     .max(300, 'Valor no válido'),
   
   frecuenciaRespiratoria: yup
     .number()
+    .transform((value, originalValue) => {
+      // Convertir string vacío a null
+      return originalValue === '' ? null : value
+    })
     .nullable()
+    .typeError('Ingresa un número válido')
     .positive('La frecuencia respiratoria debe ser positiva')
     .max(200, 'Valor no válido'),
   

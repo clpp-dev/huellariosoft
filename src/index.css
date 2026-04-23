@@ -245,6 +245,36 @@ body {
 /* Estilos para notificaciones (Sonner) */
 [data-sonner-toast] {
   @apply shadow-lg;
+  padding: 1rem 1.25rem !important;
+  min-height: 4rem !important;
+}
+
+[data-sonner-toast] [data-content] {
+  padding: 0.25rem 0 !important;
+  gap: 0.5rem !important;
+}
+
+[data-sonner-toast] [data-title] {
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.4 !important;
+}
+
+[data-sonner-toast] [data-description] {
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0.25rem !important;
+}
+
+[data-sonner-toast] [data-icon] {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  margin-top: 0.125rem !important;
+}
+
+[data-sonner-toast] [data-button] {
+  height: auto !important;
+  padding: 0.5rem !important;
 }
 
 /* Estilos para elementos deshabilitados */

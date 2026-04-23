@@ -85,7 +85,7 @@ function MedicalRecordCreatePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="MAIN-CONTAINER-CREATE-MEDICAL-REPORTS max-w-4xl mx-auto space-y-6">
       <div>
         <Button
           variant="ghost"
