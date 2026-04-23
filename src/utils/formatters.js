@@ -31,3 +31,17 @@ export const formatPercentage = (value, isDecimal = true) => {
   const percentage = isDecimal ? value * 100 : value
   return `${percentage.toFixed(1)}%`
 }
+
+/**
+ * Formatea una hora en formato 24h a formato 12h con AM/PM
+ * @param {string} time - Hora en formato HH:mm (24 horas)
+ * @returns {string} - Hora formateada en formato 12h con AM/PM
+ */
+export const formatTimeToAMPM = (time) => {
+  if (!time) return 'N/A'
+  const [hours, minutes] = time.split(':')
+  const hour = parseInt(hours)
+  const ampm = hour >= 12 ? 'PM' : 'AM'
+  const hour12 = hour % 12 || 12
+  return `${hour12}:${minutes} ${ampm}`
+}

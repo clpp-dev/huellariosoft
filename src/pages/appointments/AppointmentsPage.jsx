@@ -11,6 +11,7 @@ import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import appointmentService from '@services/appointmentService'
+import { formatTimeToAMPM } from '@utils/formatters'
 import { toast } from 'sonner'
 
 function AppointmentsPage() {
@@ -133,7 +134,7 @@ function AppointmentsPage() {
           <p className="text-sm font-medium text-gray-900">
             {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
-          <p className="text-sm text-gray-500">{row.hora}</p>
+          <p className="text-sm text-gray-500">{formatTimeToAMPM(row.hora)}</p>
         </div>
       )
     },

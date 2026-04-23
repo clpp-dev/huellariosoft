@@ -196,6 +196,7 @@ function AppointmentEditPage() {
                   type="date"
                   {...register('fecha')}
                   error={errors.fecha?.message}
+                  min={format(new Date(), 'yyyy-MM-dd')}
                   leftIcon={Icons.Calendar}
                   required
                 />
