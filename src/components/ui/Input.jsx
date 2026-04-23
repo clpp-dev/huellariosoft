@@ -12,6 +12,7 @@ const Input = forwardRef(
       helperText,
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
+      onRightIconClick,
       className,
       containerClassName,
       type = 'text',
@@ -64,11 +65,18 @@ const Input = forwardRef(
 
           {/* Icono derecho */}
           {RightIcon && (
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <div 
+              className={cn(
+                "absolute inset-y-0 right-0 pr-3 flex items-center",
+                onRightIconClick ? "cursor-pointer" : "pointer-events-none"
+              )}
+              onClick={onRightIconClick}
+            >
               <RightIcon
                 className={cn(
                   'h-5 w-5',
-                  error ? 'text-red-400' : 'text-gray-400'
+                  error ? 'text-red-400' : 'text-gray-400',
+                  onRightIconClick && 'hover:text-gray-600 transition-colors'
                 )}
               />
             </div>

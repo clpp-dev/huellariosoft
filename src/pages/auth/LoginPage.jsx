@@ -85,6 +85,7 @@ function LoginPage() {
           placeholder="••••••••"
           leftIcon={Icons.Lock}
           rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
+          onRightIconClick={() => setShowPassword(!showPassword)}
           error={errors.password?.message}
           {...register('password')}
         />
