@@ -2,80 +2,85 @@
 
 Los requisitos no funcionales describen cómo debe funcionar el sistema.
 
+---
+
 ## 1. Rendimiento
 
-### RNF01
-El sistema debe responder a las solicitudes principales en menos de 3 segundos.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF01** | Tiempo de respuesta | El sistema debe responder a las solicitudes principales del usuario en menos de 3 segundos para garantizar una experiencia fluida. |
+| **RNF02** | Concurrencia de usuarios | El sistema debe soportar múltiples usuarios concurrentes sin degradación significativa del rendimiento o tiempos de espera. |
 
-### RNF02
-El sistema debe soportar múltiples usuarios concurrentes sin degradación significativa del rendimiento.
+---
 
 ## 2. Seguridad
 
-### RNF03
-Las contraseñas deben almacenarse cifradas mediante algoritmos seguros.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF03** | Cifrado de contraseñas | Las contraseñas deben almacenarse cifradas mediante algoritmos seguros (bcrypt o superior) para proteger la información de acceso. |
+| **RNF04** | Autenticación segura | El sistema debe implementar autenticación segura mediante tokens JWT o sesiones protegidas con mecanismos de expiración. |
+| **RNF05** | Cumplimiento legal de protección de datos | El sistema debe cumplir con la Ley 1581 de 2012 sobre protección de datos personales en Colombia (Habeas Data). |
+| **RNF06** | Control de acceso basado en roles | El sistema debe restringir el acceso a funcionalidades y datos según los roles y permisos asignados a cada usuario. |
 
-### RNF04
-El sistema debe implementar autenticación segura mediante JWT o sesiones protegidas.
-
-### RNF05
-El sistema debe cumplir con la Ley 1581 de 2012 sobre protección de datos personales en Colombia.
-
-### RNF06
-El sistema debe restringir el acceso según roles y permisos.
+---
 
 ## 3. Disponibilidad
 
-### RNF07
-El sistema debe estar disponible al menos el 99% del tiempo operativo.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF07** | Disponibilidad del sistema | El sistema debe estar disponible y operativo al menos el 99% del tiempo durante las horas de operación de la clínica. |
+| **RNF08** | Respaldos automáticos | Debe existir un sistema de respaldo automático de la base de datos con frecuencia diaria para prevenir pérdida de información. |
 
-### RNF08
-Debe existir respaldo automático de la base de datos.
+---
 
 ## 4. Usabilidad
 
-### RNF09
-La interfaz debe ser intuitiva, clara y fácil de usar para personal no técnico.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF09** | Interfaz intuitiva | La interfaz debe ser intuitiva, clara y fácil de usar para personal no técnico, minimizando la curva de aprendizaje. |
+| **RNF10** | Diseño responsive | El sistema debe ser responsive y adaptable a diferentes dispositivos: computadores de escritorio, tablets y dispositivos móviles. |
 
-### RNF10
-El sistema debe ser responsive y adaptable a computadores, tablets y móviles.
+---
 
 ## 5. Escalabilidad
 
-### RNF11
-La arquitectura debe permitir agregar nuevos módulos sin afectar el funcionamiento actual.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF11** | Arquitectura modular | La arquitectura debe permitir agregar nuevos módulos y funcionalidades sin afectar el funcionamiento de los módulos existentes. |
+| **RNF12** | Crecimiento de datos y usuarios | El sistema debe permitir crecimiento en volumen de usuarios y datos sin requerir cambios significativos en la arquitectura. |
 
-### RNF12
-El sistema debe permitir crecimiento en volumen de usuarios y datos.
+---
 
 ## 6. Mantenibilidad
 
-### RNF13
-El código debe estar estructurado y documentado para facilitar mantenimiento futuro.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF13** | Código documentado | El código debe estar estructurado, comentado y documentado adecuadamente para facilitar el mantenimiento y actualizaciones futuras. |
+| **RNF14** | Buenas prácticas de desarrollo | El sistema debe seguir buenas prácticas de desarrollo, patrones de diseño reconocidos y arquitectura modular escalable. |
 
-### RNF14
-El sistema debe seguir buenas prácticas de desarrollo y arquitectura modular.
+---
 
 ## 7. Compatibilidad
 
-### RNF15
-El sistema debe ser compatible con navegadores modernos como Chrome, Edge y Firefox.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF15** | Compatibilidad con navegadores | El sistema debe ser compatible con navegadores web modernos: Google Chrome, Microsoft Edge y Mozilla Firefox en sus versiones recientes. |
+
+---
 
 ## 8. Tecnología
 
-### RNF16
-El frontend debe desarrollarse en React con Vite.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF16** | Stack de Frontend | El frontend debe desarrollarse utilizando React como librería principal y Vite como herramienta de construcción. |
+| **RNF17** | Stack de Backend | El backend debe desarrollarse utilizando Node.js como entorno de ejecución y Express como framework web. |
+| **RNF18** | Base de datos | La base de datos debe implementarse utilizando MongoDB como sistema de gestión de base de datos NoSQL. |
 
-### RNF17
-El backend debe desarrollarse en Node.js con Express.
+---
 
-### RNF18
-La base de datos debe implementarse en MongoDB.
+## 9. Calidad de la Información
 
-## 9. Calidad de la información
-
-### RNF19
-El sistema debe validar los datos ingresados para evitar registros incompletos o erróneos.
-
-### RNF20
-La información clínica debe mantenerse íntegra, consistente y trazable.
+| CÓDIGO | NOMBRE DEL REQUISITO | DESCRIPCIÓN |
+|--------|----------------------|-------------|
+| **RNF19** | Validación de datos | El sistema debe validar todos los datos ingresados mediante reglas de negocio para evitar registros incompletos, erróneos o inconsistentes. |
+| **RNF20** | Integridad de información clínica | La información clínica debe mantenerse íntegra, consistente y trazable en todo momento para garantizar la confiabilidad de los datos médicos. |
