@@ -13,7 +13,7 @@ function Spinner({ size = 'md', className = '' }) {
 
   return (
     <Icons.Loader2
-      className={`animate-spin text-primary-600 ${sizes[size]} ${className}`}
+      className={`animate-spin text-primary-600 dark:text-primary-400 ${sizes[size]} ${className}`}
     />
   )
 }
@@ -23,10 +23,10 @@ function Spinner({ size = 'md', className = '' }) {
  */
 function LoadingOverlay({ message = 'Cargando...' }) {
   return (
-    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
+    <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-50 rounded-lg">
       <div className="text-center">
         <Spinner size="lg" />
-        <p className="mt-3 text-sm font-medium text-gray-600">{message}</p>
+        <p className="mt-3 text-sm font-medium text-gray-600 dark:text-gray-300">{message}</p>
       </div>
     </div>
   )
@@ -37,10 +37,10 @@ function LoadingOverlay({ message = 'Cargando...' }) {
  */
 function PageLoader({ message = 'Cargando...' }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center">
         <Spinner size="xl" />
-        <p className="mt-4 text-base font-medium text-gray-600">{message}</p>
+        <p className="mt-4 text-base font-medium text-gray-600 dark:text-gray-300">{message}</p>
       </div>
     </div>
   )
@@ -55,7 +55,7 @@ function Skeleton({ className = '', rows = 1 }) {
       {Array.from({ length: rows }).map((_, index) => (
         <div
           key={index}
-          className={`h-4 bg-gray-200 rounded ${className}`}
+          className={`h-4 bg-gray-200 dark:bg-gray-700 rounded ${className}`}
         ></div>
       ))}
     </div>
