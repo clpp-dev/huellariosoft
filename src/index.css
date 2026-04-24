@@ -52,6 +52,13 @@ body {
   line-height: 1.5;
   color: rgb(17 24 39);
   background-color: rgb(249 250 251);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Modo oscuro */
+.dark body {
+  color: rgb(243 244 246);
+  background-color: rgb(17 24 39);
 }
 
 /* Scrollbar personalizado */
@@ -73,6 +80,19 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(156 163 175);
+}
+
+/* Scrollbar en modo oscuro */
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
 }
 
 /* Firefox scrollbar */

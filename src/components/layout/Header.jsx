@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@context/AuthContext'
+import { useTheme } from '@hooks/useTheme'
 import { Icons } from '@constants/icons'
 import { ROLE_LABELS } from '@constants/enums'
 import { CONFIRM_MESSAGES } from '@constants/messages'
@@ -10,6 +11,7 @@ import { CONFIRM_MESSAGES } from '@constants/messages'
  */
 function Header({ onMenuClick, sidebarCollapsed }) {
   const { user, logout } = useAuth()
+  const { theme, toggleTheme, isDark } = useTheme()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const navigate = useNavigate()
   const menuRef = useRef(null)
@@ -38,13 +40,13 @@ function Header({ onMenuClick, sidebarCollapsed }) {
   }
 
   return (
-    <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-30 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
         {/* Lado izquierdo - Botón de menú móvil */}
         <div className="flex items-center space-x-4">
           <button
             onClick={onMenuClick}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 lg:hidden transition-colors"
+            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden transition-colors"
             aria-label="Abrir menú"
           >
             <Icons.Menu className="w-6 h-6" />
@@ -52,7 +54,7 @@ function Header({ onMenuClick, sidebarCollapsed }) {
 
           {/* Breadcrumb o título (opcional) */}
           <div className="hidden md:block">
-            <h1 className="text-xl font-semibold text-gray-900">
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
               Bienvenido, {user?.nombre?.split(' ')[0] || 'Usuario'}
             </h1>
           </div>
@@ -69,11 +71,25 @@ function Header({ onMenuClick, sidebarCollapsed }) {
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button> */}
 
+          {/* Botón de modo oscuro */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
+            aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+            title={isDark ? 'Modo claro' : 'Modo oscuro'}
+          >
+            {isDark ? (
+              <Icons.Sun className="w-6 h-6" />
+            ) : (
+              <Icons.Moon className="w-6 h-6" />
+            )}
+          </button>
+
           {/* Menú de usuario */}
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Menú de usuario"
             >
               <div className="w-9 h-9 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
@@ -83,10 +99,10 @@ function Header({ onMenuClick, sidebarCollapsed }) {
               </div>
               
               <div className="hidden sm:block text-left">
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {user?.nombre || 'Usuario'}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {ROLE_LABELS[user?.rol] || user?.rol}
                 </p>
               </div>
@@ -100,16 +116,16 @@ function Header({ onMenuClick, sidebarCollapsed }) {
 
             {/* Dropdown del menú */}
             {userMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-1 animate-scale-in">
+              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-1 animate-scale-in">
                 {/* Info del usuario */}
-                <div className="px-4 py-3 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                     {user?.nombre || 'Usuario'}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     {user?.email || ''}
                   </p>
-                  <span className="inline-flex items-center px-2 py-0.5 mt-2 rounded text-xs font-medium bg-primary-100 text-primary-800">
+                  <span className="inline-flex items-center px-2 py-0.5 mt-2 rounded text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
                     {ROLE_LABELS[user?.rol] || user?.rol}
                   </span>
                 </div>
@@ -121,9 +137,9 @@ function Header({ onMenuClick, sidebarCollapsed }) {
                       navigate('/profile')
                       setUserMenuOpen(false)
                     }}
-                    className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                   >
-                    <Icons.UserCircle className="w-5 h-5 mr-3 text-gray-400" />
+                    <Icons.UserCircle className="w-5 h-5 mr-3 text-gray-400 dark:text-gray-500" />
                     Mi Perfil
                   </button>
 
@@ -140,10 +156,10 @@ function Header({ onMenuClick, sidebarCollapsed }) {
                 </div>
 
                 {/* Cerrar sesión */}
-                <div className="border-t border-gray-100 py-1">
+                <div className="border-t border-gray-100 dark:border-gray-700 py-1">
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    className="w-full flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                   >
                     <Icons.LogOut className="w-5 h-5 mr-3" />
                     Cerrar Sesión

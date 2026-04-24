@@ -7,7 +7,7 @@ function Card({ children, className, hover = false, ...props }) {
   return (
     <div
       className={cn(
-        'bg-white rounded-xl shadow-md overflow-hidden',
+        'bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-900/50 overflow-hidden border border-transparent dark:border-gray-700',
         hover && 'transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5',
         className
       )}
@@ -24,7 +24,7 @@ function Card({ children, className, hover = false, ...props }) {
 function CardHeader({ children, className, ...props }) {
   return (
     <div
-      className={cn('px-6 py-4 border-b border-gray-200', className)}
+      className={cn('px-6 py-4 border-b border-gray-200 dark:border-gray-700', className)}
       {...props}
     >
       {children}
@@ -38,7 +38,7 @@ function CardHeader({ children, className, ...props }) {
 function CardTitle({ children, className, ...props }) {
   return (
     <h3
-      className={cn('text-lg font-semibold text-gray-900', className)}
+      className={cn('text-lg font-semibold text-gray-900 dark:text-white', className)}
       {...props}
     >
       {children}
@@ -51,7 +51,7 @@ function CardTitle({ children, className, ...props }) {
  */
 function CardDescription({ children, className, ...props }) {
   return (
-    <p className={cn('mt-1 text-sm text-gray-500', className)} {...props}>
+    <p className={cn('mt-1 text-sm text-gray-500 dark:text-gray-400', className)} {...props}>
       {children}
     </p>
   )
@@ -74,7 +74,7 @@ function CardContent({ children, className, ...props }) {
 function CardFooter({ children, className, ...props }) {
   return (
     <div
-      className={cn('px-6 py-4 bg-gray-50 border-t border-gray-200', className)}
+      className={cn('px-6 py-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700', className)}
       {...props}
     >
       {children}

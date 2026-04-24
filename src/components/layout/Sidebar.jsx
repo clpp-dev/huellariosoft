@@ -81,18 +81,18 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
         className={cn(
           'hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:flex-col',
           'transition-all duration-300',
-          'bg-white border-r border-gray-200',
+          'bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700',
           collapsed ? 'lg:w-20' : 'lg:w-64'
         )}
       >
         {/* Logo */}
-        <div className="LOGO-HUELALERIOSOFT-SIDEBAR flex h-16 items-center justify-between px-4 border-b border-gray-200">
+        <div className="LOGO-HUELALERIOSOFT-SIDEBAR flex h-16 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
           {!collapsed && (
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center">
                 <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
               </div>
-              <span className="text-xl font-bold bg-gradient-primary text-primary-600">
+              <span className="text-xl font-bold text-gray-900 dark:text-white">
                 HuellarioSoft
               </span>
             </div>
@@ -128,8 +128,8 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
                     'flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
                     'group relative',
                     isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900',
+                      ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white',
                     collapsed && 'justify-center'
                   )
                 }
@@ -139,7 +139,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
                     <Icon
                       className={cn(
                         'flex-shrink-0 transition-colors',
-                        isActive ? 'text-primary-600' : 'text-gray-400 group-hover:text-gray-500',
+                        isActive ? 'text-primary-600 dark:text-primary-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400',
                         collapsed ? 'w-6 h-6' : 'w-5 h-5 mr-3'
                       )}
                     />
@@ -147,7 +147,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
                     
                     {/* Tooltip para sidebar colapsado */}
                     {collapsed && (
-                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
                         {item.name}
                       </div>
                     )}
@@ -164,27 +164,27 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
         </nav>
 
         {/* Footer del sidebar */}
-        <div className="border-t border-gray-200 p-4">
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4">
           {collapsed ? (
             <button
               onClick={() => onCollapsedChange(!collapsed)}
-              className="w-full p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Expandir sidebar"
             >
-              <Icons.ChevronRight className="w-5 h-5 text-gray-500 mx-auto" />
+              <Icons.ChevronRight className="w-5 h-5 text-gray-500 dark:text-gray-400 mx-auto" />
             </button>
           ) : (
-            <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-primary-700 font-semibold text-sm">
+            <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800">
+              <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-primary-700 dark:text-primary-400 font-semibold text-sm">
                   {user?.nombre?.charAt(0)?.toUpperCase() || 'U'}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {user?.nombre || 'Usuario'}
                 </p>
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                   {user?.email || ''}
                 </p>
               </div>
@@ -197,28 +197,28 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-40 w-64 lg:hidden',
-          'flex flex-col bg-white border-r border-gray-200',
+          'flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700',
           'transform transition-transform duration-300',
           open ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         {/* Logo */}
-        <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200">
+        <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center">
               <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
             </div>
-            <span className="text-xl font-bold bg-gradient-primary text-primary-600">
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
               HuellarioSoft
             </span>
           </div>
 
           <button
             onClick={() => onOpenChange(false)}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors lg:hidden"
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors lg:hidden"
             aria-label="Cerrar menú"
           >
-            <Icons.X className="w-5 h-5 text-gray-500" />
+            <Icons.X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>
         </div>
 
@@ -236,8 +236,8 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
                     'flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
                     'group relative',
                     isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                   )
                 }
               >
@@ -246,7 +246,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
                     <Icon
                       className={cn(
                         'w-5 h-5 mr-3 flex-shrink-0 transition-colors',
-                        isActive ? 'text-primary-600' : 'text-gray-400 group-hover:text-gray-500'
+                        isActive ? 'text-primary-600 dark:text-primary-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400'
                       )}
                     />
                     <span>{item.name}</span>
@@ -263,18 +263,18 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
         </nav>
 
         {/* Footer del sidebar móvil */}
-        <div className="border-t border-gray-200 p-4">
-          <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50">
-            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-primary-700 font-semibold text-sm">
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+          <div className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-primary-700 dark:text-primary-400 font-semibold text-sm">
                 {user?.nombre?.charAt(0)?.toUpperCase() || 'U'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                 {user?.nombre || 'Usuario'}
               </p>
-              <p className="text-xs text-gray-500 truncate">
+              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                 {user?.email || ''}
               </p>
             </div>

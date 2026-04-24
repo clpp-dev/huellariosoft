@@ -11,7 +11,7 @@ function DashboardLayout({ children }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Sidebar */}
       <Sidebar
         open={sidebarOpen}
@@ -41,7 +41,7 @@ function DashboardLayout({ children }) {
       {/* Overlay para móvil */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-gray-900/50 z-30 lg:hidden"
+          className="fixed inset-0 bg-gray-900/50 dark:bg-gray-900/70 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}

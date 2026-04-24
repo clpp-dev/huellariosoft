@@ -52,6 +52,8 @@ import {
   Thermometer,
   Wind,
   DollarSign,
+  Sun,
+  Moon,
 } from 'lucide-react'
 
 // Exportar todos los iconos usados en la aplicación
@@ -123,6 +125,8 @@ export const Icons = {
   Thermometer,
   Wind,
   DollarSign,
+  Sun,
+  Moon,
 }
 
 export default Icons
