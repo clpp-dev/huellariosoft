@@ -260,7 +260,7 @@ function InventoryListPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
             <div className="sm:col-span-2">
               <Input
-                placeholder="Buscar por nombre o descripción..."
+                placeholder="Buscar por nombre de producto..."
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
                 leftIcon={Icons.Search}
