@@ -115,31 +115,53 @@ function InvoicesListPage() {
 
   const getEstadoVariant = (estado) => {
     const variants = {
-      'Pendiente': 'warning',
-      'Pagada': 'success',
-      'Cancelada': 'danger'
+      'pendiente': 'warning',
+      'pagada-presencial': 'success',
+      'anulada': 'danger'
     }
     return variants[estado] || 'secondary'
+  }
+
+  const getEstadoLabel = (estado) => {
+    const labels = {
+      'pendiente': 'Pendiente',
+      'pagada-presencial': 'Pagada',
+      'anulada': 'Cancelada'
+    }
+    return labels[estado] || estado
   }
 
   const columns = [
     {
       header: 'Número',
-      accessor: 'numero',
+      accessor: 'numeroFactura',
       render: (row) => (
-        <p className="text-sm font-semibold text-gray-900 dark:text-white">{row.numero || 'N/A'}</p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-white">{row.numeroFactura || 'N/A'}</p>
       )
     },
     {
       header: 'Fecha',
       accessor: 'fecha',
-      render: (row) => (
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-white">
-            {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
-          </p>
-        </div>
-      )
+      render: (row) => {
+        if (!row.fecha) {
+          return (
+            <p className="text-sm text-gray-500 dark:text-gray-400">Sin fecha</p>
+          )
+        }
+        try {
+          return (
+            <div>
+              <p className="text-sm font-medium text-gray-900 dark:text-white">
+                {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
+              </p>
+            </div>
+          )
+        } catch (error) {
+          return (
+            <p className="text-sm text-gray-500 dark:text-gray-400">Fecha inválida</p>
+          )
+        }
+      }
     },
     {
       header: 'Propietario',
@@ -153,9 +175,9 @@ function InvoicesListPage() {
     },
     {
       header: 'Ítems',
-      accessor: 'items',
+      accessor: 'servicios',
       render: (row) => (
-        <p className="text-sm text-gray-900 dark:text-white">{row.items?.length || 0} ítem(s)</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.servicios?.length || 0} ítem(s)</p>
       )
     },
     {
@@ -178,9 +200,9 @@ function InvoicesListPage() {
       render: (row) => (
         <div>
           <Badge variant={getEstadoVariant(row.estado)}>
-            {row.estado}
+            {getEstadoLabel(row.estado)}
           </Badge>
-          {row.metodoPago && row.estado === 'Pagada' && (
+          {row.metodoPago && row.estado === 'pagada-presencial' && (
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{row.metodoPago}</p>
           )}
         </div>
@@ -199,7 +221,7 @@ function InvoicesListPage() {
           >
             Ver
           </Button>
-          {row.estado === 'Pendiente' && (
+          {row.estado === 'pendiente' && (
             <Button
               variant="ghost"
               size="sm"
@@ -272,9 +294,9 @@ function InvoicesListPage() {
               onChange={(e) => handleFilterChange(e.target.value)}
               options={[
                 { value: '', label: 'Todos los estados' },
-                { value: 'Pendiente', label: 'Pendiente' },
-                { value: 'Pagada', label: 'Pagada' },
-                { value: 'Cancelada', label: 'Cancelada' }
+                { value: 'pendiente', label: 'Pendiente' },
+                { value: 'pagada-presencial', label: 'Pagada' },
+                { value: 'anulada', label: 'Cancelada' }
               ]}
             />
           </div>

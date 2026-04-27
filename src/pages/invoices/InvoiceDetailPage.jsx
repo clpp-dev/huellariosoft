@@ -101,11 +101,20 @@ function InvoiceDetailPage() {
 
   const getEstadoVariant = (estado) => {
     const variants = {
-      'Pendiente': 'warning',
-      'Pagada': 'success',
-      'Cancelada': 'danger'
+      'pendiente': 'warning',
+      'pagada-presencial': 'success',
+      'anulada': 'danger'
     }
     return variants[estado] || 'secondary'
+  }
+
+  const getEstadoLabel = (estado) => {
+    const labels = {
+      'pendiente': 'Pendiente',
+      'pagada-presencial': 'Pagada',
+      'anulada': 'Cancelada'
+    }
+    return labels[estado] || estado
   }
 
   return (
@@ -123,17 +132,17 @@ function InvoiceDetailPage() {
             Volver
           </Button>
           <div className="flex items-center space-x-3">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Factura {invoice.numero || 'N/A'}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Factura {invoice.numeroFactura || 'N/A'}</h1>
             <Badge variant={getEstadoVariant(invoice.estado)} size="lg">
-              {invoice.estado}
+              {getEstadoLabel(invoice.estado)}
             </Badge>
           </div>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {format(new Date(invoice.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
+            {invoice.fecha ? format(new Date(invoice.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es }) : 'Sin fecha'}
           </p>
         </div>
         <div className="flex space-x-2">
-          {invoice.estado === 'Pendiente' && (
+          {invoice.estado === 'pendiente' && (
             <>
               <Button
                 variant="outline"
@@ -182,7 +191,7 @@ function InvoiceDetailPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {invoice.items?.map((item, index) => (
+                    {invoice.servicios?.map((item, index) => (
                       <tr key={index}>
                         <td className="py-4 text-sm text-gray-900 dark:text-white">{item.descripcion}</td>
                         <td className="py-4 text-sm text-center text-gray-900 dark:text-white">{item.cantidad}</td>
@@ -281,16 +290,16 @@ function InvoiceDetailPage() {
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Estado</p>
                 <Badge variant={getEstadoVariant(invoice.estado)} size="lg">
-                  {invoice.estado}
+                  {getEstadoLabel(invoice.estado)}
                 </Badge>
               </div>
-              {invoice.metodoPago && invoice.estado === 'Pagada' && (
+              {invoice.metodoPago && invoice.estado === 'pagada-presencial' && (
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Método de Pago</p>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">{invoice.metodoPago}</p>
                 </div>
               )}
-              {invoice.motivoCancelacion && invoice.estado === 'Cancelada' && (
+              {invoice.motivoCancelacion && invoice.estado === 'anulada' && (
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Motivo de Cancelación</p>
                   <p className="text-sm text-gray-900 dark:text-white">{invoice.motivoCancelacion}</p>
@@ -308,7 +317,7 @@ function InvoiceDetailPage() {
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Fecha de emisión</p>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {format(new Date(invoice.fecha), "dd/MM/yyyy")}
+                  {invoice.fecha ? format(new Date(invoice.fecha), "dd/MM/yyyy") : 'Sin fecha'}
                 </p>
               </div>
               {invoice.createdAt && (
@@ -349,11 +358,10 @@ function InvoiceDetailPage() {
               onChange={(e) => setPayModal({ ...payModal, metodoPago: e.target.value })}
               options={[
                 { value: '', label: 'Selecciona un método' },
-                { value: 'Efectivo', label: 'Efectivo' },
-                { value: 'Tarjeta_Debito', label: 'Tarjeta de Débito' },
-                { value: 'Tarjeta_Credito', label: 'Tarjeta de Crédito' },
-                { value: 'Transferencia', label: 'Transferencia Bancaria' },
-                { value: 'Otro', label: 'Otro' }
+                { value: 'efectivo', label: 'Efectivo' },
+                { value: 'tarjeta', label: 'Tarjeta (Débito/Crédito)' },
+                { value: 'transferencia', label: 'Transferencia Bancaria' },
+                { value: 'otro', label: 'Otro' }
               ]}
             />
           </div>

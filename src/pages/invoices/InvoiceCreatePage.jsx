@@ -41,7 +41,7 @@ function InvoiceCreatePage() {
         descripcion: '', 
         cantidad: 1, 
         precioUnitario: 0,
-        producto: null
+        producto: ''
       }],
       descuento: 0,
       impuestos: 19
@@ -121,7 +121,7 @@ function InvoiceCreatePage() {
     setValue(`items.${index}.tipoItem`, tipoItem)
     
     if (tipoItem === 'servicio') {
-      setValue(`items.${index}.producto`, null)
+      setValue(`items.${index}.producto`, '')
       setValue(`items.${index}.descripcion`, '')
       setValue(`items.${index}.precioUnitario`, 0)
       setValue(`items.${index}.tipo`, 'consulta')
@@ -269,7 +269,7 @@ function InvoiceCreatePage() {
                     descripcion: '', 
                     cantidad: 1, 
                     precioUnitario: 0,
-                    producto: null
+                    producto: ''
                   })}
                   leftIcon={Icons.Plus}
                 >
