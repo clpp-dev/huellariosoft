@@ -131,6 +131,16 @@ function InvoicesListPage() {
     return labels[estado] || estado
   }
 
+  const getMetodoPagoLabel = (metodo) => {
+    const labels = {
+      'efectivo': 'Efectivo',
+      'tarjeta': 'Tarjeta',
+      'transferencia': 'Transferencia',
+      'otro': 'Otro'
+    }
+    return labels[metodo] || metodo
+  }
+
   const columns = [
     {
       header: 'Número',
@@ -203,7 +213,7 @@ function InvoicesListPage() {
             {getEstadoLabel(row.estado)}
           </Badge>
           {row.metodoPago && row.estado === 'pagada-presencial' && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{row.metodoPago}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{getMetodoPagoLabel(row.metodoPago)}</p>
           )}
         </div>
       )

@@ -164,6 +164,7 @@ function InvoiceCreatePage() {
         })),
         subtotal: totals.subtotal,
         impuestos: totals.impuestos,
+        porcentajeImpuestos: totals.porcentajeImpuestos,
         descuento: Number(data.descuento),
         total: totals.total,
         observaciones: data.observaciones
@@ -430,7 +431,7 @@ function InvoiceCreatePage() {
                           return (
                             <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
                               <Icons.AlertCircle className="w-4 h-4" />
-                              <span>Stock insuficiente. Disponible: {product.cantidad} {product.unidadMedida}</span>
+                              <span>Stock insuficiente. Disponible: {product.cantidad + " Unidades"}</span>
                             </div>
                           )
                         }
@@ -438,7 +439,7 @@ function InvoiceCreatePage() {
                           return (
                             <div className="flex items-center gap-2 text-sm text-orange-600 dark:text-orange-400">
                               <Icons.AlertCircle className="w-4 h-4" />
-                              <span>Advertencia: Stock bajo ({product.cantidad} {product.unidadMedida})</span>
+                              <span>Advertencia: Stock bajo ({ product.cantidad + " Unidades"})</span>
                             </div>
                           )
                         }

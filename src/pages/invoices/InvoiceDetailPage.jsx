@@ -117,6 +117,16 @@ function InvoiceDetailPage() {
     return labels[estado] || estado
   }
 
+  const getMetodoPagoLabel = (metodo) => {
+    const labels = {
+      'efectivo': 'Efectivo',
+      'tarjeta': 'Tarjeta',
+      'transferencia': 'Transferencia',
+      'otro': 'Otro'
+    }
+    return labels[metodo] || metodo
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -214,17 +224,17 @@ function InvoiceDetailPage() {
                 </div>
                 {invoice.descuento > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Descuento ({invoice.descuento}%)</span>
+                    <span className="text-gray-600 dark:text-gray-400">Descuento</span>
                     <span className="font-medium text-red-600">
-                      -${((invoice.subtotal * invoice.descuento) / 100).toLocaleString('es-CO')}
+                      -${invoice.descuento?.toLocaleString('es-CO')}
                     </span>
                   </div>
                 )}
-                {invoice.impuesto > 0 && (
+                {invoice.impuestos > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">IVA ({invoice.impuesto}%)</span>
+                    <span className="text-gray-600 dark:text-gray-400">IVA ({invoice.porcentajeImpuestos || 0}%)</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      ${((invoice.total - invoice.subtotal + (invoice.subtotal * invoice.descuento) / 100)).toLocaleString('es-CO')}
+                      ${invoice.impuestos?.toLocaleString('es-CO')}
                     </span>
                   </div>
                 )}
@@ -296,7 +306,7 @@ function InvoiceDetailPage() {
               {invoice.metodoPago && invoice.estado === 'pagada-presencial' && (
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Método de Pago</p>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">{invoice.metodoPago}</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{getMetodoPagoLabel(invoice.metodoPago)}</p>
                 </div>
               )}
               {invoice.motivoCancelacion && invoice.estado === 'anulada' && (
@@ -324,7 +334,7 @@ function InvoiceDetailPage() {
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Creada el</p>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    {format(new Date(invoice.createdAt), "dd/MM/yyyy 'a las' HH:mm")}
+                    {format(new Date(invoice.createdAt), "dd/MM/yyyy 'a las' h:mm a", { locale: es })}
                   </p>
                 </div>
               )}

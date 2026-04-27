@@ -274,7 +274,7 @@ function MedicalRecordDetailPage() {
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Registrado el</p>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    {format(new Date(record.createdAt), "dd/MM/yyyy 'a las' HH:mm")}
+                    {format(new Date(record.createdAt), "dd/MM/yyyy 'a las' h:mm a", { locale: es })}
                   </p>
                 </div>
               )}

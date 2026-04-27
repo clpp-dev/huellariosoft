@@ -95,7 +95,7 @@ function MedicalRecordsPage() {
             {format(new Date(row.fechaConsulta || row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {format(new Date(row.fechaConsulta || row.fecha), 'HH:mm', { locale: es })}
+            {format(new Date(row.fechaConsulta || row.fecha), 'h:mm a', { locale: es })}
           </p>
         </div>
       )
