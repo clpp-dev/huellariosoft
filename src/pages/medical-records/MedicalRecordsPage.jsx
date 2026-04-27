@@ -184,7 +184,7 @@ function MedicalRecordsPage() {
       <Card>
         <Card.Content className="p-6">
           <Input
-            placeholder="Buscar por mascota, propietario o diagnóstico..."
+            placeholder="Buscar por mascota o propietario..."
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
             leftIcon={Icons.Search}
