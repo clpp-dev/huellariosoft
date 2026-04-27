@@ -25,10 +25,17 @@ function InventoryCreatePage() {
   const onSubmit = async (data) => {
     try {
       const productData = {
-        ...data,
+        nombre: data.nombre,
+        descripcion: data.descripcion || undefined,
+        categoria: data.categoria,
         cantidad: Number(data.cantidad),
         stockMinimo: Number(data.stockMinimo),
-        precio: Number(data.precio)
+        unidadMedida: data.unidadMedida,
+        precioCompra: data.precioCompra ? Number(data.precioCompra) : undefined,
+        precioVenta: Number(data.precioVenta),
+        proveedor: data.proveedor || undefined,
+        lote: data.lote || undefined,
+        fechaVencimiento: data.fechaVencimiento || undefined
       }
       
       await inventoryService.create(productData)
@@ -39,7 +46,7 @@ function InventoryCreatePage() {
       if (error.response?.data?.message) {
         toast.error(error.response.data.message)
       } else {
-        toast.error('Error al agregar producto')
+        toast.error(error.message || 'Error al agregar producto')
       }
     }
   }
@@ -98,20 +105,32 @@ function InventoryCreatePage() {
                   error={errors.categoria?.message}
                   options={[
                     { value: '', label: 'Selecciona una categoría' },
-                    { value: 'Medicamento', label: '💊 Medicamento' },
-                    { value: 'Alimento', label: '🍖 Alimento' },
-                    { value: 'Accesorio', label: '🎾 Accesorio' },
-                    { value: 'Insumo_Medico', label: '🩺 Insumo Médico' },
-                    { value: 'Otro', label: '📦 Otro' }
+                    { value: 'medicamento', label: '💊 Medicamento' },
+                    { value: 'vacuna', label: '💉 Vacuna' },
+                    { value: 'material-quirurgico', label: '⚕️ Material Quirúrgico' },
+                    { value: 'alimento', label: '🍖 Alimento' },
+                    { value: 'accesorio', label: '🎾 Accesorio' },
+                    { value: 'insumo', label: '🩹 Insumo' },
+                    { value: 'otro', label: '📦 Otro' }
                   ]}
                   required
                 />
 
-                <Input
+                <Select
                   label="Unidad de Medida"
                   {...register('unidadMedida')}
                   error={errors.unidadMedida?.message}
-                  placeholder="Ej: unidad, kg, litro, caja"
+                  options={[
+                    { value: '', label: 'Selecciona una unidad' },
+                    { value: 'unidad', label: 'Unidad' },
+                    { value: 'caja', label: 'Caja' },
+                    { value: 'frasco', label: 'Frasco' },
+                    { value: 'sobre', label: 'Sobre' },
+                    { value: 'ml', label: 'Mililitros (ml)' },
+                    { value: 'gr', label: 'Gramos (gr)' },
+                    { value: 'kg', label: 'Kilogramos (kg)' },
+                    { value: 'otro', label: 'Otro' }
+                  ]}
                   required
                 />
               </div>
@@ -139,27 +158,71 @@ function InventoryCreatePage() {
                   type="number"
                   {...register('stockMinimo')}
                   error={errors.stockMinimo?.message}
-                  placeholder="0"
+                  placeholder="5"
                   min="0"
                   leftIcon={Icons.AlertCircle}
                   required
                 />
 
                 <Input
-                  label="Precio (COP)"
+                  label="Precio Compra (COP)"
                   type="number"
                   step="0.01"
-                  {...register('precio')}
-                  error={errors.precio?.message}
+                  {...register('precioCompra')}
+                  error={errors.precioCompra?.message}
+                  placeholder="0.00"
+                  min="0"
+                  leftIcon={Icons.DollarSign}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6">
+                <Input
+                  label="Precio Venta (COP)"
+                  type="number"
+                  step="0.01"
+                  {...register('precioVenta')}
+                  error={errors.precioVenta?.message}
                   placeholder="0.00"
                   min="0"
                   leftIcon={Icons.DollarSign}
                   required
                 />
+
+                <Input
+                  label="Proveedor"
+                  {...register('proveedor')}
+                  error={errors.proveedor?.message}
+                  placeholder="Nombre del proveedor"
+                  leftIcon={Icons.Truck}
+                />
               </div>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                 Se te notificará cuando el stock alcance el mínimo establecido
               </p>
+            </div>
+
+            {/* Información Adicional */}
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Información Adicional
+              </h3>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <Input
+                  label="Número de Lote"
+                  {...register('lote')}
+                  error={errors.lote?.message}
+                  placeholder="Ej: LOTE-2024-001"
+                />
+
+                <Input
+                  label="Fecha de Vencimiento"
+                  type="date"
+                  {...register('fechaVencimiento')}
+                  error={errors.fechaVencimiento?.message}
+                  leftIcon={Icons.Calendar}
+                />
+              </div>
             </div>
 
             {/* Botones */}

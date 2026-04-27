@@ -117,13 +117,28 @@ function InventoryListPage() {
 
   const getCategoriaIcon = (categoria) => {
     const icons = {
-      'Medicamento': '💊',
-      'Alimento': '🍖',
-      'Accesorio': '🎾',
-      'Insumo_Medico': '🩺',
-      'Otro': '📦'
+      'medicamento': '💊',
+      'vacuna': '💉',
+      'material-quirurgico': '⚕️',
+      'alimento': '🍖',
+      'accesorio': '🎾',
+      'insumo': '🩹',
+      'otro': '📦'
     }
     return icons[categoria] || '📦'
+  }
+
+  const getCategoriaLabel = (categoria) => {
+    const labels = {
+      'medicamento': 'Medicamento',
+      'vacuna': 'Vacuna',
+      'material-quirurgico': 'Material Quirúrgico',
+      'alimento': 'Alimento',
+      'accesorio': 'Accesorio',
+      'insumo': 'Insumo',
+      'otro': 'Otro'
+    }
+    return labels[categoria] || categoria
   }
 
   const columns = [
@@ -137,7 +152,7 @@ function InventoryListPage() {
           </div>
           <div className="ml-3">
             <p className="text-sm font-medium text-gray-900 dark:text-white">{row.nombre}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{row.categoria?.replace('_', ' ')}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{getCategoriaLabel(row.categoria)}</p>
           </div>
         </div>
       )
@@ -174,10 +189,10 @@ function InventoryListPage() {
     },
     {
       header: 'Precio',
-      accessor: 'precio',
+      accessor: 'precioVenta',
       render: (row) => (
         <p className="text-sm font-medium text-gray-900 dark:text-white">
-          ${row.precio?.toLocaleString('es-CO')}
+          ${row.precioVenta?.toLocaleString('es-CO')}
         </p>
       )
     },
@@ -249,11 +264,13 @@ function InventoryListPage() {
               onChange={(e) => handleFilterChange(e.target.value)}
               options={[
                 { value: '', label: 'Todas las categorías' },
-                { value: 'Medicamento', label: '💊 Medicamento' },
-                { value: 'Alimento', label: '🍖 Alimento' },
-                { value: 'Accesorio', label: '🎾 Accesorio' },
-                { value: 'Insumo_Medico', label: '🩺 Insumo Médico' },
-                { value: 'Otro', label: '📦 Otro' }
+                { value: 'medicamento', label: '💊 Medicamento' },
+                { value: 'vacuna', label: '💉 Vacuna' },
+                { value: 'material-quirurgico', label: '⚕️ Material Quirúrgico' },
+                { value: 'alimento', label: '🍖 Alimento' },
+                { value: 'accesorio', label: '🎾 Accesorio' },
+                { value: 'insumo', label: '🩹 Insumo' },
+                { value: 'otro', label: '📦 Otro' }
               ]}
             />
             <Button
