@@ -12,16 +12,16 @@ function EmptyState({
 }) {
   return (
     <div className="text-center py-12">
-      <Icon className="mx-auto h-12 w-12 text-gray-400" />
-      <h3 className="mt-4 text-lg font-medium text-gray-900">{title}</h3>
-      <p className="mt-2 text-sm text-gray-500 max-w-sm mx-auto">
+      <Icon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+      <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">{title}</h3>
+      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
         {description}
       </p>
       {action && actionLabel && (
         <div className="mt-6">
           <button
             onClick={action}
-            className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
           >
             <Icons.Plus className="-ml-1 mr-2 h-5 w-5" />
             {actionLabel}

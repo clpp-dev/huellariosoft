@@ -24,9 +24,9 @@ const Button = forwardRef(
     // Variantes de estilos
     const variants = {
       primary:
-        'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-md hover:shadow-lg',
+        'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-md hover:shadow-lg dark:bg-primary-700 dark:hover:bg-primary-600',
       secondary:
-        'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 shadow-md hover:shadow-lg',
+        'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 shadow-md hover:shadow-lg dark:bg-gray-700 dark:hover:bg-gray-600',
       success:
         'bg-success-600 text-white hover:bg-success-700 focus:ring-success-500 shadow-md hover:shadow-lg',
       danger:
@@ -34,10 +34,10 @@ const Button = forwardRef(
       warning:
         'bg-warning-600 text-white hover:bg-warning-700 focus:ring-warning-500 shadow-md hover:shadow-lg',
       outline:
-        'bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 focus:ring-gray-500',
+        'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-gray-500',
       ghost:
-        'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
-      link: 'bg-transparent text-primary-600 hover:text-primary-700 hover:underline p-0',
+        'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-500',
+      link: 'bg-transparent text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:underline p-0',
     }
 
     // Tamaños
