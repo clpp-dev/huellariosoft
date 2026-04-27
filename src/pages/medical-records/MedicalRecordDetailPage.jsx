@@ -57,7 +57,7 @@ function MedicalRecordDetailPage() {
           </Button>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Historia Clínica</h1>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {format(new Date(record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
+            {format(new Date(record.fechaConsulta || record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
           </p>
         </div>
       </div>
@@ -169,13 +169,13 @@ function MedicalRecordDetailPage() {
             <Card.Content className="p-6 space-y-4">
               <div>
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Motivo de Consulta</h4>
-                <p className="text-sm text-gray-900 dark:text-white">{record.motivo}</p>
+                <p className="text-sm text-gray-900 dark:text-white">{record.motivoConsulta}</p>
               </div>
 
-              {record.anamnesis && (
+              {record.sintomas && (
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Anamnesis</h4>
-                  <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.anamnesis}</p>
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Síntomas y Signos Clínicos</h4>
+                  <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sintomas}</p>
                 </div>
               )}
 

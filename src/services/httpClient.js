@@ -73,13 +73,13 @@ class HttpClient {
         return this.handleUnauthorized(endpoint, config)
       }
 
-      // Si es 403, no tiene permisos
-      if (response.status === 403) {
-        throw new Error(ERROR_MESSAGES.UNAUTHORIZED)
-      }
-
       // Parsear respuesta
       const data = await response.json()
+
+      // Si es 403, el usuario no tiene permisos (no cerrar sesión)
+      if (response.status === 403) {
+        throw new Error(data.message || ERROR_MESSAGES.UNAUTHORIZED)
+      }
 
       // Si la respuesta no es exitosa (status >= 400)
       if (!response.ok) {

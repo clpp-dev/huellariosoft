@@ -10,7 +10,7 @@ export const createMedicalRecordSchema = yup.object({
     .string()
     .required('El veterinario es requerido'),
   
-  fecha: yup
+  fechaConsulta: yup
     .date()
     .transform((value, originalValue) => {
       // Convertir string vacío a undefined
@@ -65,16 +65,16 @@ export const createMedicalRecordSchema = yup.object({
     .positive('La frecuencia respiratoria debe ser positiva')
     .max(200, 'Valor no válido'),
   
-  motivo: yup
+  motivoConsulta: yup
     .string()
     .required('El motivo de consulta es requerido')
     .min(5, 'El motivo debe tener al menos 5 caracteres')
     .max(300, 'El motivo no puede exceder 300 caracteres'),
   
-  anamnesis: yup
+  sintomas: yup
     .string()
     .nullable()
-    .max(1000, 'La anamnesis no puede exceder 1000 caracteres'),
+    .max(1000, 'Los síntomas no pueden exceder 1000 caracteres'),
   
   diagnostico: yup
     .string()

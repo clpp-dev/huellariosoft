@@ -88,14 +88,14 @@ function MedicalRecordsPage() {
   const columns = [
     {
       header: 'Fecha',
-      accessor: 'fecha',
+      accessor: 'fechaConsulta',
       render: (row) => (
         <div>
           <p className="text-sm font-medium text-gray-900 dark:text-white">
-            {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
+            {format(new Date(row.fechaConsulta || row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {format(new Date(row.fecha), 'HH:mm', { locale: es })}
+            {format(new Date(row.fechaConsulta || row.fecha), 'HH:mm', { locale: es })}
           </p>
         </div>
       )

@@ -32,7 +32,7 @@ function MedicalRecordCreatePage() {
   } = useForm({
     resolver: yupResolver(createMedicalRecordSchema),
     defaultValues: {
-      fecha: new Date()
+      fechaConsulta: format(new Date(), 'yyyy-MM-dd')
     }
   })
 
@@ -62,13 +62,20 @@ function MedicalRecordCreatePage() {
 
   const onSubmit = async (data) => {
     try {
-      // Convertir valores numéricos
+      // Convertir valores numéricos y ajustar nombres de campos
       const recordData = {
-        ...data,
-        peso: data.peso ? Number(data.peso) : null,
-        temperatura: data.temperatura ? Number(data.temperatura) : null,
-        frecuenciaCardiaca: data.frecuenciaCardiaca ? Number(data.frecuenciaCardiaca) : null,
-        frecuenciaRespiratoria: data.frecuenciaRespiratoria ? Number(data.frecuenciaRespiratoria) : null
+        mascota: data.mascota,
+        veterinario: data.veterinario,
+        fechaConsulta: data.fechaConsulta,
+        motivoConsulta: data.motivoConsulta,
+        sintomas: data.sintomas || undefined,
+        diagnostico: data.diagnostico,
+        tratamiento: data.tratamiento,
+        observaciones: data.observaciones || undefined,
+        peso: data.peso ? Number(data.peso) : undefined,
+        temperatura: data.temperatura ? Number(data.temperatura) : undefined,
+        frecuenciaCardiaca: data.frecuenciaCardiaca ? Number(data.frecuenciaCardiaca) : undefined,
+        frecuenciaRespiratoria: data.frecuenciaRespiratoria ? Number(data.frecuenciaRespiratoria) : undefined
       }
       
       await medicalRecordService.create(recordData)
@@ -79,7 +86,7 @@ function MedicalRecordCreatePage() {
       if (error.response?.data?.message) {
         toast.error(error.response.data.message)
       } else {
-        toast.error('Error al crear historia clínica')
+        toast.error(error.message || 'Error al crear historia clínica')
       }
     }
   }
@@ -156,8 +163,8 @@ function MedicalRecordCreatePage() {
                 <Input
                   label="Fecha de Consulta"
                   type="date"
-                  {...register('fecha')}
-                  error={errors.fecha?.message}
+                  {...register('fechaConsulta')}
+                  error={errors.fechaConsulta?.message}
                   max={format(new Date(), 'yyyy-MM-dd')}
                   leftIcon={Icons.Calendar}
                   required
@@ -219,18 +226,18 @@ function MedicalRecordCreatePage() {
               <div className="space-y-4">
                 <Input
                   label="Motivo de Consulta"
-                  {...register('motivo')}
-                  error={errors.motivo?.message}
+                  {...register('motivoConsulta')}
+                  error={errors.motivoConsulta?.message}
                   placeholder="Ej: Control rutinario, Vacunación, Síntomas..."
                   leftIcon={Icons.FileText}
                   required
                 />
 
                 <Textarea
-                  label="Anamnesis (Historia del paciente)"
-                  {...register('anamnesis')}
-                  error={errors.anamnesis?.message}
-                  placeholder="Describe los antecedentes y evolución del caso..."
+                  label="Síntomas y Signos Clínicos"
+                  {...register('sintomas')}
+                  error={errors.sintomas?.message}
+                  placeholder="Describe los síntomas observados y signos clínicos..."
                   rows={3}
                 />
 
