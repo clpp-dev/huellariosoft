@@ -191,17 +191,39 @@ function InvoicesListPage() {
       )
     },
     {
+      header: 'Subtotal',
+      accessor: 'subtotal',
+      render: (row) => (
+        <p className="text-sm text-gray-900 dark:text-white">
+          ${row.subtotal?.toLocaleString('es-CO')}
+        </p>
+      )
+    },
+    {
+      header: 'Descuento',
+      accessor: 'descuento',
+      render: (row) => (
+        <p className="text-sm text-gray-900 dark:text-white">
+          {row.descuento > 0 ? `-$${row.descuento?.toLocaleString('es-CO')}` : '-'}
+        </p>
+      )
+    },
+    {
+      header: 'IVA',
+      accessor: 'impuestos',
+      render: (row) => (
+        <p className="text-sm text-gray-900 dark:text-white">
+          {row.impuestos > 0 ? `$${row.impuestos?.toLocaleString('es-CO')}` : '-'}
+        </p>
+      )
+    },
+    {
       header: 'Total',
       accessor: 'total',
       render: (row) => (
-        <div>
-          <p className="text-sm text-gray-500 dark:text-gray-400 line-through">
-            ${row.subtotal?.toLocaleString('es-CO')}
-          </p>
-          <p className="text-base font-semibold text-gray-900 dark:text-white">
-            ${row.total?.toLocaleString('es-CO')}
-          </p>
-        </div>
+        <p className="text-base font-semibold text-primary-600 dark:text-primary-400">
+          ${row.total?.toLocaleString('es-CO')}
+        </p>
       )
     },
     {
