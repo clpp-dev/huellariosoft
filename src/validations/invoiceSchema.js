@@ -6,15 +6,47 @@ export const createInvoiceSchema = yup.object({
     .string()
     .required('El propietario es requerido'),
   
+  mascota: yup
+    .string()
+    .required('La mascota es requerida'),
+  
   items: yup
     .array()
     .of(
       yup.object({
+        tipoItem: yup
+          .string()
+          .oneOf(['servicio', 'producto'], 'Tipo de ítem no válido')
+          .required('El tipo de ítem es requerido'),
+        tipo: yup
+          .string()
+          .oneOf([
+            'consulta',
+            'cirugia',
+            'vacunacion',
+            'desparasitacion',
+            'examen',
+            'hospitalizacion',
+            'estetica',
+            'producto',
+            'otro'
+          ], 'Categoría no válida')
+          .required('La categoría es requerida'),
         descripcion: yup
           .string()
-          .required('La descripción es requerida')
-          .min(3, 'Mínimo 3 caracteres')
+          .when('tipoItem', {
+            is: 'servicio',
+            then: (schema) => schema.required('La descripción es requerida').min(3, 'Mínimo 3 caracteres'),
+            otherwise: (schema) => schema.nullable()
+          })
           .max(200, 'Máximo 200 caracteres'),
+        producto: yup
+          .string()
+          .when('tipoItem', {
+            is: 'producto',
+            then: (schema) => schema.required('Debe seleccionar un producto'),
+            otherwise: (schema) => schema.nullable()
+          }),
         cantidad: yup
           .number()
           .transform((value, originalValue) => {
@@ -31,7 +63,7 @@ export const createInvoiceSchema = yup.object({
           })
           .typeError('Ingresa un número válido')
           .required('El precio unitario es requerido')
-          .positive('Debe ser mayor a 0')
+          .min(0, 'El precio no puede ser negativo')
           .max(10000000, 'Precio no válido')
       })
     )
@@ -41,12 +73,21 @@ export const createInvoiceSchema = yup.object({
   descuento: yup
     .number()
     .transform((value, originalValue) => {
-      return originalValue === '' ? null : value
+      return originalValue === '' ? 0 : value
     })
-    .nullable()
     .typeError('Ingresa un número válido')
     .min(0, 'El descuento no puede ser negativo')
-    .max(100, 'El descuento no puede exceder 100%'),
+    .default(0),
+  
+  impuestos: yup
+    .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? 19 : value
+    })
+    .typeError('Ingresa un número válido')
+    .min(0, 'Los impuestos no pueden ser negativos')
+    .max(100, 'El porcentaje no puede exceder 100%')
+    .default(19),
   
   observaciones: yup
     .string()
