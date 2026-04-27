@@ -172,7 +172,7 @@ function InventoryListPage() {
           <p className={`text-sm font-semibold ${
             isLowStock(row) ? 'text-red-600' : 'text-gray-900 dark:text-white'
           }`}>
-            {row.cantidad} {row.unidadMedida}
+            {row.cantidad}
           </p>
           {isLowStock(row) && (
             <Badge variant="danger" size="sm">Stock Bajo</Badge>
@@ -184,7 +184,14 @@ function InventoryListPage() {
       header: 'Stock Mínimo',
       accessor: 'stockMinimo',
       render: (row) => (
-        <p className="text-sm text-gray-900 dark:text-white">{row.stockMinimo} {row.unidadMedida}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.stockMinimo}</p>
+      )
+    },
+    {
+      header: 'Unidad',
+      accessor: 'unidadMedida',
+      render: (row) => (
+        <p className="text-sm text-gray-700 dark:text-gray-300 capitalize">{row.unidadMedida}</p>
       )
     },
     {
