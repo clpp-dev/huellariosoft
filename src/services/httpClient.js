@@ -39,6 +39,7 @@ class HttpClient {
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`
     const token = tokenService.getAccessToken()
+    const isBlob = options.responseType === 'blob'
 
     // Headers por defecto
     const headers = {
@@ -62,6 +63,9 @@ class HttpClient {
       signal: controller.signal,
     }
 
+    // Eliminar responseType de config (no es parte de fetch API)
+    delete config.responseType
+
     try {
       const response = await fetch(url, config)
 
@@ -70,10 +74,20 @@ class HttpClient {
 
       // Si es 401, intentar refresh del token
       if (response.status === 401) {
-        return this.handleUnauthorized(endpoint, config)
+        return this.handleUnauthorized(endpoint, config, isBlob)
       }
 
-      // Parsear respuesta
+      // Si es para descargar blob
+      if (isBlob) {
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.message || ERROR_MESSAGES.GENERIC)
+        }
+        const blob = await response.blob()
+        return { data: blob, status: response.status }
+      }
+
+      // Parsear respuesta JSON
       const data = await response.json()
 
       // Si es 403, el usuario no tiene permisos (no cerrar sesión)
@@ -108,9 +122,10 @@ class HttpClient {
    * Maneja errores 401 (no autorizado)
    * @param {string} endpoint - Endpoint original
    * @param {Object} config - Configuración original
+   * @param {boolean} isBlob - Si la respuesta es un blob
    * @returns {Promise} - Respuesta con nuevo token
    */
-  async handleUnauthorized(endpoint, config) {
+  async handleUnauthorized(endpoint, config, isBlob = false) {
     if (this.isRefreshing) {
       // Si ya se está refrescando, agregar a la cola
       return new Promise((resolve, reject) => {
@@ -118,7 +133,13 @@ class HttpClient {
       })
         .then(token => {
           config.headers['Authorization'] = `Bearer ${token}`
-          return fetch(`${this.baseURL}${endpoint}`, config).then(res => res.json())
+          return fetch(`${this.baseURL}${endpoint}`, config).then(async res => {
+            if (isBlob) {
+              const blob = await res.blob()
+              return { data: blob, status: res.status }
+            }
+            return res.json()
+          })
         })
         .catch(err => {
           return Promise.reject(err)
@@ -165,7 +186,13 @@ class HttpClient {
 
       // Reintentar petición original
       config.headers['Authorization'] = `Bearer ${accessToken}`
-      return fetch(`${this.baseURL}${endpoint}`, config).then(res => res.json())
+      return fetch(`${this.baseURL}${endpoint}`, config).then(async res => {
+        if (isBlob) {
+          const blob = await res.blob()
+          return { data: blob, status: res.status }
+        }
+        return res.json()
+      })
     } catch (error) {
       // Si falla el refresh, cerrar sesión
       this.processQueue(error, null)
@@ -182,11 +209,15 @@ class HttpClient {
    * Petición GET
    * @param {string} endpoint - Endpoint de la API
    * @param {Object} params - Parámetros query
+   * @param {Object} options - Opciones adicionales (responseType, etc.)
    * @returns {Promise} - Respuesta de la API
    */
-  async get(endpoint, params = {}) {
+  async get(endpoint, params = {}, options = {}) {
+    // Separar responseType de los parámetros de query
+    const { responseType, ...queryParams } = params;
+    
     // Filtrar parámetros vacíos o undefined
-    const filteredParams = Object.entries(params).reduce((acc, [key, value]) => {
+    const filteredParams = Object.entries(queryParams).reduce((acc, [key, value]) => {
       if (value !== '' && value !== null && value !== undefined) {
         acc[key] = value
       }
@@ -198,6 +229,8 @@ class HttpClient {
 
     return this.request(url, {
       method: 'GET',
+      responseType: responseType || options.responseType,
+      ...options
     })
   }
 

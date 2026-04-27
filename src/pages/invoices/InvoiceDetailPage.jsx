@@ -83,7 +83,19 @@ function InvoiceDetailPage() {
 
   const handleGeneratePDF = async () => {
     try {
-      await invoiceService.generatePDF(id)
+      const response = await invoiceService.generatePDF(id)
+      
+      // Crear un blob URL y descargarlo
+      const blob = new Blob([response.data], { type: 'application/pdf' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `factura-${invoice.numeroFactura}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+      
       toast.success('PDF generado correctamente')
     } catch (error) {
       console.error('Error al generar PDF:', error)

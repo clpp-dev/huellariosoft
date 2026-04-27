@@ -92,7 +92,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
               <div className="w-10 h-10 rounded-xl flex items-center justify-center">
                 <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
+              <span className="text-xl font-bold text-primary-600 dark:text-white">
                 HuellarioSoft
               </span>
             </div>
@@ -208,7 +208,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
             <div className="w-10 h-10 rounded-xl flex items-center justify-center">
               <img src={logoOnly} alt="HuellarioSoft" className="w-10 h-10" />
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+            <span className="text-xl font-bold text-primary-600 dark:text-white">
               HuellarioSoft
             </span>
           </div>
