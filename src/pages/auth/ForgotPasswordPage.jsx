@@ -51,15 +51,15 @@ function ForgotPasswordPage() {
   if (emailSent) {
     return (
       <div className="w-full text-center">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Icons.CheckCircle className="w-10 h-10 text-green-600" />
+        <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icons.CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
         </div>
         
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
           Correo Enviado
         </h2>
         
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
           Hemos enviado instrucciones para restablecer tu contraseña a tu
           correo electrónico.
         </p>
@@ -79,16 +79,16 @@ function ForgotPasswordPage() {
       <div className="mb-8">
         <Link
           to="/login"
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-4"
+          className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
         >
           <Icons.ArrowLeft className="w-4 h-4 mr-2" />
           Volver al inicio de sesión
         </Link>
 
-        <h2 className="text-3xl font-bold text-gray-900">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
           Recuperar Contraseña
         </h2>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
           Ingresa tu correo electrónico y te enviaremos instrucciones para
           restablecer tu contraseña.
         </p>

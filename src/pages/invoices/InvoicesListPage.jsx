@@ -127,7 +127,7 @@ function InvoicesListPage() {
       header: 'Número',
       accessor: 'numero',
       render: (row) => (
-        <p className="text-sm font-semibold text-gray-900">{row.numero || 'N/A'}</p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-white">{row.numero || 'N/A'}</p>
       )
     },
     {
@@ -135,7 +135,7 @@ function InvoicesListPage() {
       accessor: 'fecha',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-white">
             {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
         </div>
@@ -146,8 +146,8 @@ function InvoicesListPage() {
       accessor: 'propietario',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">{row.propietario?.nombreCompleto || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.propietario?.documento}</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-white">{row.propietario?.nombreCompleto || 'N/A'}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.propietario?.documento}</p>
         </div>
       )
     },
@@ -155,7 +155,7 @@ function InvoicesListPage() {
       header: 'Ítems',
       accessor: 'items',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.items?.length || 0} ítem(s)</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.items?.length || 0} ítem(s)</p>
       )
     },
     {
@@ -163,10 +163,10 @@ function InvoicesListPage() {
       accessor: 'total',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-500 line-through">
+          <p className="text-sm text-gray-500 dark:text-gray-400 line-through">
             ${row.subtotal?.toLocaleString('es-CO')}
           </p>
-          <p className="text-base font-semibold text-gray-900">
+          <p className="text-base font-semibold text-gray-900 dark:text-white">
             ${row.total?.toLocaleString('es-CO')}
           </p>
         </div>
@@ -181,7 +181,7 @@ function InvoicesListPage() {
             {row.estado}
           </Badge>
           {row.metodoPago && row.estado === 'Pagada' && (
-            <p className="text-xs text-gray-500 mt-1">{row.metodoPago}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{row.metodoPago}</p>
           )}
         </div>
       )
@@ -227,8 +227,8 @@ function InvoicesListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Facturación</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Facturación</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona las facturas y pagos
           </p>
         </div>
@@ -244,8 +244,8 @@ function InvoicesListPage() {
         <Card.Content className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Facturación del Mes</p>
-              <p className="text-3xl font-bold text-gray-900">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Facturación del Mes</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">
                 ${monthlyRevenue.toLocaleString('es-CO')}
               </p>
             </div>
@@ -305,10 +305,10 @@ function InvoicesListPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Factura
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de eliminar esta factura? Esta acción no se puede deshacer.
             </p>
           </div>

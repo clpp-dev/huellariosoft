@@ -120,14 +120,14 @@ function AuthLayout({ children }) {
       </div>
 
       {/* Panel derecho - Formulario */}
-      <div className="flex-1 flex items-center justify-center bg-gray-50 p-8">
+      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-8">
         <div className="w-full max-w-md">
           {/* Logo móvil */}
           <div className="lg:hidden flex items-center justify-center space-x-3 mb-8">
             <div className="w-12 h-12 bg-[#0285c707] backdrop-blur-sm rounded-xl flex items-center justify-center p-2">
               <img src={logoOnly} alt="HuellarioSoft" className="w-12 h-12 object-contain" />
             </div>
-            <span className="text-2xl font-bold text-primary-600">
+            <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               HuellarioSoft
             </span>
           </div>

@@ -127,8 +127,8 @@ function InvoiceCreatePage() {
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Nueva Factura</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Nueva Factura</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Crea una nueva factura de servicio
         </p>
       </div>
@@ -138,7 +138,7 @@ function InvoiceCreatePage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Cliente */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información del Cliente
               </h3>
               <Controller
@@ -164,9 +164,9 @@ function InvoiceCreatePage() {
             </div>
 
             {/* Items */}
-            <div className="pt-6 border-t border-gray-200">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                   Servicios / Productos
                 </h3>
                 <Button
@@ -182,7 +182,7 @@ function InvoiceCreatePage() {
 
               <div className="space-y-4">
                 {fields.map((field, index) => (
-                  <div key={field.id} className="p-4 border border-gray-200 rounded-lg">
+                  <div key={field.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <div className="grid grid-cols-12 gap-4">
                       <div className="col-span-5">
                         <Input
@@ -216,7 +216,7 @@ function InvoiceCreatePage() {
                       </div>
                       <div className="col-span-2 flex items-start space-x-2">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-700">
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                             ${((watchItems[index]?.cantidad || 0) * (watchItems[index]?.precioUnitario || 0)).toLocaleString('es-CO')}
                           </p>
                         </div>
@@ -239,10 +239,10 @@ function InvoiceCreatePage() {
             </div>
 
             {/* Totales */}
-            <div className="pt-6 border-t border-gray-200">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                     Ajustes
                   </h3>
                   <Input
@@ -274,25 +274,25 @@ function InvoiceCreatePage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Resumen</h3>
-                  <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Resumen</h3>
+                  <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Subtotal</span>
+                      <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
                       <span className="font-medium">${totals.subtotal.toLocaleString('es-CO')}</span>
                     </div>
                     {watchDescuento > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Descuento ({watchDescuento}%)</span>
-                        <span className="font-medium text-red-600">-${totals.descuentoMonto.toLocaleString('es-CO')}</span>
+                        <span className="text-gray-600 dark:text-gray-400">Descuento ({watchDescuento}%)</span>
+                        <span className="font-medium text-red-600 dark:text-red-400">-${totals.descuentoMonto.toLocaleString('es-CO')}</span>
                       </div>
                     )}
                     {watchImpuesto > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">IVA ({watchImpuesto}%)</span>
+                        <span className="text-gray-600 dark:text-gray-400">IVA ({watchImpuesto}%)</span>
                         <span className="font-medium">${totals.impuestoMonto.toLocaleString('es-CO')}</span>
                       </div>
                     )}
-                    <div className="flex justify-between text-lg font-bold border-t border-gray-300 pt-3">
+                    <div className="flex justify-between text-lg font-bold border-t border-gray-300 dark:border-gray-600 pt-3">
                       <span>Total</span>
                       <span className="text-primary-600">${totals.total.toLocaleString('es-CO')}</span>
                     </div>
@@ -302,7 +302,7 @@ function InvoiceCreatePage() {
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"

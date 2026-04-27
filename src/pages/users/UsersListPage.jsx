@@ -112,8 +112,8 @@ function UsersListPage() {
             </span>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{row.nombre}</p>
-            <p className="text-sm text-gray-500">{row.email}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{row.nombre}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{row.email}</p>
           </div>
         </div>
       )
@@ -185,8 +185,8 @@ function UsersListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestión de Usuarios</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Gestión de Usuarios</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Administra los usuarios del sistema
           </p>
         </div>
@@ -265,10 +265,10 @@ function UsersListPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Usuario
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.
             </p>
           </div>

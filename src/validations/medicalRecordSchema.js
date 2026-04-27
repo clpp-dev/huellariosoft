@@ -79,13 +79,13 @@ export const createMedicalRecordSchema = yup.object({
   diagnostico: yup
     .string()
     .required('El diagnóstico es requerido')
-    .min(5, 'El diagnóstico debe tener al menos 5 caracteres')
+    .min(2, 'El diagnóstico debe tener al menos 2 caracteres')
     .max(500, 'El diagnóstico no puede exceder 500 caracteres'),
   
   tratamiento: yup
     .string()
     .required('El tratamiento es requerido')
-    .min(5, 'El tratamiento debe tener al menos 5 caracteres')
+    .min(2, 'El tratamiento debe tener al menos 2 caracteres')
     .max(1000, 'El tratamiento no puede exceder 1000 caracteres'),
   
   observaciones: yup

@@ -95,8 +95,8 @@ function OwnersListPage() {
             </span>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{row.nombreCompleto}</p>
-            <p className="text-sm text-gray-500">CC: {row.documento}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{row.nombreCompleto}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">CC: {row.documento}</p>
           </div>
         </div>
       )
@@ -106,8 +106,8 @@ function OwnersListPage() {
       accessor: 'telefono',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-900">{row.telefono}</p>
-          <p className="text-sm text-gray-500">{row.email || 'Sin email'}</p>
+          <p className="text-sm text-gray-900 dark:text-white">{row.telefono}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.email || 'Sin email'}</p>
         </div>
       )
     },
@@ -164,8 +164,8 @@ function OwnersListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Propietarios</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Propietarios</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona los clientes de la veterinaria
           </p>
         </div>
@@ -211,10 +211,10 @@ function OwnersListPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Propietario
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de eliminar este propietario? Esta acción no se puede deshacer.
             </p>
           </div>

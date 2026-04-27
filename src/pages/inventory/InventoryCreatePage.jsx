@@ -56,8 +56,8 @@ function InventoryCreatePage() {
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Nuevo Producto</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Nuevo Producto</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Agrega un nuevo producto al inventario
         </p>
       </div>
@@ -67,7 +67,7 @@ function InventoryCreatePage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Información del Producto */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información del Producto
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -118,8 +118,8 @@ function InventoryCreatePage() {
             </div>
 
             {/* Stock y Precio */}
-            <div className="pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Stock y Precio
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -157,13 +157,13 @@ function InventoryCreatePage() {
                   required
                 />
               </div>
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                 Se te notificará cuando el stock alcance el mínimo establecido
               </p>
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"

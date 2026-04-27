@@ -55,7 +55,11 @@ function DashboardPage() {
   }
 
   if (loading) {
-    return <Spinner.Page message="Cargando dashboard..." />
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner.Page message="Cargando dashboard..." />
+      </div>
+    )
   }
 
   return (

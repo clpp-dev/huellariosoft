@@ -131,8 +131,8 @@ function AppointmentEditPage() {
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Editar Cita</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Editar Cita</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Actualiza la información de la cita
         </p>
       </div>
@@ -141,7 +141,7 @@ function AppointmentEditPage() {
         <Card.Content className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información de la Cita
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -233,7 +233,7 @@ function AppointmentEditPage() {
               </div>
             </div>
 
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"

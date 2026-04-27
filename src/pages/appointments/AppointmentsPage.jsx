@@ -131,10 +131,10 @@ function AppointmentsPage() {
       accessor: 'fecha',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-white">
             {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
-          <p className="text-sm text-gray-500">{formatTimeToAMPM(row.hora)}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{formatTimeToAMPM(row.hora)}</p>
         </div>
       )
     },
@@ -143,8 +143,8 @@ function AppointmentsPage() {
       accessor: 'mascota',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">{row.mascota?.nombre || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.mascota?.especie}</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-white">{row.mascota?.nombre || 'N/A'}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.mascota?.especie}</p>
         </div>
       )
     },
@@ -153,8 +153,8 @@ function AppointmentsPage() {
       accessor: 'propietario',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-900">{row.propietario?.nombreCompleto || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.propietario?.telefono || ''}</p>
+          <p className="text-sm text-gray-900 dark:text-white">{row.propietario?.nombreCompleto || 'N/A'}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.propietario?.telefono || ''}</p>
         </div>
       )
     },
@@ -162,14 +162,14 @@ function AppointmentsPage() {
       header: 'Veterinario',
       accessor: 'veterinario',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.veterinario?.nombre || 'N/A'}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.veterinario?.nombre || 'N/A'}</p>
       )
     },
     {
       header: 'Motivo',
       accessor: 'motivo',
       render: (row) => (
-        <p className="text-sm text-gray-700 truncate max-w-xs">{row.motivo}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 truncate max-w-xs">{row.motivo}</p>
       )
     },
     {
@@ -221,8 +221,8 @@ function AppointmentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Citas</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Citas</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona las citas de la veterinaria
           </p>
         </div>
@@ -288,13 +288,13 @@ function AppointmentsPage() {
         size="sm"
       >
         <div className="p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Cambiar Estado de Cita</h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Cambiar Estado de Cita</h3>
           <div className="space-y-2">
             {['Programada', 'Confirmada', 'En_Curso', 'Completada', 'No_Asistio'].map((estado) => (
               <button
                 key={estado}
                 onClick={() => handleStatusChange(estado)}
-                className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 {getStatusBadge(estado)}
               </button>
@@ -322,14 +322,14 @@ function AppointmentsPage() {
             <Icons.XCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">Cancelar Cita</h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">Cancelar Cita</h3>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Indica el motivo de la cancelación
             </p>
           </div>
           <div className="mt-4">
             <textarea
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               rows={3}
               placeholder="Motivo de cancelación..."
               value={cancelModal.motivo}

@@ -13,8 +13,8 @@ function ProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Mi Perfil</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mi Perfil</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Gestiona tu información personal y configuración
         </p>
       </div>
@@ -42,11 +42,11 @@ function ProfilePage() {
                 </span>
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {user?.nombre}
                 </h3>
-                <p className="text-sm text-gray-500">{user?.email}</p>
-                <span className="inline-flex items-center px-3 py-1 mt-2 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
+                <span className="inline-flex items-center px-3 py-1 mt-2 rounded-full text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-400">
                   {ROLE_LABELS[user?.rol]}
                 </span>
               </div>

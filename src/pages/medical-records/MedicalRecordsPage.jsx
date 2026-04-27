@@ -91,10 +91,10 @@ function MedicalRecordsPage() {
       accessor: 'fecha',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-white">
             {format(new Date(row.fecha), 'dd MMM yyyy', { locale: es })}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             {format(new Date(row.fecha), 'HH:mm', { locale: es })}
           </p>
         </div>
@@ -105,8 +105,8 @@ function MedicalRecordsPage() {
       accessor: 'mascota',
       render: (row) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">{row.mascota?.nombre || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.mascota?.especie} - {row.mascota?.raza}</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-white">{row.mascota?.nombre || 'N/A'}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.mascota?.especie} - {row.mascota?.raza}</p>
         </div>
       )
     },
@@ -114,28 +114,28 @@ function MedicalRecordsPage() {
       header: 'Propietario',
       accessor: 'propietario',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.mascota?.propietario?.nombreCompleto || 'N/A'}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.mascota?.propietario?.nombreCompleto || 'N/A'}</p>
       )
     },
     {
       header: 'Veterinario',
       accessor: 'veterinario',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.veterinario?.nombre || 'N/A'}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.veterinario?.nombre || 'N/A'}</p>
       )
     },
     {
       header: 'Diagnóstico',
       accessor: 'diagnostico',
       render: (row) => (
-        <p className="text-sm text-gray-700 truncate max-w-xs">{row.diagnostico}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 truncate max-w-xs">{row.diagnostico}</p>
       )
     },
     {
       header: 'Peso',
       accessor: 'peso',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.peso ? `${row.peso} kg` : 'N/A'}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.peso ? `${row.peso} kg` : 'N/A'}</p>
       )
     },
     {
@@ -169,8 +169,8 @@ function MedicalRecordsPage() {
     <div className="MAIN-CONTAINER-MEDICAL-REPORTS space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Historia Clínica</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Historia Clínica</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona los registros médicos de las mascotas
           </p>
         </div>
@@ -216,10 +216,10 @@ function MedicalRecordsPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Historia Clínica
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de eliminar esta historia clínica? Esta acción no se puede deshacer.
             </p>
           </div>

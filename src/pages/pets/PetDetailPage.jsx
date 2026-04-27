@@ -71,8 +71,8 @@ function PetDetailPage() {
               {getEspecieIcon(pet.especie)}
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{pet.nombre}</h1>
-              <p className="mt-1 text-sm text-gray-600">{pet.especie} • {pet.raza}</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{pet.nombre}</h1>
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{pet.especie} • {pet.raza}</p>
             </div>
           </div>
         </div>
@@ -96,44 +96,44 @@ function PetDetailPage() {
         <div className="lg:col-span-2">
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Información de la Mascota</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Información de la Mascota</h2>
             </Card.Header>
             <Card.Content className="p-6">
               <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <Icons.Calendar className="w-4 h-4 mr-2" />
                     Edad
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">
                     {pet.edad?.valor} {pet.edad?.unidad}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <Icons.User className="w-4 h-4 mr-2" />
                     Sexo
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">{pet.sexo}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{pet.sexo}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <Icons.Palette className="w-4 h-4 mr-2" />
                     Color
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">{pet.color}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{pet.color}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <Icons.Activity className="w-4 h-4 mr-2" />
                     Peso
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">
                     {pet.peso ? `${pet.peso} kg` : 'No registrado'}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <Icons.Shield className="w-4 h-4 mr-2" />
                     Esterilización
                   </dt>
@@ -150,7 +150,7 @@ function PetDetailPage() {
           {/* Propietario */}
           <Card className="mt-6">
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Propietario</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Propietario</h2>
             </Card.Header>
             <Card.Content className="p-6">
               {pet.propietario ? (
@@ -161,20 +161,20 @@ function PetDetailPage() {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-base font-semibold text-gray-900">
+                    <p className="text-base font-semibold text-gray-900 dark:text-white">
                       {pet.propietario.nombreCompleto}
                     </p>
                     <dl className="mt-2 space-y-1">
-                      <div className="flex items-center text-sm text-gray-600">
+                      <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                         <Icons.FileText className="w-4 h-4 mr-2" />
                         <span>CC: {pet.propietario.documento}</span>
                       </div>
-                      <div className="flex items-center text-sm text-gray-600">
+                      <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                         <Icons.Phone className="w-4 h-4 mr-2" />
                         <span>{pet.propietario.telefono}</span>
                       </div>
                       {pet.propietario.email && (
-                        <div className="flex items-center text-sm text-gray-600">
+                        <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                           <Icons.Mail className="w-4 h-4 mr-2" />
                           <span>{pet.propietario.email}</span>
                         </div>
@@ -188,7 +188,7 @@ function PetDetailPage() {
                   </div>
                 </div>
               ) : (
-                <p className="text-sm text-gray-500">Propietario no disponible</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Propietario no disponible</p>
               )}
             </Card.Content>
           </Card>
@@ -199,7 +199,7 @@ function PetDetailPage() {
           {/* Acciones Rápidas */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Acciones</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Acciones</h2>
             </Card.Header>
             <Card.Content className="p-6 space-y-3">
               <Link to={`/appointments/create?petId=${id}`}>
@@ -218,21 +218,21 @@ function PetDetailPage() {
           {/* Resumen */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Resumen</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Resumen</h2>
             </Card.Header>
             <Card.Content className="p-6">
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center">
                     <Icons.Calendar className="w-5 h-5 text-blue-600 mr-3" />
-                    <span className="text-sm font-medium text-gray-700">Citas</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Citas</span>
                   </div>
                   <span className="text-lg font-bold text-blue-600">-</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center">
                     <Icons.FileText className="w-5 h-5 text-green-600 mr-3" />
-                    <span className="text-sm font-medium text-gray-700">Historias</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Historias</span>
                   </div>
                   <span className="text-lg font-bold text-green-600">-</span>
                 </div>
@@ -246,7 +246,7 @@ function PetDetailPage() {
       <Card>
         <Card.Header>
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Historia Clínica</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Historia Clínica</h2>
             <Link to={`/medical-records?petId=${id}`}>
               <Button size="sm" variant="outline">
                 Ver todo
@@ -257,7 +257,7 @@ function PetDetailPage() {
         <Card.Content className="p-6">
           <div className="text-center py-12">
             <Icons.FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-sm text-gray-500">No hay registros clínicos disponibles</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">No hay registros clínicos disponibles</p>
             <Link to={`/medical-records/create?petId=${id}`}>
               <Button className="mt-4" leftIcon={Icons.Plus}>
                 Crear Primer Registro

@@ -123,12 +123,12 @@ function InvoiceDetailPage() {
             Volver
           </Button>
           <div className="flex items-center space-x-3">
-            <h1 className="text-3xl font-bold text-gray-900">Factura {invoice.numero || 'N/A'}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Factura {invoice.numero || 'N/A'}</h1>
             <Badge variant={getEstadoVariant(invoice.estado)} size="lg">
               {invoice.estado}
             </Badge>
           </div>
-          <p className="mt-1 text-sm text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {format(new Date(invoice.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
           </p>
         </div>
@@ -168,28 +168,28 @@ function InvoiceDetailPage() {
           {/* Items */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Detalle de Servicios/Productos</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Detalle de Servicios/Productos</h2>
             </Card.Header>
             <Card.Content className="p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left text-xs font-medium text-gray-500 uppercase py-3">Descripción</th>
-                      <th className="text-center text-xs font-medium text-gray-500 uppercase py-3">Cantidad</th>
-                      <th className="text-right text-xs font-medium text-gray-500 uppercase py-3">Precio Unit.</th>
-                      <th className="text-right text-xs font-medium text-gray-500 uppercase py-3">Subtotal</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <th className="text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase py-3">Descripción</th>
+                      <th className="text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase py-3">Cantidad</th>
+                      <th className="text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase py-3">Precio Unit.</th>
+                      <th className="text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase py-3">Subtotal</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                     {invoice.items?.map((item, index) => (
                       <tr key={index}>
-                        <td className="py-4 text-sm text-gray-900">{item.descripcion}</td>
-                        <td className="py-4 text-sm text-center text-gray-900">{item.cantidad}</td>
-                        <td className="py-4 text-sm text-right text-gray-900">
+                        <td className="py-4 text-sm text-gray-900 dark:text-white">{item.descripcion}</td>
+                        <td className="py-4 text-sm text-center text-gray-900 dark:text-white">{item.cantidad}</td>
+                        <td className="py-4 text-sm text-right text-gray-900 dark:text-white">
                           ${item.precioUnitario?.toLocaleString('es-CO')}
                         </td>
-                        <td className="py-4 text-sm text-right font-medium text-gray-900">
+                        <td className="py-4 text-sm text-right font-medium text-gray-900 dark:text-white">
                           ${(item.cantidad * item.precioUnitario).toLocaleString('es-CO')}
                         </td>
                       </tr>
@@ -198,14 +198,14 @@ function InvoiceDetailPage() {
                 </table>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-200 space-y-2">
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">${invoice.subtotal?.toLocaleString('es-CO')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
+                  <span className="font-medium text-gray-900 dark:text-white">${invoice.subtotal?.toLocaleString('es-CO')}</span>
                 </div>
                 {invoice.descuento > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Descuento ({invoice.descuento}%)</span>
+                    <span className="text-gray-600 dark:text-gray-400">Descuento ({invoice.descuento}%)</span>
                     <span className="font-medium text-red-600">
                       -${((invoice.subtotal * invoice.descuento) / 100).toLocaleString('es-CO')}
                     </span>
@@ -213,15 +213,15 @@ function InvoiceDetailPage() {
                 )}
                 {invoice.impuesto > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">IVA ({invoice.impuesto}%)</span>
-                    <span className="font-medium">
+                    <span className="text-gray-600 dark:text-gray-400">IVA ({invoice.impuesto}%)</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
                       ${((invoice.total - invoice.subtotal + (invoice.subtotal * invoice.descuento) / 100)).toLocaleString('es-CO')}
                     </span>
                   </div>
                 )}
-                <div className="flex justify-between text-xl font-bold border-t border-gray-300 pt-3">
-                  <span>Total</span>
-                  <span className="text-primary-600">${invoice.total?.toLocaleString('es-CO')}</span>
+                <div className="flex justify-between text-xl font-bold border-t border-gray-300 dark:border-gray-600 pt-3">
+                  <span className="text-gray-900 dark:text-white">Total</span>
+                  <span className="text-primary-600 dark:text-primary-400">${invoice.total?.toLocaleString('es-CO')}</span>
                 </div>
               </div>
             </Card.Content>
@@ -231,10 +231,10 @@ function InvoiceDetailPage() {
           {invoice.observaciones && (
             <Card>
               <Card.Header>
-                <h2 className="text-lg font-semibold text-gray-900">Observaciones</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Observaciones</h2>
               </Card.Header>
               <Card.Content className="p-6">
-                <p className="text-sm text-gray-700 whitespace-pre-line">{invoice.observaciones}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">{invoice.observaciones}</p>
               </Card.Content>
             </Card>
           )}
@@ -245,7 +245,7 @@ function InvoiceDetailPage() {
           {/* Cliente */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Cliente</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Cliente</h2>
             </Card.Header>
             <Card.Content className="p-6">
               <div className="flex items-start space-x-3">
@@ -255,15 +255,15 @@ function InvoiceDetailPage() {
                   </span>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     {invoice.propietario?.nombreCompleto || 'N/A'}
                   </p>
-                  <p className="text-xs text-gray-500">Doc: {invoice.propietario?.documento}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Doc: {invoice.propietario?.documento}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     <Icons.Phone className="w-3 h-3 inline mr-1" />
                     {invoice.propietario?.telefono}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     <Icons.Mail className="w-3 h-3 inline mr-1" />
                     {invoice.propietario?.email}
                   </p>
@@ -275,25 +275,25 @@ function InvoiceDetailPage() {
           {/* Estado de Pago */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Estado de Pago</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Estado de Pago</h2>
             </Card.Header>
             <Card.Content className="p-6 space-y-3">
               <div>
-                <p className="text-xs text-gray-500">Estado</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Estado</p>
                 <Badge variant={getEstadoVariant(invoice.estado)} size="lg">
                   {invoice.estado}
                 </Badge>
               </div>
               {invoice.metodoPago && invoice.estado === 'Pagada' && (
-                <div className="pt-3 border-t border-gray-200">
-                  <p className="text-xs text-gray-500">Método de Pago</p>
-                  <p className="text-sm font-medium text-gray-900">{invoice.metodoPago}</p>
+                <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Método de Pago</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{invoice.metodoPago}</p>
                 </div>
               )}
               {invoice.motivoCancelacion && invoice.estado === 'Cancelada' && (
-                <div className="pt-3 border-t border-gray-200">
-                  <p className="text-xs text-gray-500">Motivo de Cancelación</p>
-                  <p className="text-sm text-gray-900">{invoice.motivoCancelacion}</p>
+                <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Motivo de Cancelación</p>
+                  <p className="text-sm text-gray-900 dark:text-white">{invoice.motivoCancelacion}</p>
                 </div>
               )}
             </Card.Content>
@@ -302,19 +302,19 @@ function InvoiceDetailPage() {
           {/* Información de Registro */}
           <Card>
             <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900">Información</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Información</h2>
             </Card.Header>
             <Card.Content className="p-6 space-y-3">
               <div>
-                <p className="text-xs text-gray-500">Fecha de emisión</p>
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-xs text-gray-500 dark:text-gray-400">Fecha de emisión</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {format(new Date(invoice.fecha), "dd/MM/yyyy")}
                 </p>
               </div>
               {invoice.createdAt && (
-                <div className="pt-3 border-t border-gray-200">
-                  <p className="text-xs text-gray-500">Creada el</p>
-                  <p className="text-sm font-medium text-gray-900">
+                <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Creada el</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {format(new Date(invoice.createdAt), "dd/MM/yyyy 'a las' HH:mm")}
                   </p>
                 </div>
@@ -335,10 +335,10 @@ function InvoiceDetailPage() {
             <Icons.Check className="w-6 h-6 text-green-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Marcar como Pagada
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Confirma el método de pago utilizado
             </p>
           </div>
@@ -387,10 +387,10 @@ function InvoiceDetailPage() {
             <Icons.X className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Cancelar Factura
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Indica el motivo de la cancelación
             </p>
           </div>

@@ -116,8 +116,8 @@ function PetsListPage() {
             {getEspecieIcon(row.especie)}
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{row.nombre}</p>
-            <p className="text-sm text-gray-500">{row.raza}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{row.nombre}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{row.raza}</p>
           </div>
         </div>
       )
@@ -127,8 +127,8 @@ function PetsListPage() {
       accessor: 'propietario',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-900">{row.propietario?.nombreCompleto || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.propietario?.telefono || ''}</p>
+          <p className="text-sm text-gray-900 dark:text-white">{row.propietario?.nombreCompleto || 'N/A'}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.propietario?.telefono || ''}</p>
         </div>
       )
     },
@@ -144,8 +144,8 @@ function PetsListPage() {
       accessor: 'edad',
       render: (row) => (
         <div>
-          <p className="text-sm text-gray-900">{row.edad?.valor} {row.edad?.unidad}</p>
-          <p className="text-sm text-gray-500">{row.sexo}</p>
+          <p className="text-sm text-gray-900 dark:text-white">{row.edad?.valor} {row.edad?.unidad}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{row.sexo}</p>
         </div>
       )
     },
@@ -197,8 +197,8 @@ function PetsListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Mascotas</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mascotas</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona los animales registrados en la veterinaria
           </p>
         </div>
@@ -261,10 +261,10 @@ function PetsListPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Mascota
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de eliminar esta mascota? Esta acción no se puede deshacer.
             </p>
           </div>

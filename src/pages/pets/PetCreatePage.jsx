@@ -93,8 +93,8 @@ function PetCreatePage() {
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Nueva Mascota</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Nueva Mascota</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Registra una nueva mascota en el sistema
         </p>
       </div>
@@ -104,7 +104,7 @@ function PetCreatePage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Información Básica */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información Básica
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -165,8 +165,8 @@ function PetCreatePage() {
             </div>
 
             {/* Características */}
-            <div className="pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Características
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -240,7 +240,7 @@ function PetCreatePage() {
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"

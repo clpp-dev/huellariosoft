@@ -88,8 +88,8 @@ function UserEditPage() {
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Editar Usuario</h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Editar Usuario</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Actualiza la información del usuario
         </p>
       </div>
@@ -100,7 +100,7 @@ function UserEditPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Información personal */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información Personal
               </h3>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -136,11 +136,11 @@ function UserEditPage() {
             </div>
 
             {/* Información de acceso */}
-            <div className="pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Cambiar Contraseña
               </h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Deja estos campos vacíos si no deseas cambiar la contraseña
               </p>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -180,7 +180,7 @@ function UserEditPage() {
             </div>
 
             {/* Botones de acción */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"

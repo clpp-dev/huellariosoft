@@ -136,8 +136,8 @@ function InventoryListPage() {
             {getCategoriaIcon(row.categoria)}
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{row.nombre}</p>
-            <p className="text-sm text-gray-500">{row.categoria?.replace('_', ' ')}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{row.nombre}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{row.categoria?.replace('_', ' ')}</p>
           </div>
         </div>
       )
@@ -146,7 +146,7 @@ function InventoryListPage() {
       header: 'Descripción',
       accessor: 'descripcion',
       render: (row) => (
-        <p className="text-sm text-gray-700 truncate max-w-xs">{row.descripcion || 'N/A'}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 truncate max-w-xs">{row.descripcion || 'N/A'}</p>
       )
     },
     {
@@ -155,7 +155,7 @@ function InventoryListPage() {
       render: (row) => (
         <div>
           <p className={`text-sm font-semibold ${
-            isLowStock(row) ? 'text-red-600' : 'text-gray-900'
+            isLowStock(row) ? 'text-red-600' : 'text-gray-900 dark:text-white'
           }`}>
             {row.cantidad} {row.unidadMedida}
           </p>
@@ -169,14 +169,14 @@ function InventoryListPage() {
       header: 'Stock Mínimo',
       accessor: 'stockMinimo',
       render: (row) => (
-        <p className="text-sm text-gray-900">{row.stockMinimo} {row.unidadMedida}</p>
+        <p className="text-sm text-gray-900 dark:text-white">{row.stockMinimo} {row.unidadMedida}</p>
       )
     },
     {
       header: 'Precio',
       accessor: 'precio',
       render: (row) => (
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-gray-900 dark:text-white">
           ${row.precio?.toLocaleString('es-CO')}
         </p>
       )
@@ -221,8 +221,8 @@ function InventoryListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Inventario</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Inventario</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Gestiona los productos y stock de la veterinaria
           </p>
         </div>
@@ -292,10 +292,10 @@ function InventoryListPage() {
             <Icons.AlertCircle className="w-6 h-6 text-red-600" />
           </div>
           <div className="mt-4 text-center">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
               Eliminar Producto
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               ¿Estás seguro de eliminar este producto del inventario? Esta acción no se puede deshacer.
             </p>
           </div>
