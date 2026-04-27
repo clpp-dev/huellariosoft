@@ -57,7 +57,10 @@ function MedicalRecordDetailPage() {
           </Button>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Historia Clínica</h1>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {format(new Date(record.fechaConsulta || record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
+            {(record.fechaConsulta || record.fecha)
+              ? format(new Date(record.fechaConsulta || record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })
+              : 'Fecha no disponible'
+            }
           </p>
         </div>
       </div>
@@ -211,9 +214,11 @@ function MedicalRecordDetailPage() {
                       <Icons.Shield className="w-5 h-5 text-green-600 mt-0.5" />
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900 dark:text-white">{vacuna.nombre}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          Aplicada: {format(new Date(vacuna.fecha), 'dd/MM/yyyy')}
-                        </p>
+                        {vacuna.fecha && (
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            Aplicada: {format(new Date(vacuna.fecha), 'dd/MM/yyyy')}
+                          </p>
+                        )}
                         {vacuna.proximaDosis && (
                           <p className="text-xs text-gray-600 dark:text-gray-400">
                             Próxima dosis: {format(new Date(vacuna.proximaDosis), 'dd/MM/yyyy')}
@@ -259,7 +264,10 @@ function MedicalRecordDetailPage() {
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Fecha de consulta</p>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {format(new Date(record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })}
+                  {(record.fechaConsulta || record.fecha) 
+                    ? format(new Date(record.fechaConsulta || record.fecha), "dd 'de' MMMM 'de' yyyy", { locale: es })
+                    : 'N/A'
+                  }
                 </p>
               </div>
               {record.createdAt && (
