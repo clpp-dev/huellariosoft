@@ -89,7 +89,7 @@ export const dashboardService = {
         fechaFin
       })
       return {
-        total: response.data?.totalPagado || 0,
+        total: response.data?.totalFacturado || 0,
         estadisticas: response.data
       }
     } catch (error) {
