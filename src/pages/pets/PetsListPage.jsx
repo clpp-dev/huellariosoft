@@ -41,7 +41,7 @@ function PetsListPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: debouncedSearchTerm
+        search: debouncedSearchTerm
       }
       
       if (especieFilter) {
