@@ -13,12 +13,14 @@ import { Icons } from '@constants/icons'
 import appointmentService from '@services/appointmentService'
 import { formatTimeToAMPM } from '@utils/formatters'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function AppointmentsPage() {
   const navigate = useNavigate()
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [estadoFilter, setEstadoFilter] = useState('')
   const [fechaFilter, setFechaFilter] = useState('')
   const [pagination, setPagination] = useState({
@@ -42,7 +44,7 @@ function AppointmentsPage() {
 
   useEffect(() => {
     loadAppointments()
-  }, [pagination.page, searchTerm, estadoFilter, fechaFilter])
+  }, [pagination.page, debouncedSearchTerm, estadoFilter, fechaFilter])
 
   const loadAppointments = async () => {
     try {
@@ -50,7 +52,7 @@ function AppointmentsPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       if (estadoFilter) params.estado = estadoFilter

@@ -10,12 +10,14 @@ import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import inventoryService from '@services/inventoryService'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function InventoryListPage() {
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [categoriaFilter, setCategoriaFilter] = useState('')
   const [showLowStock, setShowLowStock] = useState(false)
   const [pagination, setPagination] = useState({
@@ -36,7 +38,7 @@ function InventoryListPage() {
     } else {
       loadProducts()
     }
-  }, [pagination.page, searchTerm, categoriaFilter, showLowStock])
+  }, [pagination.page, debouncedSearchTerm, categoriaFilter, showLowStock])
 
   const loadProducts = async () => {
     try {
@@ -44,7 +46,7 @@ function InventoryListPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       if (categoriaFilter) params.categoria = categoriaFilter

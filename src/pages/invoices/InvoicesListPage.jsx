@@ -12,12 +12,14 @@ import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import invoiceService from '@services/invoiceService'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function InvoicesListPage() {
   const navigate = useNavigate()
   const [invoices, setInvoices] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [estadoFilter, setEstadoFilter] = useState('')
   const [monthlyRevenue, setMonthlyRevenue] = useState(0)
   const [pagination, setPagination] = useState({
@@ -35,7 +37,7 @@ function InvoicesListPage() {
   useEffect(() => {
     loadInvoices()
     loadMonthlyRevenue()
-  }, [pagination.page, searchTerm, estadoFilter])
+  }, [pagination.page, debouncedSearchTerm, estadoFilter])
 
   const loadInvoices = async () => {
     try {
@@ -43,7 +45,7 @@ function InvoicesListPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       if (estadoFilter) params.estado = estadoFilter

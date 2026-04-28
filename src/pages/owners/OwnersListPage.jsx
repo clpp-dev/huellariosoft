@@ -9,12 +9,14 @@ import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import ownerService from '@services/ownerService'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function OwnersListPage() {
   const navigate = useNavigate()
   const [owners, setOwners] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -29,7 +31,7 @@ function OwnersListPage() {
 
   useEffect(() => {
     loadOwners()
-  }, [pagination.page, searchTerm])
+  }, [pagination.page, debouncedSearchTerm])
 
   const loadOwners = async () => {
     try {
@@ -37,7 +39,7 @@ function OwnersListPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       const response = await ownerService.getAll(params)

@@ -11,12 +11,14 @@ import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import medicalRecordService from '@services/medicalRecordService'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function MedicalRecordsPage() {
   const navigate = useNavigate()
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -31,7 +33,7 @@ function MedicalRecordsPage() {
 
   useEffect(() => {
     loadRecords()
-  }, [pagination.page, searchTerm])
+  }, [pagination.page, debouncedSearchTerm])
 
   const loadRecords = async () => {
     try {
@@ -39,7 +41,7 @@ function MedicalRecordsPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       const response = await medicalRecordService.getAll(params)

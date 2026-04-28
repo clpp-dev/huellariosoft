@@ -10,12 +10,14 @@ import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
 import petService from '@services/petService'
 import { toast } from 'sonner'
+import useDebounce from '@hooks/useDebounce'
 
 function PetsListPage() {
   const navigate = useNavigate()
   const [pets, setPets] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [especieFilter, setEspecieFilter] = useState('')
   const [pagination, setPagination] = useState({
     page: 1,
@@ -31,7 +33,7 @@ function PetsListPage() {
 
   useEffect(() => {
     loadPets()
-  }, [pagination.page, searchTerm, especieFilter])
+  }, [pagination.page, debouncedSearchTerm, especieFilter])
 
   const loadPets = async () => {
     try {
@@ -39,7 +41,7 @@ function PetsListPage() {
       const params = {
         page: pagination.page,
         limit: pagination.limit,
-        q: searchTerm
+        q: debouncedSearchTerm
       }
       
       if (especieFilter) {
