@@ -418,7 +418,7 @@ function ReportsPage() {
             )}
 
             {activeReport === 'citas' && citasPreview && (
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <p className="text-sm text-gray-600 dark:text-gray-400">Total Citas</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -426,9 +426,27 @@ function ReportsPage() {
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Pendientes</p>
+                  <p className="text-2xl font-bold text-yellow-600">
+                    {citasPreview.pendientes || 0}
+                  </p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Agendadas</p>
+                  <p className="text-2xl font-bold text-orange-600">
+                    {citasPreview.agendadas || 0}
+                  </p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <p className="text-sm text-gray-600 dark:text-gray-400">Confirmadas</p>
                   <p className="text-2xl font-bold text-blue-600">
                     {citasPreview.confirmadas}
+                  </p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">En Curso</p>
+                  <p className="text-2xl font-bold text-indigo-600">
+                    {citasPreview.enCurso || 0}
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
@@ -441,6 +459,12 @@ function ReportsPage() {
                   <p className="text-sm text-gray-600 dark:text-gray-400">Canceladas</p>
                   <p className="text-2xl font-bold text-red-600">
                     {citasPreview.canceladas}
+                  </p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">No Asistió</p>
+                  <p className="text-2xl font-bold text-gray-500">
+                    {citasPreview.noAsistio || 0}
                   </p>
                 </div>
               </div>
