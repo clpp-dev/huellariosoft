@@ -54,6 +54,7 @@ import {
   DollarSign,
   Sun,
   Moon,
+  Briefcase,
 } from 'lucide-react'
 
 // Exportar todos los iconos usados en la aplicación
@@ -127,6 +128,7 @@ export const Icons = {
   DollarSign,
   Sun,
   Moon,
+  Briefcase,
 }
 
 export default Icons

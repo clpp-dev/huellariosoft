@@ -26,26 +26,34 @@ function DashboardPage() {
 
   useEffect(() => {
     loadDashboardData()
-  }, [])
+  }, [user])
 
   const loadDashboardData = async () => {
     try {
       setLoading(true)
-      const data = await dashboardService.getStats()
-      
-      setStats({
-        citasHoy: data.citasHoy,
-        totalMascotas: data.totalMascotas,
-        totalPropietarios: data.totalPropietarios,
-        facturacionMensual: data.facturacionMensual,
-      })
 
-      // Cargar próximas citas
-      const citas = await dashboardService.getProximasCitas()
-      setUpcomingAppointments(citas)
+      // Si es propietario, solo cargar sus próximas citas
+      if (user?.tipoUsuario === 'propietario') {
+        const citas = await dashboardService.getProximasCitas()
+        setUpcomingAppointments(citas)
+      } else {
+        // Si es empleado, cargar todas las estadísticas
+        const data = await dashboardService.getStats()
+        
+        setStats({
+          citasHoy: data.citasHoy,
+          totalMascotas: data.totalMascotas,
+          totalPropietarios: data.totalPropietarios,
+          facturacionMensual: data.facturacionMensual,
+        })
 
-      // Cargar productos con stock bajo
-      setLowStockItems(data.stockBajo)
+        // Cargar próximas citas
+        const citas = await dashboardService.getProximasCitas()
+        setUpcomingAppointments(citas)
+
+        // Cargar productos con stock bajo
+        setLowStockItems(data.stockBajo)
+      }
     } catch (error) {
       console.error('Error al cargar dashboard:', error)
       toast.error('Error al cargar datos del dashboard')
@@ -61,6 +69,135 @@ function DashboardPage() {
       </div>
     )
   }
+
+  // Vista para propietarios
+  if (user?.tipoUsuario === 'propietario') {
+    return (
+      <div className="space-y-6">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            ¡Hola, {user?.nombreCompleto?.split(' ')[0]}! 👋
+          </h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            Bienvenido a tu portal de cliente • {formatDate(new Date(), 'EEEE, d MMMM yyyy')}
+          </p>
+        </div>
+
+        {/* Accesos rápidos */}
+        <Card>
+          <Card.Header>
+            <Card.Title>Accesos Rápidos</Card.Title>
+            <Card.Description>
+              Gestiona tus mascotas y citas
+            </Card.Description>
+          </Card.Header>
+          <Card.Content>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <Link
+                to="/pets"
+                className="flex flex-col items-center justify-center p-6 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors border-2 border-purple-200 dark:border-purple-800"
+              >
+                <Icons.PawPrint className="h-10 w-10 text-purple-600 dark:text-purple-400 mb-3" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white text-center">
+                  Mis Mascotas
+                </span>
+              </Link>
+
+              <Link
+                to="/appointments"
+                className="flex flex-col items-center justify-center p-6 bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors border-2 border-primary-200 dark:border-primary-800"
+              >
+                <Icons.Calendar className="h-10 w-10 text-primary-600 dark:text-primary-400 mb-3" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white text-center">
+                  Mis Citas
+                </span>
+              </Link>
+
+              <Link
+                to="/medical-records"
+                className="flex flex-col items-center justify-center p-6 bg-green-50 dark:bg-green-900/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors border-2 border-green-200 dark:border-green-800"
+              >
+                <Icons.FileText className="h-10 w-10 text-green-600 dark:text-green-400 mb-3" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white text-center">
+                  Historiales Médicos
+                </span>
+              </Link>
+            </div>
+          </Card.Content>
+        </Card>
+
+        {/* Próximas citas */}
+        <Card>
+          <Card.Header>
+            <div className="flex items-center justify-between">
+              <Card.Title>Mis Próximas Citas</Card.Title>
+              <Link
+                to="/appointments"
+                className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
+              >
+                Ver todas
+              </Link>
+            </div>
+          </Card.Header>
+          <Card.Content>
+            {upcomingAppointments.length === 0 ? (
+              <div className="text-center py-8">
+                <Icons.Calendar className="h-12 w-12 text-gray-400 dark:text-gray-600 mx-auto mb-3" />
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  No tienes citas próximas
+                </p>
+                <Link
+                  to="/appointments/create"
+                  className="mt-4 inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
+                >
+                  Agendar una cita
+                </Link>
+              </div>
+            ) : (
+              <div className="flow-root">
+                <ul className="-my-5 divide-y divide-gray-200 dark:divide-gray-700">
+                  {upcomingAppointments.slice(0, 5).map((appointment) => (
+                    <li 
+                      key={appointment._id} 
+                      className="py-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors rounded-lg px-2 -mx-2"
+                      onClick={() => navigate(`/appointments`)}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-20 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
+                            <span className="text-primary-700 dark:text-primary-400 font-semibold text-sm">
+                              {formatTimeToAMPM(appointment.hora)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            {appointment.mascota?.nombre || 'N/A'}
+                          </p>
+                          <p className="text-xs text-gray-400 dark:text-gray-500">
+                            {appointment.motivo}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            {formatDate(appointment.fecha, 'dd MMMM yyyy')}
+                          </p>
+                        </div>
+                        <div>
+                          <Icons.ChevronRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </Card.Content>
+        </Card>
+      </div>
+    )
+  }
+
+  // Vista para empleados (administrador, veterinario, recepcionista, auxiliar)
 
   return (
     <div className="space-y-6">

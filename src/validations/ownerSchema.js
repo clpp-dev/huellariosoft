@@ -25,9 +25,18 @@ export const createOwnerSchema = yup.object({
   
   email: yup
     .string()
-    .nullable()
+    .required('El email es requerido')
     .test('valid-email', 'Email inválido', (value) => 
-      !value || isValidEmail(value)
+      isValidEmail(value)
+    ),
+  
+  password: yup
+    .string()
+    .required('La contraseña es requerida')
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      'La contraseña debe contener al menos una mayúscula, una minúscula y un número'
     ),
   
   direccion: yup
@@ -60,10 +69,18 @@ export const updateOwnerSchema = yup.object({
   
   email: yup
     .string()
-    .nullable()
+    .required('El email es requerido')
     .test('valid-email', 'Email inválido', (value) => 
-      !value || isValidEmail(value)
+      isValidEmail(value)
     ),
+  
+  password: yup
+    .string()
+    .nullable()
+    .test('valid-password', 'La contraseña debe tener al menos 8 caracteres y contener una mayúscula, una minúscula y un número', (value) => {
+      if (!value) return true // Opcional
+      return value.length >= 8 && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)
+    }),
   
   direccion: yup
     .string()

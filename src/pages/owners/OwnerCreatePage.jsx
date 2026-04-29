@@ -95,7 +95,23 @@ function OwnerCreatePage() {
                   error={errors.email?.message}
                   placeholder="ejemplo@correo.com"
                   leftIcon={Icons.Mail}
+                  required
                 />
+              </div>
+
+              <div className="sm:col-span-2">
+                <Input
+                  label="Contraseña"
+                  type="password"
+                  {...register('password')}
+                  error={errors.password?.message}
+                  placeholder="Mínimo 8 caracteres, incluir mayúscula, minúscula y número"
+                  leftIcon={Icons.Lock}
+                  required
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  La contraseña permitirá al propietario acceder al sistema para ver sus mascotas y citas
+                </p>
               </div>
 
               <div className="sm:col-span-2">

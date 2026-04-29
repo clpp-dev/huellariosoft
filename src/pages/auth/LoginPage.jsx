@@ -18,6 +18,10 @@ const loginSchema = yup.object({
     .string()
     .min(6, 'La contraseña debe tener al menos 6 caracteres')
     .required('La contraseña es requerida'),
+  tipoUsuario: yup
+    .string()
+    .oneOf(['empleado', 'propietario'], 'Tipo de usuario inválido')
+    .required('Selecciona el tipo de usuario'),
 })
 
 function LoginPage() {
@@ -35,6 +39,7 @@ function LoginPage() {
     defaultValues: {
       email: '',
       password: '',
+      tipoUsuario: 'empleado',
     },
   })
 
@@ -68,6 +73,46 @@ function LoginPage() {
 
       {/* Formulario */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        {/* Tipo de Usuario */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Tipo de Usuario
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <label className="relative flex items-center justify-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all hover:border-primary-500">
+              <input
+                type="radio"
+                value="empleado"
+                {...register('tipoUsuario')}
+                className="sr-only peer"
+              />
+              <div className="flex items-center space-x-2 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
+                <Icons.Briefcase className="w-5 h-5" />
+                <span className="font-medium">Empleado</span>
+              </div>
+              <div className="absolute inset-0 rounded-lg border-2 border-transparent peer-checked:border-primary-600 dark:peer-checked:border-primary-400 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 pointer-events-none"></div>
+            </label>
+            <label className="relative flex items-center justify-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all hover:border-primary-500">
+              <input
+                type="radio"
+                value="propietario"
+                {...register('tipoUsuario')}
+                className="sr-only peer"
+              />
+              <div className="flex items-center space-x-2 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
+                <Icons.User className="w-5 h-5" />
+                <span className="font-medium">Propietario</span>
+              </div>
+              <div className="absolute inset-0 rounded-lg border-2 border-transparent peer-checked:border-primary-600 dark:peer-checked:border-primary-400 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 pointer-events-none"></div>
+            </label>
+          </div>
+          {errors.tipoUsuario && (
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+              {errors.tipoUsuario.message}
+            </p>
+          )}
+        </div>
+
         {/* Email */}
         <Input
           label="Correo electrónico"
