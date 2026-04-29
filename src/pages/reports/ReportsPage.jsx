@@ -225,8 +225,7 @@ function ReportsPage() {
                   type="date"
                   value={facturacionDates.fechaFin}
                   onChange={(e) => setFacturacionDates({ ...facturacionDates, fechaFin: e.target.value })}
-                  min={facturacionDates.fechaInicio}
-                  max={format(new Date(), 'yyyy-MM-dd')}
+                  // min={facturacionDates.fechaInicio}
                 />
               </div>
               <div className="flex space-x-2">
@@ -289,8 +288,7 @@ function ReportsPage() {
                   type="date"
                   value={citasDates.fechaFin}
                   onChange={(e) => setCitasDates({ ...citasDates, fechaFin: e.target.value })}
-                  min={citasDates.fechaInicio}
-                  max={format(new Date(), 'yyyy-MM-dd')}
+                  // min={citasDates.fechaInicio}
                 />
               </div>
               <div className="flex space-x-2">
@@ -353,8 +351,7 @@ function ReportsPage() {
                   type="date"
                   value={mascotasDates.fechaFin}
                   onChange={(e) => setMascotasDates({ ...mascotasDates, fechaFin: e.target.value })}
-                  min={mascotasDates.fechaInicio}
-                  max={format(new Date(), 'yyyy-MM-dd')}
+                  // min={mascotasDates.fechaInicio}
                 />
               </div>
               <div className="flex space-x-2">
@@ -418,7 +415,7 @@ function ReportsPage() {
             )}
 
             {activeReport === 'citas' && citasPreview && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <p className="text-sm text-gray-600 dark:text-gray-400">Total Citas</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -426,45 +423,21 @@ function ReportsPage() {
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Pendientes</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Programadas</p>
                   <p className="text-2xl font-bold text-yellow-600">
-                    {citasPreview.pendientes || 0}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Agendadas</p>
-                  <p className="text-2xl font-bold text-orange-600">
-                    {citasPreview.agendadas || 0}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Confirmadas</p>
-                  <p className="text-2xl font-bold text-blue-600">
-                    {citasPreview.confirmadas}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">En Curso</p>
-                  <p className="text-2xl font-bold text-indigo-600">
-                    {citasPreview.enCurso || 0}
+                    {citasPreview.programadas || 0}
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <p className="text-sm text-gray-600 dark:text-gray-400">Completadas</p>
                   <p className="text-2xl font-bold text-green-600">
-                    {citasPreview.completadas}
+                    {citasPreview.completadas || 0}
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <p className="text-sm text-gray-600 dark:text-gray-400">Canceladas</p>
                   <p className="text-2xl font-bold text-red-600">
-                    {citasPreview.canceladas}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">No Asistió</p>
-                  <p className="text-2xl font-bold text-gray-500">
-                    {citasPreview.noAsistio || 0}
+                    {citasPreview.canceladas || 0}
                   </p>
                 </div>
               </div>

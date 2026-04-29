@@ -117,14 +117,16 @@ function AppointmentsPage() {
 
   const getStatusBadge = (estado) => {
     const variants = {
-      'Programada': 'default',
-      'Confirmada': 'info',
-      'En_Curso': 'warning',
-      'Completada': 'success',
-      'Cancelada': 'danger',
-      'No_Asistio': 'danger'
+      'programada': 'warning',
+      'completada': 'success',
+      'cancelada': 'danger'
     }
-    return <Badge variant={variants[estado] || 'default'}>{estado.replace('_', ' ')}</Badge>
+    const labels = {
+      'programada': 'Programada',
+      'completada': 'Completada',
+      'cancelada': 'Cancelada'
+    }
+    return <Badge variant={variants[estado] || 'default'}>{labels[estado] || estado}</Badge>
   }
 
   const columns = [
@@ -189,11 +191,11 @@ function AppointmentsPage() {
             size="sm"
             onClick={() => navigate(`/appointments/${row._id}/edit`)}
             leftIcon={Icons.Edit}
-            disabled={row.estado === 'Completada' || row.estado === 'Cancelada'}
+            disabled={row.estado === 'completada' || row.estado === 'cancelada'}
           >
             Editar
           </Button>
-          {row.estado !== 'Completada' && row.estado !== 'Cancelada' && (
+          {row.estado !== 'completada' && row.estado !== 'cancelada' && (
             <Button
               variant="ghost"
               size="sm"
@@ -203,7 +205,7 @@ function AppointmentsPage() {
               Estado
             </Button>
           )}
-          {row.estado !== 'Cancelada' && row.estado !== 'Completada' && (
+          {row.estado !== 'cancelada' && row.estado !== 'completada' && (
             <Button
               variant="ghost"
               size="sm"
@@ -251,12 +253,9 @@ function AppointmentsPage() {
               onChange={(e) => handleFilterChange('estado', e.target.value)}
               options={[
                 { value: '', label: 'Todos los estados' },
-                { value: 'Programada', label: 'Programada' },
-                { value: 'Confirmada', label: 'Confirmada' },
-                { value: 'En_Curso', label: 'En Curso' },
-                { value: 'Completada', label: 'Completada' },
-                { value: 'Cancelada', label: 'Cancelada' },
-                { value: 'No_Asistio', label: 'No Asistió' }
+                { value: 'programada', label: 'Programada' },
+                { value: 'completada', label: 'Completada' },
+                { value: 'cancelada', label: 'Cancelada' }
               ]}
             />
             <Input
@@ -292,7 +291,7 @@ function AppointmentsPage() {
         <div className="p-6">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Cambiar Estado de Cita</h3>
           <div className="space-y-2">
-            {['Programada', 'Confirmada', 'En_Curso', 'Completada', 'No_Asistio'].map((estado) => (
+            {['programada', 'completada', 'cancelada'].map((estado) => (
               <button
                 key={estado}
                 onClick={() => handleStatusChange(estado)}
