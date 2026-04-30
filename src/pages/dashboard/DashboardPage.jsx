@@ -460,8 +460,8 @@ function DashboardPage() {
               </Link>
             )}
 
-            {/* Nuevo Cliente - Solo para Admin, Recepcionista */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST]) && (
+            {/* Nuevo Cliente - Admin, Recepcionista, Veterinario */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
               <Link
                 to="/owners/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
@@ -473,8 +473,8 @@ function DashboardPage() {
               </Link>
             )}
 
-            {/* Nueva Factura - Solo para Admin, Recepcionista */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST]) && (
+            {/* Nueva Factura - Admin, Recepcionista, Veterinario */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
               <Link
                 to="/invoices/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
