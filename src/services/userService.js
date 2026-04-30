@@ -19,6 +19,14 @@ export const userService = {
   },
 
   /**
+   * Obtiene usuarios por rol
+   */
+  async getByRole(role) {
+    const response = await httpClient.get(`/users/role/${role}`)
+    return response.data
+  },
+
+  /**
    * Crea un nuevo usuario
    */
   async create(data) {
