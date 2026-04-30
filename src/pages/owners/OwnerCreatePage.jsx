@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,6 +13,7 @@ import { toast } from 'sonner'
 
 function OwnerCreatePage() {
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
   
   const {
     register,
@@ -102,11 +104,13 @@ function OwnerCreatePage() {
               <div className="sm:col-span-2">
                 <Input
                   label="Contraseña"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   {...register('password')}
                   error={errors.password?.message}
                   placeholder="Mínimo 8 caracteres, incluir mayúscula, minúscula y número"
                   leftIcon={Icons.Lock}
+                  rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
+                  onRightIconClick={() => setShowPassword(!showPassword)}
                   required
                 />
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">

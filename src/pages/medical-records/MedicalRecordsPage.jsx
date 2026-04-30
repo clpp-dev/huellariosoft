@@ -9,12 +9,15 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import medicalRecordService from '@services/medicalRecordService'
 import { toast } from 'sonner'
 import useDebounce from '@hooks/useDebounce'
 
 function MedicalRecordsPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -153,15 +156,17 @@ function MedicalRecordsPage() {
           >
             Ver
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleDeleteClick(row._id)}
-            leftIcon={Icons.Trash}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            Eliminar
-          </Button>
+          {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteClick(row._id)}
+              leftIcon={Icons.Trash}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Eliminar
+            </Button>
+          )}
         </div>
       )
     }
@@ -176,11 +181,13 @@ function MedicalRecordsPage() {
             Gestiona los registros médicos de las mascotas
           </p>
         </div>
-        <Link to="/medical-records/create">
-          <Button leftIcon={Icons.Plus}>
-            Nueva Consulta
-          </Button>
-        </Link>
+        {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
+          <Link to="/medical-records/create">
+            <Button leftIcon={Icons.Plus}>
+              Nueva Consulta
+            </Button>
+          </Link>
+        )}
       </div>
 
       <Card>

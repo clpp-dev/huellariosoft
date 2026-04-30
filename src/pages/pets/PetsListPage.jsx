@@ -8,12 +8,15 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import petService from '@services/petService'
 import { toast } from 'sonner'
 import useDebounce from '@hooks/useDebounce'
 
 function PetsListPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [pets, setPets] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -173,23 +176,27 @@ function PetsListPage() {
           >
             Ver
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate(`/pets/${row._id}/edit`)}
-            leftIcon={Icons.Edit}
-          >
-            Editar
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleDeleteClick(row._id)}
-            leftIcon={Icons.Trash}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            Eliminar
-          </Button>
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate(`/pets/${row._id}/edit`)}
+                leftIcon={Icons.Edit}
+              >
+                Editar
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleDeleteClick(row._id)}
+                leftIcon={Icons.Trash}
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                Eliminar
+              </Button>
+            </>
+          )}
         </div>
       )
     }
@@ -204,11 +211,13 @@ function PetsListPage() {
             Gestiona los animales registrados en la veterinaria
           </p>
         </div>
-        <Link to="/pets/create">
-          <Button leftIcon={Icons.Plus}>
-            Nueva Mascota
-          </Button>
-        </Link>
+        {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+          <Link to="/pets/create">
+            <Button leftIcon={Icons.Plus}>
+              Nueva Mascota
+            </Button>
+          </Link>
+        )}
       </div>
 
       <Card>

@@ -4,6 +4,7 @@ export const ROLES = {
   VETERINARIAN: 'veterinario',
   RECEPTIONIST: 'recepcionista',
   AUXILIARY: 'auxiliar',
+  OWNER: 'propietario', // Para propietarios que acceden al sistema
 }
 
 // Etiquetas legibles de roles
@@ -12,6 +13,7 @@ export const ROLE_LABELS = {
   [ROLES.VETERINARIAN]: 'Veterinario',
   [ROLES.RECEPTIONIST]: 'Recepcionista',
   [ROLES.AUXILIARY]: 'Auxiliar',
+  [ROLES.OWNER]: 'Propietario',
 }
 
 // Estados de citas

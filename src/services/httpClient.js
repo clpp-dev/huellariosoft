@@ -72,8 +72,8 @@ class HttpClient {
       // Limpiar timeout si la petición fue exitosa
       clearTimeout(timeoutId)
 
-      // Si es 401, intentar refresh del token
-      if (response.status === 401) {
+      // Si es 401, intentar refresh del token (excepto en login)
+      if (response.status === 401 && !endpoint.includes('/auth/login')) {
         return this.handleUnauthorized(endpoint, config, isBlob)
       }
 

@@ -151,11 +151,18 @@ export function AuthProvider({ children }) {
 
   /**
    * Verifica si el usuario tiene alguno de los roles especificados
-   * @param {string[]} roles - Array de roles
+   * @param {string[]} roles - Array de roles (puede incluir 'propietario')
    * @returns {boolean} - True si tiene alguno de los roles
    */
   const hasAnyRole = (roles) => {
     if (!user) return false
+    
+    // Si el usuario es propietario (tipoUsuario === 'propietario')
+    if (user.tipoUsuario === 'propietario') {
+      return roles.includes('propietario')
+    }
+    
+    // Si el usuario es empleado (tiene rol)
     return roles.some(role => user.rol === role)
   }
 

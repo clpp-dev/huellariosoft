@@ -6,12 +6,12 @@ import Spinner from '@components/ui/Spinner'
 import { Icons } from '@constants/icons'
 import { formatCurrency, formatTimeToAMPM } from '@utils/formatters'
 import { formatDate } from '@utils/dateUtils'
-import { ROLE_LABELS } from '@constants/enums'
+import { ROLE_LABELS, ROLES } from '@constants/enums'
 import dashboardService from '@services/dashboardService'
 import { toast } from 'sonner'
 
 function DashboardPage() {
-  const { user } = useAuth()
+  const { user, hasAnyRole } = useAuth()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
@@ -434,45 +434,57 @@ function DashboardPage() {
         </Card.Header>
         <Card.Content>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Link
-              to="/appointments/create"
-              className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-            >
-              <Icons.Calendar className="h-8 w-8 text-primary-600 dark:text-primary-400 mb-2" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                Nueva Cita
-              </span>
-            </Link>
+            {/* Nueva Cita - Accesible para todos los roles */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.OWNER]) && (
+              <Link
+                to="/appointments/create"
+                className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
+              >
+                <Icons.Calendar className="h-8 w-8 text-primary-600 dark:text-primary-400 mb-2" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Nueva Cita
+                </span>
+              </Link>
+            )}
 
-            <Link
-              to="/pets/create"
-              className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-            >
-              <Icons.PawPrint className="h-8 w-8 text-purple-600 dark:text-purple-400 mb-2" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                Nueva Mascota
-              </span>
-            </Link>
+            {/* Nueva Mascota - Solo para Admin, Recepcionista, Veterinario */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+              <Link
+                to="/pets/create"
+                className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
+              >
+                <Icons.PawPrint className="h-8 w-8 text-purple-600 dark:text-purple-400 mb-2" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Nueva Mascota
+                </span>
+              </Link>
+            )}
 
-            <Link
-              to="/owners/create"
-              className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-            >
-              <Icons.Users className="h-8 w-8 text-yellow-600 dark:text-yellow-400 mb-2" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                Nuevo Cliente
-              </span>
-            </Link>
+            {/* Nuevo Cliente - Solo para Admin, Recepcionista */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST]) && (
+              <Link
+                to="/owners/create"
+                className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
+              >
+                <Icons.Users className="h-8 w-8 text-yellow-600 dark:text-yellow-400 mb-2" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Nuevo Cliente
+                </span>
+              </Link>
+            )}
 
-            <Link
-              to="/invoices/create"
-              className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-            >
-              <Icons.Receipt className="h-8 w-8 text-green-600 dark:text-green-400 mb-2" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                Nueva Factura
-              </span>
-            </Link>
+            {/* Nueva Factura - Solo para Admin, Recepcionista */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST]) && (
+              <Link
+                to="/invoices/create"
+                className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
+              >
+                <Icons.Receipt className="h-8 w-8 text-green-600 dark:text-green-400 mb-2" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Nueva Factura
+                </span>
+              </Link>
+            )}
           </div>
         </Card.Content>
       </Card>

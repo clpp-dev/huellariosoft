@@ -5,12 +5,15 @@ import Button from '@components/ui/Button'
 import Badge from '@components/ui/Badge'
 import Spinner from '@components/ui/Spinner'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import petService from '@services/petService'
 import { toast } from 'sonner'
 
 function PetDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [loading, setLoading] = useState(true)
   const [pet, setPet] = useState(null)
 
@@ -77,13 +80,15 @@ function PetDetailPage() {
           </div>
         </div>
         <div className="flex items-center space-x-3">
-          <Button
-            variant="outline"
-            onClick={() => navigate(`/pets/${id}/edit`)}
-            leftIcon={Icons.Edit}
-          >
-            Editar
-          </Button>
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            <Button
+              variant="outline"
+              onClick={() => navigate(`/pets/${id}/edit`)}
+              leftIcon={Icons.Edit}
+            >
+              Editar
+            </Button>
+          )}
           <Badge variant={pet.activo ? 'success' : 'danger'}>
             {pet.activo ? 'Activo' : 'Inactivo'}
           </Badge>

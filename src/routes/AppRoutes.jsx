@@ -149,9 +149,11 @@ function AppRoutes() {
         path="/owners"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <OwnersListPage />
-            </DashboardLayout>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
+              <DashboardLayout>
+                <OwnersListPage />
+              </DashboardLayout>
+            </RoleGuard>
           </ProtectedRoute>
         }
       />
@@ -183,9 +185,11 @@ function AppRoutes() {
         path="/owners/:id"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <OwnerDetailPage />
-            </DashboardLayout>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
+              <DashboardLayout>
+                <OwnerDetailPage />
+              </DashboardLayout>
+            </RoleGuard>
           </ProtectedRoute>
         }
       />
@@ -251,7 +255,7 @@ function AppRoutes() {
         path="/appointments/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.OWNER]}>
               <DashboardLayout>
                 <AppointmentCreatePage />
               </DashboardLayout>
@@ -277,7 +281,7 @@ function AppRoutes() {
         path="/medical-records"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.VETERINARIAN, ROLES.OWNER]}>
               <DashboardLayout>
                 <MedicalRecordsPage />
               </DashboardLayout>
@@ -301,7 +305,7 @@ function AppRoutes() {
         path="/medical-records/:id"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.VETERINARIAN, ROLES.OWNER]}>
               <DashboardLayout>
                 <MedicalRecordDetailPage />
               </DashboardLayout>
@@ -315,9 +319,11 @@ function AppRoutes() {
         path="/inventory"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <InventoryListPage />
-            </DashboardLayout>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
+              <DashboardLayout>
+                <InventoryListPage />
+              </DashboardLayout>
+            </RoleGuard>
           </ProtectedRoute>
         }
       />
@@ -351,9 +357,11 @@ function AppRoutes() {
         path="/invoices"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <InvoicesListPage />
-            </DashboardLayout>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
+              <DashboardLayout>
+                <InvoicesListPage />
+              </DashboardLayout>
+            </RoleGuard>
           </ProtectedRoute>
         }
       />
@@ -373,9 +381,11 @@ function AppRoutes() {
         path="/invoices/:id"
         element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <InvoiceDetailPage />
-            </DashboardLayout>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
+              <DashboardLayout>
+                <InvoiceDetailPage />
+              </DashboardLayout>
+            </RoleGuard>
           </ProtectedRoute>
         }
       />

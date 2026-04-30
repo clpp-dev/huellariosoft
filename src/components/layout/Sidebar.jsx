@@ -29,7 +29,7 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
       name: 'Propietarios',
       href: '/owners',
       icon: Icons.Users,
-      roles: Object.values(ROLES),
+      roles: [ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY],
     },
     {
       name: 'Mascotas',
@@ -41,19 +41,19 @@ function Sidebar({ open, collapsed, onOpenChange, onCollapsedChange }) {
       name: 'Historia Clínica',
       href: '/medical-records',
       icon: Icons.FileText,
-      roles: [ROLES.ADMIN, ROLES.VETERINARIAN],
+      roles: [ROLES.ADMIN, ROLES.VETERINARIAN, ROLES.OWNER],
     },
     {
       name: 'Inventario',
       href: '/inventory',
       icon: Icons.Package,
-      roles: Object.values(ROLES),
+      roles: [ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY],
     },
     {
       name: 'Facturación',
       href: '/invoices',
       icon: Icons.Receipt,
-      roles: Object.values(ROLES),
+      roles: [ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY],
     },
     {
       name: 'Reportes',

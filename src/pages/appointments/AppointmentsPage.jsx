@@ -10,6 +10,8 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import appointmentService from '@services/appointmentService'
 import { formatTimeToAMPM } from '@utils/formatters'
 import { toast } from 'sonner'
@@ -17,6 +19,7 @@ import useDebounce from '@hooks/useDebounce'
 
 function AppointmentsPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [appointments, setAppointments] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -186,24 +189,28 @@ function AppointmentsPage() {
       accessor: '_id',
       render: (row) => (
         <div className="flex items-center space-x-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate(`/appointments/${row._id}/edit`)}
-            leftIcon={Icons.Edit}
-            disabled={row.estado === 'completada' || row.estado === 'cancelada'}
-          >
-            Editar
-          </Button>
-          {row.estado !== 'completada' && row.estado !== 'cancelada' && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setStatusModal({ open: true, appointmentId: row._id, currentStatus: row.estado })}
-              leftIcon={Icons.CheckCircle}
-            >
-              Estado
-            </Button>
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate(`/appointments/${row._id}/edit`)}
+                leftIcon={Icons.Edit}
+                disabled={row.estado === 'completada' || row.estado === 'cancelada'}
+              >
+                Editar
+              </Button>
+              {row.estado !== 'completada' && row.estado !== 'cancelada' && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setStatusModal({ open: true, appointmentId: row._id, currentStatus: row.estado })}
+                  leftIcon={Icons.CheckCircle}
+                >
+                  Estado
+                </Button>
+              )}
+            </>
           )}
           {row.estado !== 'cancelada' && row.estado !== 'completada' && (
             <Button
