@@ -79,14 +79,14 @@ export const dashboardService = {
     const ahora = new Date()
     const primerDia = new Date(ahora.getFullYear(), ahora.getMonth(), 1)
     const ultimoDia = new Date(ahora.getFullYear(), ahora.getMonth() + 1, 0)
-
-    const fechaInicio = primerDia.toISOString().split('T')[0]
-    const fechaFin = ultimoDia.toISOString().split('T')[0]
+    
+    // Ajustar la fecha final al último momento del día para incluir todas las facturas
+    ultimoDia.setHours(23, 59, 59, 999)
 
     try {
       const response = await httpClient.get('/facturas/estadisticas', {
-        fechaInicio,
-        fechaFin
+        fechaInicio: primerDia.toISOString(),
+        fechaFin: ultimoDia.toISOString()
       })
       return {
         total: response.data?.totalFacturado || 0,

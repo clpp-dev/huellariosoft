@@ -74,6 +74,9 @@ function InvoicesListPage() {
       const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
       const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
       
+      // Ajustar la fecha final al último momento del día para incluir todas las facturas
+      lastDay.setHours(23, 59, 59, 999)
+      
       const stats = await invoiceService.getStats(
         firstDay.toISOString(),
         lastDay.toISOString()
