@@ -173,7 +173,7 @@ function AppRoutes() {
         path="/owners/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
               <DashboardLayout>
                 <OwnerCreatePage />
               </DashboardLayout>
@@ -185,7 +185,7 @@ function AppRoutes() {
         path="/owners/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
               <DashboardLayout>
                 <OwnerEditPage />
               </DashboardLayout>

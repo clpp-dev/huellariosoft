@@ -7,12 +7,15 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import ownerService from '@services/ownerService'
 import { toast } from 'sonner'
 import useDebounce from '@hooks/useDebounce'
 
 function OwnersListPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [owners, setOwners] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -148,15 +151,17 @@ function OwnersListPage() {
           >
             Editar
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleDeleteClick(row._id)}
-            leftIcon={Icons.Trash}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            Eliminar
-          </Button>
+          {hasAnyRole([ROLES.ADMIN]) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteClick(row._id)}
+              leftIcon={Icons.Trash}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Eliminar
+            </Button>
+          )}
         </div>
       )
     }
@@ -171,11 +176,13 @@ function OwnersListPage() {
             Gestiona los clientes de la veterinaria
           </p>
         </div>
-        <Link to="/owners/create">
-          <Button leftIcon={Icons.Plus}>
-            Nuevo Propietario
-          </Button>
-        </Link>
+        {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+          <Link to="/owners/create">
+            <Button leftIcon={Icons.Plus}>
+              Nuevo Propietario
+            </Button>
+          </Link>
+        )}
       </div>
 
       <Card>
