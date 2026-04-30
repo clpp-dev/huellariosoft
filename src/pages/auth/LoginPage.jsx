@@ -79,31 +79,29 @@ function LoginPage() {
             Tipo de Usuario
           </label>
           <div className="grid grid-cols-2 gap-3">
-            <label className="relative flex items-center justify-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all hover:border-primary-500">
+            <label className="relative flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer transition-all hover:border-primary-500 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:border-primary-400 dark:has-[:checked]:bg-primary-900/20">
               <input
                 type="radio"
                 value="empleado"
                 {...register('tipoUsuario')}
                 className="sr-only peer"
               />
-              <div className="flex items-center space-x-2 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
+              <div className="relative z-10 flex items-center space-x-2 text-gray-700 dark:text-gray-300 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
                 <Icons.Briefcase className="w-5 h-5" />
                 <span className="font-medium">Empleado</span>
               </div>
-              <div className="absolute inset-0 rounded-lg border-2 border-transparent peer-checked:border-primary-600 dark:peer-checked:border-primary-400 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 pointer-events-none"></div>
             </label>
-            <label className="relative flex items-center justify-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all hover:border-primary-500">
+            <label className="relative flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer transition-all hover:border-primary-500 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 dark:has-[:checked]:border-primary-400 dark:has-[:checked]:bg-primary-900/20">
               <input
                 type="radio"
                 value="propietario"
                 {...register('tipoUsuario')}
                 className="sr-only peer"
               />
-              <div className="flex items-center space-x-2 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
+              <div className="relative z-10 flex items-center space-x-2 text-gray-700 dark:text-gray-300 peer-checked:text-primary-600 dark:peer-checked:text-primary-400">
                 <Icons.User className="w-5 h-5" />
                 <span className="font-medium">Propietario</span>
               </div>
-              <div className="absolute inset-0 rounded-lg border-2 border-transparent peer-checked:border-primary-600 dark:peer-checked:border-primary-400 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900/20 pointer-events-none"></div>
             </label>
           </div>
           {errors.tipoUsuario && (
