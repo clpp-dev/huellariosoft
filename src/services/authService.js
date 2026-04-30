@@ -41,19 +41,21 @@ class AuthService {
   /**
    * Solicita recuperación de contraseña
    * @param {string} email - Email del usuario
+   * @param {string} tipoUsuario - 'empleado' o 'propietario'
    * @returns {Promise} - Confirmación
    */
-  async forgotPassword(email) {
-    return httpClient.post('/auth/forgot-password', { email })
+  async forgotPassword(email, tipoUsuario = 'empleado') {
+    return httpClient.post('/auth/forgot-password', { email, tipoUsuario })
   }
 
   /**
    * Restablece la contraseña
-   * @param {Object} data - Token y nueva contraseña
+   * @param {string} token - Token de recuperación
+   * @param {string} newPassword - Nueva contraseña
    * @returns {Promise} - Confirmación
    */
-  async resetPassword(data) {
-    return httpClient.post('/auth/reset-password', data)
+  async resetPassword(token, newPassword) {
+    return httpClient.post('/auth/reset-password', { token, newPassword })
   }
 
   /**

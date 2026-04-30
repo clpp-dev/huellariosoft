@@ -9,6 +9,7 @@ import DashboardLayout from '@components/layout/DashboardLayout'
 // Páginas de autenticación
 import LoginPage from '@pages/auth/LoginPage'
 import ForgotPasswordPage from '@pages/auth/ForgotPasswordPage'
+import ResetPasswordPage from '@pages/auth/ResetPasswordPage'
 
 // Páginas principales
 import DashboardPage from '@pages/dashboard/DashboardPage'
@@ -77,6 +78,16 @@ function AppRoutes() {
           <PublicRoute>
             <AuthLayout>
               <ForgotPasswordPage />
+            </AuthLayout>
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <PublicRoute>
+            <AuthLayout>
+              <ResetPasswordPage />
             </AuthLayout>
           </PublicRoute>
         }
