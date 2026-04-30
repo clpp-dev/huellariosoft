@@ -184,32 +184,32 @@ function InvoiceCreatePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-0">
       <div>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => navigate('/invoices')}
           leftIcon={Icons.ArrowLeft}
-          className="mb-4"
+          className="mb-3 sm:mb-4"
         >
           Volver
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Nueva Factura</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Nueva Factura</h1>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Crea una nueva factura de servicios y productos
         </p>
       </div>
 
       <Card>
-        <Card.Content className="p-6">
+        <Card.Content className="p-4 sm:p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Cliente */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Información del Cliente
               </h3>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <Controller
                   name="propietario"
                   control={control}
@@ -256,7 +256,7 @@ function InvoiceCreatePage() {
 
             {/* Items */}
             <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                   Servicios / Productos
                 </h3>
@@ -273,6 +273,7 @@ function InvoiceCreatePage() {
                     producto: ''
                   })}
                   leftIcon={Icons.Plus}
+                  className="w-full sm:w-auto"
                 >
                   Agregar Ítem
                 </Button>
@@ -280,11 +281,11 @@ function InvoiceCreatePage() {
 
               <div className="space-y-4">
                 {fields.map((field, index) => (
-                  <div key={field.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <div key={field.id} className="p-3 sm:p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div className="space-y-4">
-                      {/* Selector de tipo */}
-                      <div className="grid grid-cols-12 gap-4">
-                        <div className="col-span-3">
+                      {/* Fila 1: Tipo y Descripción/Producto */}
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                        <div className="sm:col-span-12 md:col-span-3">
                           <Controller
                             name={`items.${index}.tipoItem`}
                             control={control}
@@ -298,14 +299,14 @@ function InvoiceCreatePage() {
                                 }}
                                 options={[
                                   { value: 'servicio', label: '🏥 Servicio' },
-                                  { value: 'producto', label: '📦 Producto de Inventario' }
+                                  { value: 'producto', label: '📦 Producto' }
                                 ]}
                               />
                             )}
                           />
                         </div>
 
-                        <div className="col-span-7">
+                        <div className="sm:col-span-12 md:col-span-9">
                           {watchItems[index]?.tipoItem === 'producto' ? (
                             <Controller
                               name={`items.${index}.producto`}
@@ -325,7 +326,9 @@ function InvoiceCreatePage() {
                                       .filter(p => p.cantidad > 0)
                                       .map(product => ({
                                         value: product._id,
-                                        label: `${product.nombre} - Stock: ${product.cantidad} ${product.unidadMedida} - $${product.precioVenta.toLocaleString('es-CO')}`
+                                        label: window.innerWidth < 640 
+                                          ? `${product.nombre} - ${product.cantidad}u` 
+                                          : `${product.nombre} - Stock: ${product.cantidad} - $${product.precioVenta.toLocaleString('es-CO')}`
                                       }))
                                   ]}
                                   required
@@ -337,58 +340,46 @@ function InvoiceCreatePage() {
                               label="Descripción del Servicio"
                               {...register(`items.${index}.descripcion`)}
                               error={errors.items?.[index]?.descripcion?.message}
-                              placeholder="Ej: Consulta general, Vacunación"
+                              placeholder="Ej: Consulta general"
                               required
                             />
                           )}
                         </div>
-
-                        <div className="col-span-2 flex items-end">
-                          {fields.length > 1 && (
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => remove(index)}
-                              className="text-red-600 hover:text-red-700 hover:bg-red-50 w-full"
-                            >
-                              <Icons.Trash className="w-4 h-4" />
-                            </Button>
-                          )}
-                        </div>
                       </div>
 
-                      {/* Campos de cantidad y precio */}
-                      <div className="grid grid-cols-12 gap-4">
-                        <div className="col-span-3">
-                          <Controller
-                            name={`items.${index}.tipo`}
-                            control={control}
-                            render={({ field: tipoField }) => (
-                              <Select
-                                label="Categoría"
-                                {...tipoField}
-                                options={
-                                  watchItems[index]?.tipoItem === 'producto'
-                                    ? [{ value: 'producto', label: 'Producto' }]
-                                    : [
-                                        { value: 'consulta', label: 'Consulta' },
-                                        { value: 'cirugia', label: 'Cirugía' },
-                                        { value: 'vacunacion', label: 'Vacunación' },
-                                        { value: 'desparasitacion', label: 'Desparasitación' },
-                                        { value: 'examen', label: 'Examen' },
-                                        { value: 'hospitalizacion', label: 'Hospitalización' },
-                                        { value: 'estetica', label: 'Estética' },
-                                        { value: 'otro', label: 'Otro' }
-                                      ]
-                                }
-                                disabled={watchItems[index]?.tipoItem === 'producto'}
-                                required
-                              />
-                            )}
-                          />
-                        </div>
-                        <div className="col-span-2">
+                      {/* Fila 2: Categoría */}
+                      <div>
+                        <Controller
+                          name={`items.${index}.tipo`}
+                          control={control}
+                          render={({ field: tipoField }) => (
+                            <Select
+                              label="Categoría"
+                              {...tipoField}
+                              options={
+                                watchItems[index]?.tipoItem === 'producto'
+                                  ? [{ value: 'producto', label: 'Producto' }]
+                                  : [
+                                      { value: 'consulta', label: 'Consulta' },
+                                      { value: 'cirugia', label: 'Cirugía' },
+                                      { value: 'vacunacion', label: 'Vacunación' },
+                                      { value: 'desparasitacion', label: 'Desparasitación' },
+                                      { value: 'examen', label: 'Examen' },
+                                      { value: 'hospitalizacion', label: 'Hospitalización' },
+                                      { value: 'estetica', label: 'Estética' },
+                                      { value: 'otro', label: 'Otro' }
+                                    ]
+                              }
+                              disabled={watchItems[index]?.tipoItem === 'producto'}
+                              required
+                            />
+                          )}
+                        />
+                      </div>
+
+                      {/* Fila 3: Cantidad y Precio Unit. en mobile, grid completo en desktop */}
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div className="col-span-1 lg:col-span-1">
                           <Input
                             label="Cantidad"
                             type="number"
@@ -399,7 +390,7 @@ function InvoiceCreatePage() {
                             required
                           />
                         </div>
-                        <div className="col-span-3">
+                        <div className="col-span-1 lg:col-span-2">
                           <Input
                             label="Precio Unit."
                             type="number"
@@ -413,10 +404,10 @@ function InvoiceCreatePage() {
                             required
                           />
                         </div>
-                        <div className="col-span-4 flex items-end">
-                          <div className="flex-1 p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div className="col-span-2 lg:col-span-2">
+                          <div className="p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 h-full flex flex-col justify-end">
                             <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Subtotal</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                            <p className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                               ${((watchItems[index]?.cantidad || 0) * (watchItems[index]?.precioUnitario || 0)).toLocaleString('es-CO')}
                             </p>
                           </div>
@@ -445,6 +436,22 @@ function InvoiceCreatePage() {
                         }
                         return null
                       })()}
+
+                      {/* Botón eliminar al final */}
+                      {fields.length > 1 && (
+                        <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => remove(index)}
+                            className="text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 w-full"
+                          >
+                            <Icons.Trash className="w-4 h-4 mr-2" />
+                            Eliminar
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -454,7 +461,7 @@ function InvoiceCreatePage() {
             {/* Totales */}
             <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <div className="space-y-4">
+                <div className="space-y-4 order-2 lg:order-1">
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                     Ajustes
                   </h3>
@@ -487,9 +494,9 @@ function InvoiceCreatePage() {
                   />
                 </div>
 
-                <div>
+                <div className="order-1 lg:order-2">
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Resumen</h3>
-                  <div className="space-y-3 p-6 bg-gradient-to-br from-primary-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border border-primary-200 dark:border-gray-700">
+                  <div className="space-y-3 p-4 sm:p-6 bg-gradient-to-br from-primary-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border border-primary-200 dark:border-gray-700">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-700 dark:text-gray-300">Subtotal</span>
                       <span className="font-semibold text-gray-900 dark:text-white">${totals.subtotal.toLocaleString('es-CO')}</span>
@@ -506,7 +513,7 @@ function InvoiceCreatePage() {
                         <span className="font-semibold text-gray-900 dark:text-white">${totals.impuestos.toLocaleString('es-CO')}</span>
                       </div>
                     )}
-                    <div className="flex justify-between text-xl font-bold border-t-2 border-primary-300 dark:border-gray-600 pt-3 mt-3">
+                    <div className="flex justify-between text-lg sm:text-xl font-bold border-t-2 border-primary-300 dark:border-gray-600 pt-3 mt-3">
                       <span className="text-gray-900 dark:text-white">Total</span>
                       <span className="text-primary-600 dark:text-primary-400">${totals.total.toLocaleString('es-CO')}</span>
                     </div>
@@ -516,12 +523,13 @@ function InvoiceCreatePage() {
             </div>
 
             {/* Botones */}
-            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => navigate('/invoices')}
                 disabled={isSubmitting}
+                className="w-full sm:w-auto"
               >
                 Cancelar
               </Button>
@@ -529,6 +537,7 @@ function InvoiceCreatePage() {
                 type="submit"
                 loading={isSubmitting}
                 leftIcon={Icons.Save}
+                className="w-full sm:w-auto"
               >
                 Crear Factura
               </Button>
