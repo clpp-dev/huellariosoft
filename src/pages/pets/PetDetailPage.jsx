@@ -8,8 +8,6 @@ import { Icons } from '@constants/icons'
 import { ROLES } from '@constants/enums'
 import { useAuth } from '@context/AuthContext'
 import petService from '@services/petService'
-import medicalRecordService from '@services/medicalRecordService'
-import appointmentService from '@services/appointmentService'
 import { toast } from 'sonner'
 
 function PetDetailPage() {
@@ -18,14 +16,9 @@ function PetDetailPage() {
   const { hasAnyRole } = useAuth()
   const [loading, setLoading] = useState(true)
   const [pet, setPet] = useState(null)
-  const [medicalRecords, setMedicalRecords] = useState([])
-  const [appointments, setAppointments] = useState([])
-  const [loadingStats, setLoadingStats] = useState(true)
 
   useEffect(() => {
     loadPet()
-    loadMedicalRecords()
-    loadAppointments()
   }, [id])
 
   const loadPet = async () => {
@@ -39,26 +32,6 @@ function PetDetailPage() {
       navigate('/pets')
     } finally {
       setLoading(false)
-    }
-  }
-
-  const loadMedicalRecords = async () => {
-    try {
-      const records = await medicalRecordService.getByPet(id)
-      setMedicalRecords(records)
-    } catch (error) {
-      console.error('Error al cargar historias clínicas:', error)
-    } finally {
-      setLoadingStats(false)
-    }
-  }
-
-  const loadAppointments = async () => {
-    try {
-      const appointmentsData = await appointmentService.getByPet(id)
-      setAppointments(appointmentsData)
-    } catch (error) {
-      console.error('Error al cargar citas:', error)
     }
   }
 
@@ -235,7 +208,7 @@ function PetDetailPage() {
             <Card.Header>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Acciones</h2>
             </Card.Header>
-            <Card.Content className="p-6 space-y-3">
+            <Card.Content className="flex gap-3 p-6">
               <Link to={`/appointments/create?petId=${id}`}>
                 <Button fullWidth leftIcon={Icons.Calendar}>
                   Nueva Cita
@@ -243,120 +216,15 @@ function PetDetailPage() {
               </Link>
               {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
                 <Link to={`/medical-records/create?petId=${id}`}>
-                  <Button fullWidth variant="outline" leftIcon={Icons.FileText}>
+                  <Button fullWidth variant="outline" leftIcon={Icons.FileText} className="max-h-[40px]">
                     Nueva Historia Clínica
                   </Button>
                 </Link>
               )}
             </Card.Content>
           </Card>
-
-          {/* Resumen */}
-          <Card>
-            <Card.Header>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Resumen</h2>
-            </Card.Header>
-            <Card.Content className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-gray-800 rounded-lg">
-                  <div className="flex items-center">
-                    <Icons.Calendar className="w-5 h-5 text-blue-600 mr-3" />
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Citas</span>
-                  </div>
-                  <span className="text-lg font-bold text-blue-600">
-                    {loadingStats ? '...' : appointments.length}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-gray-800 rounded-lg">
-                  <div className="flex items-center">
-                    <Icons.FileText className="w-5 h-5 text-green-600 mr-3" />
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Historias</span>
-                  </div>
-                  <span className="text-lg font-bold text-green-600">
-                    {loadingStats ? '...' : medicalRecords.length}
-                  </span>
-                </div>
-              </div>
-            </Card.Content>
-          </Card>
         </div>
       </div>
-
-      {/* Historia Clínica */}
-      <Card>
-        <Card.Header>
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Historia Clínica</h2>
-            <Link to={`/medical-records?petId=${id}`}>
-              <Button size="sm" variant="outline">
-                Ver todo
-              </Button>
-            </Link>
-          </div>
-        </Card.Header>
-        <Card.Content className="p-6">
-          {loadingStats ? (
-            <div className="text-center py-12">
-              <Spinner />
-            </div>
-          ) : medicalRecords.length > 0 ? (
-            <div className="space-y-4">
-              {medicalRecords.slice(0, 3).map((record) => (
-                <Link 
-                  key={record._id} 
-                  to={`/medical-records/${record._id}`}
-                  className="block p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3">
-                        <Icons.FileText className="w-5 h-5 text-blue-600" />
-                        <div>
-                          <p className="font-medium text-gray-900 dark:text-white">
-                            {record.motivoConsulta || 'Consulta'}
-                          </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {record.fechaConsulta ? new Date(record.fechaConsulta).toLocaleDateString('es-CO', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            }) : 'Fecha no disponible'}
-                          </p>
-                        </div>
-                      </div>
-                      {record.diagnostico && (
-                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                          {record.diagnostico}
-                        </p>
-                      )}
-                    </div>
-                    <Icons.ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2" />
-                  </div>
-                </Link>
-              ))}
-              {medicalRecords.length > 3 && (
-                <Link to={`/medical-records?petId=${id}`}>
-                  <Button variant="outline" fullWidth className="mt-4">
-                    Ver todas las historias ({medicalRecords.length})
-                  </Button>
-                </Link>
-              )}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <Icons.FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-sm text-gray-500 dark:text-gray-400">No hay registros clínicos disponibles</p>
-              {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
-                <Link to={`/medical-records/create?petId=${id}`}>
-                  <Button className="mt-4" leftIcon={Icons.Plus}>
-                    Crear Primer Registro
-                  </Button>
-                </Link>
-              )}
-            </div>
-          )}
-        </Card.Content>
-      </Card>
     </div>
   )
 }
