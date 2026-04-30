@@ -79,9 +79,9 @@ function AuthLayout({ children }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium">Agenda inteligente</p>
+                  <p className="font-medium">Agendamiento de citas</p>
                   <p className="text-sm text-white/70">
-                    Gestiona citas y recordatorios automáticos
+                    Gestiona citas desde tu dispositivo
                   </p>
                 </div>
               </div>
