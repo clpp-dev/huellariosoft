@@ -381,7 +381,7 @@ function AppRoutes() {
         path="/invoices/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
               <DashboardLayout>
                 <InvoiceCreatePage />
               </DashboardLayout>
@@ -393,7 +393,7 @@ function AppRoutes() {
         path="/invoices/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
               <DashboardLayout>
                 <InvoiceEditPage />
               </DashboardLayout>
