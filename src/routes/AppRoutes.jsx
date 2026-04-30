@@ -50,6 +50,7 @@ import InventoryEditPage from '@pages/inventory/InventoryEditPage'
 // Páginas de facturación
 import InvoicesListPage from '@pages/invoices/InvoicesListPage'
 import InvoiceCreatePage from '@pages/invoices/InvoiceCreatePage'
+import InvoiceEditPage from '@pages/invoices/InvoiceEditPage'
 import InvoiceDetailPage from '@pages/invoices/InvoiceDetailPage'
 
 // Páginas de reportes
@@ -383,6 +384,18 @@ function AppRoutes() {
             <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
               <DashboardLayout>
                 <InvoiceCreatePage />
+              </DashboardLayout>
+            </RoleGuard>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/invoices/:id/edit"
+        element={
+          <ProtectedRoute>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST]}>
+              <DashboardLayout>
+                <InvoiceEditPage />
               </DashboardLayout>
             </RoleGuard>
           </ProtectedRoute>
