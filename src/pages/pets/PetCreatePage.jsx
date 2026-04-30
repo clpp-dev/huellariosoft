@@ -228,7 +228,7 @@ function PetCreatePage() {
                       {...register('esterilizado')}
                       className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-gray-700 dark:text-white">
                       Mascota esterilizada
                     </span>
                   </label>
