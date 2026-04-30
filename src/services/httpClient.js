@@ -72,8 +72,14 @@ class HttpClient {
       // Limpiar timeout si la petición fue exitosa
       clearTimeout(timeoutId)
 
-      // Si es 401, intentar refresh del token (excepto en login)
-      if (response.status === 401 && !endpoint.includes('/auth/login')) {
+      // Si es 401, intentar refresh del token (excepto en login y change-password)
+      // En estos endpoints, el 401 es intencional (credenciales/contraseña incorrectas)
+      const skipAutoRefresh = endpoint.includes('/auth/login') || 
+                             endpoint.includes('/auth/change-password') ||
+                             endpoint.includes('/auth/reset-password') ||
+                             endpoint.includes('/auth/forgot-password')
+      
+      if (response.status === 401 && !skipAutoRefresh) {
         return this.handleUnauthorized(endpoint, config, isBlob)
       }
 
