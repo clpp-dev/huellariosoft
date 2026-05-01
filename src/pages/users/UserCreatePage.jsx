@@ -113,7 +113,7 @@ function UserCreatePage() {
                   type={showPassword ? 'text' : 'password'}
                   {...register('password')}
                   error={errors.password?.message}
-                  placeholder="Mínimo 6 caracteres"
+                  placeholder="Mínimo 8 caracteres"
                   leftIcon={Icons.Lock}
                   rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
                   onRightIconClick={() => setShowPassword(!showPassword)}

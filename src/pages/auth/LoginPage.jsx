@@ -16,7 +16,7 @@ const loginSchema = yup.object({
     .required('El email es requerido'),
   password: yup
     .string()
-    .min(6, 'La contraseña debe tener al menos 6 caracteres')
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .required('La contraseña es requerida'),
   tipoUsuario: yup
     .string()
@@ -125,7 +125,7 @@ function LoginPage() {
         <Input
           label="Contraseña"
           type={showPassword ? 'text' : 'password'}
-          placeholder="••••••••"
+          placeholder="Mínimo 8 caracteres"
           leftIcon={Icons.Lock}
           rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
           onRightIconClick={() => setShowPassword(!showPassword)}

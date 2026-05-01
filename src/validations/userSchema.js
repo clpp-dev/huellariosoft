@@ -17,7 +17,7 @@ export const createUserSchema = yup.object({
   password: yup
     .string()
     .required('La contraseña es requerida')
-    .min(6, 'La contraseña debe tener al menos 6 caracteres')
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .max(50, 'La contraseña no puede exceder 50 caracteres'),
   
   confirmPassword: yup
@@ -57,7 +57,7 @@ export const updateUserSchema = yup.object({
   password: yup
     .string()
     .nullable()
-    .min(6, 'La contraseña debe tener al menos 6 caracteres')
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .max(50, 'La contraseña no puede exceder 50 caracteres'),
   
   confirmPassword: yup
