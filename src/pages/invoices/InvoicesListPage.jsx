@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { useAuth } from '@context/AuthContext'
 import Card from '@components/ui/Card'
 import Button from '@components/ui/Button'
 import Input from '@components/ui/Input'
@@ -10,12 +11,14 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
 import invoiceService from '@services/invoiceService'
 import { toast } from 'sonner'
 import useDebounce from '@hooks/useDebounce'
 
 function InvoicesListPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [invoices, setInvoices] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -258,7 +261,7 @@ function InvoicesListPage() {
           >
             Ver
           </Button>
-          {row.estado === 'pendiente' && (
+          {row.estado === 'pendiente' && hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
             <Button
               variant="ghost"
               size="sm"
@@ -268,15 +271,17 @@ function InvoicesListPage() {
               Editar
             </Button>
           )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleDeleteClick(row._id)}
-            leftIcon={Icons.Trash}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            Eliminar
-          </Button>
+          {row.estado === 'pendiente' && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteClick(row._id)}
+              leftIcon={Icons.Trash}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Eliminar
+            </Button>
+          )}
         </div>
       )
     }
@@ -298,22 +303,24 @@ function InvoicesListPage() {
         </Link>
       </div>
 
-      {/* Monthly Revenue Card */}
-      <Card>
-        <Card.Content className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Facturación del Mes</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                ${monthlyRevenue.toLocaleString('es-CO')}
-              </p>
+      {/* Monthly Revenue Card - Solo visible para admin y veterinario */}
+      {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
+        <Card>
+          <Card.Content className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Facturación del Mes</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                  ${monthlyRevenue.toLocaleString('es-CO')}
+                </p>
+              </div>
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <Icons.DollarSign className="w-6 h-6 text-green-600" />
+              </div>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-              <Icons.DollarSign className="w-6 h-6 text-green-600" />
-            </div>
-          </div>
-        </Card.Content>
-      </Card>
+          </Card.Content>
+        </Card>
+      )}
 
       <Card>
         <Card.Content className="p-6">
