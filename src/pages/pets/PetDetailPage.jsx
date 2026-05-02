@@ -80,7 +80,7 @@ function PetDetailPage() {
           </div>
         </div>
         <div className="flex items-center space-x-3">
-          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
             <Button
               variant="outline"
               onClick={() => navigate(`/pets/${id}/edit`)}

@@ -176,26 +176,26 @@ function PetsListPage() {
           >
             Ver
           </Button>
-          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
-            <>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate(`/pets/${row._id}/edit`)}
-                leftIcon={Icons.Edit}
-              >
-                Editar
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleDeleteClick(row._id)}
-                leftIcon={Icons.Trash}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50"
-              >
-                Eliminar
-              </Button>
-            </>
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate(`/pets/${row._id}/edit`)}
+              leftIcon={Icons.Edit}
+            >
+              Editar
+            </Button>
+          )}
+          {hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteClick(row._id)}
+              leftIcon={Icons.Trash}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Eliminar
+            </Button>
           )}
         </div>
       )
@@ -211,7 +211,7 @@ function PetsListPage() {
             Gestiona los animales registrados en la veterinaria
           </p>
         </div>
-        {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+        {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
           <Link to="/pets/create">
             <Button leftIcon={Icons.Plus}>
               Nueva Mascota

@@ -221,7 +221,7 @@ function AppRoutes() {
         path="/pets/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
               <DashboardLayout>
                 <PetCreatePage />
               </DashboardLayout>
@@ -233,7 +233,7 @@ function AppRoutes() {
         path="/pets/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
               <DashboardLayout>
                 <PetEditPage />
               </DashboardLayout>
