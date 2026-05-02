@@ -262,25 +262,25 @@ function InvoicesListPage() {
             Ver
           </Button>
           {row.estado === 'pendiente' && hasAnyRole([ROLES.ADMIN, ROLES.VETERINARIAN]) && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate(`/invoices/${row._id}/edit`)}
-              leftIcon={Icons.Edit}
-            >
-              Editar
-            </Button>
-          )}
-          {row.estado === 'pendiente' && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleDeleteClick(row._id)}
-              leftIcon={Icons.Trash}
-              className="text-red-600 hover:text-red-700 hover:bg-red-50"
-            >
-              Eliminar
-            </Button>
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate(`/invoices/${row._id}/edit`)}
+                leftIcon={Icons.Edit}
+              >
+                Editar
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleDeleteClick(row._id)}
+                leftIcon={Icons.Trash}
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                Eliminar
+              </Button>
+            </>
           )}
         </div>
       )

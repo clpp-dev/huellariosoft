@@ -475,8 +475,8 @@ function DashboardPage() {
               </Link>
             )}
 
-            {/* Nueva Factura - Admin, Recepcionista, Veterinario */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            {/* Nueva Factura - Admin, Recepcionista, Veterinario, Auxiliar */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
               <Link
                 to="/invoices/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
