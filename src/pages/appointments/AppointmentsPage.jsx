@@ -189,7 +189,7 @@ function AppointmentsPage() {
       accessor: '_id',
       render: (row) => (
         <div className="flex items-center space-x-2">
-          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+          {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
             <>
               <Button
                 variant="ghost"

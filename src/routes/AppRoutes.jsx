@@ -173,7 +173,7 @@ function AppRoutes() {
         path="/owners/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
               <DashboardLayout>
                 <OwnerCreatePage />
               </DashboardLayout>
@@ -185,7 +185,7 @@ function AppRoutes() {
         path="/owners/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
               <DashboardLayout>
                 <OwnerEditPage />
               </DashboardLayout>
@@ -267,7 +267,7 @@ function AppRoutes() {
         path="/appointments/create"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.OWNER]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY, ROLES.OWNER]}>
               <DashboardLayout>
                 <AppointmentCreatePage />
               </DashboardLayout>
@@ -279,7 +279,7 @@ function AppRoutes() {
         path="/appointments/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]}>
               <DashboardLayout>
                 <AppointmentEditPage />
               </DashboardLayout>

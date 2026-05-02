@@ -437,7 +437,7 @@ function DashboardPage() {
         <Card.Content>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {/* Nueva Cita - Accesible para todos los roles */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.OWNER]) && (
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY, ROLES.OWNER]) && (
               <Link
                 to="/appointments/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
@@ -449,8 +449,8 @@ function DashboardPage() {
               </Link>
             )}
 
-            {/* Nueva Mascota - Solo para Admin, Recepcionista, Veterinario */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            {/* Nueva Mascota - Solo para Admin, Recepcionista, Veterinario, Auxiliar */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
               <Link
                 to="/pets/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
@@ -462,8 +462,8 @@ function DashboardPage() {
               </Link>
             )}
 
-            {/* Nuevo Cliente - Admin, Recepcionista, Veterinario */}
-            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN]) && (
+            {/* Nuevo Cliente - Admin, Recepcionista, Veterinario, Auxiliar */}
+            {hasAnyRole([ROLES.ADMIN, ROLES.RECEPTIONIST, ROLES.VETERINARIAN, ROLES.AUXILIARY]) && (
               <Link
                 to="/owners/create"
                 className="flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"

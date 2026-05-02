@@ -59,8 +59,8 @@ function AppointmentEditPage() {
       const petsResponse = await petService.getAll({ limit: 1000 })
       setPets(petsResponse.data || [])
       
-      const usersResponse = await userService.getAll({ rol: 'veterinario', limit: 1000 })
-      setVeterinarians(usersResponse.data || [])
+      const veterinariosData = await userService.getByRole('veterinario')
+      setVeterinarians(veterinariosData || [])
     } catch (error) {
       console.error('Error al cargar datos:', error)
     } finally {
