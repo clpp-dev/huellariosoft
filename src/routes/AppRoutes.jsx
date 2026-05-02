@@ -355,7 +355,7 @@ function AppRoutes() {
         path="/inventory/:id/edit"
         element={
           <ProtectedRoute>
-            <RoleGuard roles={[ROLES.ADMIN, ROLES.AUXILIARY]}>
+            <RoleGuard roles={[ROLES.ADMIN, ROLES.AUXILIARY, ROLES.RECEPTIONIST]}>
               <DashboardLayout>
                 <InventoryEditPage />
               </DashboardLayout>
