@@ -8,12 +8,15 @@ import Badge from '@components/ui/Badge'
 import Table from '@components/tables/Table'
 import Modal from '@components/ui/Modal'
 import { Icons } from '@constants/icons'
+import { ROLES } from '@constants/enums'
+import { useAuth } from '@context/AuthContext'
 import inventoryService from '@services/inventoryService'
 import { toast } from 'sonner'
 import useDebounce from '@hooks/useDebounce'
 
 function InventoryListPage() {
   const navigate = useNavigate()
+  const { hasAnyRole } = useAuth()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -227,15 +230,17 @@ function InventoryListPage() {
           >
             Editar
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleDeleteClick(row._id)}
-            leftIcon={Icons.Trash}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            Eliminar
-          </Button>
+          {hasAnyRole([ROLES.ADMIN]) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteClick(row._id)}
+              leftIcon={Icons.Trash}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              Eliminar
+            </Button>
+          )}
         </div>
       )
     }
