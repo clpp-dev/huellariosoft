@@ -17,6 +17,8 @@ function UserEditPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   
   const {
     register,
@@ -156,20 +158,24 @@ function UserEditPage() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <Input
                   label="Nueva Contraseña"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   {...register('password')}
                   error={errors.password?.message}
                   placeholder="Mínimo 6 caracteres"
                   leftIcon={Icons.Lock}
+                  rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
+                  onRightIconClick={() => setShowPassword(!showPassword)}
                 />
 
                 <Input
                   label="Confirmar Contraseña"
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   {...register('confirmPassword')}
                   error={errors.confirmPassword?.message}
                   placeholder="Repite la contraseña"
                   leftIcon={Icons.Lock}
+                  rightIcon={showConfirmPassword ? Icons.EyeOff : Icons.Eye}
+                  onRightIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 />
 
                 <div className="sm:col-span-2">
