@@ -56,19 +56,26 @@ export const updateUserSchema = yup.object({
   
   password: yup
     .string()
-    .nullable()
-    .min(8, 'La contraseña debe tener al menos 8 caracteres')
-    .max(50, 'La contraseña no puede exceder 50 caracteres'),
+    .transform((value) => value === '' ? undefined : value)
+    .optional()
+    .test('min-length', 'La contraseña debe tener al menos 8 caracteres', (value) => {
+      if (!value) return true // No validar si está vacío
+      return value.length >= 8
+    })
+    .test('max-length', 'La contraseña no puede exceder 50 caracteres', (value) => {
+      if (!value) return true // No validar si está vacío
+      return value.length <= 50
+    }),
   
   confirmPassword: yup
     .string()
-    .nullable()
+    .transform((value) => value === '' ? undefined : value)
+    .optional()
     .when('password', {
       is: (password) => password && password.length > 0,
       then: (schema) => schema
         .required('Confirma la contraseña')
-        .oneOf([yup.ref('password')], 'Las contraseñas no coinciden'),
-      otherwise: (schema) => schema
+        .oneOf([yup.ref('password')], 'Las contraseñas no coinciden')
     }),
   
   rol: yup

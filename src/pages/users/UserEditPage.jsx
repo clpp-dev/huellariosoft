@@ -147,28 +147,60 @@ function UserEditPage() {
               </div>
             </div>
 
-            {/* Información de acceso */}
+            {/* Rol y permisos */}
             <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                Cambiar Contraseña
+                Rol y Permisos
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                Deja estos campos vacíos si no deseas cambiar la contraseña
-              </p>
+              <div className="space-y-4">
+                <Select
+                  label="Rol del Usuario"
+                  {...register('rol')}
+                  error={errors.rol?.message}
+                  options={[
+                    { value: 'administrador', label: 'Administrador' },
+                    { value: 'veterinario', label: 'Veterinario' },
+                    { value: 'recepcionista', label: 'Recepcionista' },
+                    { value: 'auxiliar', label: 'Auxiliar' }
+                  ]}
+                  required
+                />
+
+                {/* Checkbox para actuar como veterinario (solo para administradores) */}
+                {selectedRole === 'administrador' && (
+                  <Checkbox
+                    {...register('actuarComoVeterinario')}
+                    label="Habilitar como veterinario"
+                    description="Este administrador aparecerá en los listados de veterinarios para asignación de citas e historias clínicas."
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Cambiar contraseña (opcional) */}
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  Cambiar Contraseña (Opcional)
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Completa estos campos <span className="font-semibold">solo si deseas cambiar la contraseña</span> del usuario. Si los dejas vacíos, la contraseña actual se mantendrá sin cambios.
+                </p>
+              </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <Input
                   label="Nueva Contraseña"
                   type={showPassword ? 'text' : 'password'}
                   {...register('password')}
                   error={errors.password?.message}
-                  placeholder="Mínimo 6 caracteres"
+                  placeholder="Mínimo 8 caracteres"
                   leftIcon={Icons.Lock}
                   rightIcon={showPassword ? Icons.EyeOff : Icons.Eye}
                   onRightIconClick={() => setShowPassword(!showPassword)}
                 />
 
                 <Input
-                  label="Confirmar Contraseña"
+                  label="Confirmar Nueva Contraseña"
                   type={showConfirmPassword ? 'text' : 'password'}
                   {...register('confirmPassword')}
                   error={errors.confirmPassword?.message}
@@ -177,32 +209,6 @@ function UserEditPage() {
                   rightIcon={showConfirmPassword ? Icons.EyeOff : Icons.Eye}
                   onRightIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 />
-
-                <div className="sm:col-span-2">
-                  <Select
-                    label="Rol del Usuario"
-                    {...register('rol')}
-                    error={errors.rol?.message}
-                    options={[
-                      { value: 'administrador', label: 'Administrador' },
-                      { value: 'veterinario', label: 'Veterinario' },
-                      { value: 'recepcionista', label: 'Recepcionista' },
-                      { value: 'auxiliar', label: 'Auxiliar' }
-                    ]}
-                    required
-                  />
-                </div>
-
-                {/* Checkbox para actuar como veterinario (solo para administradores) */}
-                {selectedRole === 'administrador' && (
-                  <div className="sm:col-span-2">
-                    <Checkbox
-                      {...register('actuarComoVeterinario')}
-                      label="Habilitar como veterinario"
-                      description="Este administrador aparecerá en los listados de veterinarios para asignación de citas e historias clínicas."
-                    />
-                  </div>
-                )}
               </div>
             </div>
 
