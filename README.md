@@ -96,6 +96,50 @@ npm run preview      # Preview de build de producción
 npm run lint         # Ejecuta ESLint
 ```
 
+## 🚀 Despliegue
+
+### Cloudflare Pages
+
+El frontend está desplegado en **Cloudflare Pages**, aprovechando su CDN global y despliegues automáticos.
+
+#### Configuración de Despliegue
+
+- **Platform**: Cloudflare Pages
+- **Production branch**: `main`
+- **Framework preset**: Vite
+- **Build command**: `npm run build`
+- **Build output directory**: `dist`
+
+#### Variables de Entorno (Producción)
+
+```env
+VITE_API_URL=urlFront
+VITE_APP_NAME=HuellarioSoft
+VITE_APP_VERSION=0.0.0
+VITE_ENV=production
+VITE_TOKEN_COOKIE_NAME=huellario_token
+VITE_REFRESH_TOKEN_COOKIE_NAME=huellario_refresh_token
+```
+
+#### Características de Cloudflare Pages
+
+- ✅ Despliegues automáticos desde GitHub
+- ✅ Preview deployments para cada Pull Request
+- ✅ CDN global con bajo tiempo de respuesta
+- ✅ SSL/TLS automático
+- ✅ Rollback instantáneo a versiones anteriores
+- ✅ Optimización automática de assets
+
+#### Proceso de Despliegue
+
+1. Commit y push a la rama `main`
+2. Cloudflare detecta el cambio automáticamente
+3. Se ejecuta el build (`npm run build`)
+4. El contenido de `dist/` se despliega en la CDN global
+5. La aplicación está disponible en pocos segundos
+
+Para más detalles sobre el despliegue, consulta el [Manual Técnico](./docs/Manual_técnico.md).
+
 ## 🎨 Características del Diseño
 
 - **Diseño distintivo y profesional** - UI/UX moderna tipo SaaS
