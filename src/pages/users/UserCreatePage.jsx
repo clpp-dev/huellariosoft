@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Card from '@components/ui/Card'
 import Button from '@components/ui/Button'
 import Input from '@components/ui/Input'
 import Select from '@components/ui/Select'
+import Checkbox from '@components/ui/Checkbox'
 import { Icons } from '@constants/icons'
 import { createUserSchema } from '@validations/userSchema'
 import userService from '@services/userService'
@@ -19,9 +20,17 @@ function UserCreatePage() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(createUserSchema)
+  })
+
+  // Observar el rol seleccionado para mostrar/ocultar el checkbox
+  const selectedRole = useWatch({
+    control,
+    name: 'rol',
+    defaultValue: ''
   })
 
   const onSubmit = async (data) => {
@@ -153,6 +162,17 @@ function UserCreatePage() {
                     <strong>Auxiliar:</strong> Gestión de inventario.
                   </p>
                 </div>
+
+                {/* Checkbox para actuar como veterinario (solo para administradores) */}
+                {selectedRole === 'administrador' && (
+                  <div className="sm:col-span-2">
+                    <Checkbox
+                      {...register('actuarComoVeterinario')}
+                      label="Habilitar como veterinario"
+                      description="Este administrador aparecerá en los listados de veterinarios para asignación de citas e historias clínicas."
+                    />
+                  </div>
+                )}
               </div>
             </div>
 

@@ -59,7 +59,7 @@ function AppointmentEditPage() {
       const petsResponse = await petService.getAll({ limit: 1000 })
       setPets(petsResponse.data || [])
       
-      const veterinariosData = await userService.getByRole('veterinario')
+      const veterinariosData = await userService.getVeterinarios()
       setVeterinarians(veterinariosData || [])
     } catch (error) {
       console.error('Error al cargar datos:', error)

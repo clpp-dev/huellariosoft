@@ -64,8 +64,8 @@ function AppointmentCreatePage() {
       const petsResponse = await petService.getAll({ limit: 1000 })
       setPets(petsResponse.data || [])
       
-      // Cargar veterinarios (usuarios con rol veterinario)
-      const veterinariosData = await userService.getByRole('veterinario')
+      // Cargar veterinarios (incluye veterinarios + administradores habilitados)
+      const veterinariosData = await userService.getVeterinarios()
       setVeterinarians(veterinariosData || [])
     } catch (error) {
       console.error('Error al cargar datos:', error)

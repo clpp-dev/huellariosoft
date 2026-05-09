@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Card from '@components/ui/Card'
 import Button from '@components/ui/Button'
 import Input from '@components/ui/Input'
 import Select from '@components/ui/Select'
+import Checkbox from '@components/ui/Checkbox'
 import Spinner from '@components/ui/Spinner'
 import { Icons } from '@constants/icons'
 import { updateUserSchema } from '@validations/userSchema'
@@ -21,9 +22,17 @@ function UserEditPage() {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(updateUserSchema)
+  })
+
+  // Observar el rol seleccionado para mostrar/ocultar el checkbox
+  const selectedRole = useWatch({
+    control,
+    name: 'rol',
+    defaultValue: ''
   })
 
   useEffect(() => {
@@ -40,6 +49,7 @@ function UserEditPage() {
       setValue('email', user.email)
       setValue('telefono', user.telefono || '')
       setValue('rol', user.rol)
+      setValue('actuarComoVeterinario', user.actuarComoVeterinario || false)
     } catch (error) {
       console.error('Error al cargar usuario:', error)
       toast.error('Error al cargar datos del usuario')
@@ -176,6 +186,17 @@ function UserEditPage() {
                     required
                   />
                 </div>
+
+                {/* Checkbox para actuar como veterinario (solo para administradores) */}
+                {selectedRole === 'administrador' && (
+                  <div className="sm:col-span-2">
+                    <Checkbox
+                      {...register('actuarComoVeterinario')}
+                      label="Habilitar como veterinario"
+                      description="Este administrador aparecerá en los listados de veterinarios para asignación de citas e historias clínicas."
+                    />
+                  </div>
+                )}
               </div>
             </div>
 

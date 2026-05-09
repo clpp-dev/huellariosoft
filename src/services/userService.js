@@ -27,6 +27,14 @@ export const userService = {
   },
 
   /**
+   * Obtiene veterinarios (incluye veterinarios + administradores habilitados)
+   */
+  async getVeterinarios() {
+    const response = await httpClient.get('/users/veterinarios')
+    return response.data
+  },
+
+  /**
    * Crea un nuevo usuario
    */
   async create(data) {
