@@ -71,22 +71,105 @@ export const createMedicalRecordSchema = yup.object({
     .min(5, 'El motivo debe tener al menos 5 caracteres')
     .max(300, 'El motivo no puede exceder 300 caracteres'),
   
+  anamnesicos: yup
+    .string()
+    .nullable()
+    .max(2000, 'Los anamnésicos no pueden exceder 2000 caracteres'),
+  
   sintomas: yup
     .string()
     .nullable()
     .max(1000, 'Los síntomas no pueden exceder 1000 caracteres'),
   
+  // Examen Físico
+  muscosas: yup
+    .string()
+    .nullable()
+    .oneOf(['', 'Pálidas', 'Rosadas', 'Congestionadas', 'Cianóticas', 'Ictéricas', 'Otro'], 'Opción no válida'),
+  
+  deshidratacion: yup
+    .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? null : value
+    })
+    .nullable()
+    .typeError('Ingresa un número válido')
+    .min(1, 'Debe ser entre 1 y 5')
+    .max(5, 'Debe ser entre 1 y 5'),
+  
+  condicionCorporal: yup
+    .number()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? null : value
+    })
+    .nullable()
+    .typeError('Ingresa un número válido')
+    .min(1, 'Debe ser entre 1 y 5')
+    .max(5, 'Debe ser entre 1 y 5'),
+  
+  actitudPropietario: yup
+    .string()
+    .nullable()
+    .oneOf(['', 'Amigable', 'Nervioso', 'Agresivo', 'Temeroso', 'Colaborador', 'Otro'], 'Opción no válida'),
+  
+  actitudVeterinario: yup
+    .string()
+    .nullable()
+    .oneOf(['', 'Amigable', 'Nervioso', 'Agresivo', 'Temeroso', 'Colaborador', 'Otro'], 'Opción no válida'),
+  
+  // Sistemas Afectados
+  sistemasAfectadosDescripcion: yup
+    .string()
+    .nullable()
+    .max(2000, 'La descripción no puede exceder 2000 caracteres'),
+  
+  pulso: yup
+    .string()
+    .nullable()
+    .max(100, 'El pulso no puede exceder 100 caracteres'),
+  
+  tllc: yup
+    .string()
+    .nullable()
+    .max(100, 'El TLLC no puede exceder 100 caracteres'),
+  
+  trpc: yup
+    .string()
+    .nullable()
+    .max(100, 'El TRPC no puede exceder 100 caracteres'),
+  
+  examenesComplementarios: yup
+    .string()
+    .nullable()
+    .max(2000, 'Los exámenes complementarios no pueden exceder 2000 caracteres'),
+  
+  listaProblemas: yup
+    .string()
+    .nullable()
+    .max(2000, 'La lista de problemas no puede exceder 2000 caracteres'),
+  
+  listaMaestra: yup
+    .string()
+    .nullable()
+    .max(2000, 'La lista maestra no puede exceder 2000 caracteres'),
+  
+  // Evaluación Clínica
+  pronostico: yup
+    .string()
+    .nullable()
+    .max(1000, 'El pronóstico no puede exceder 1000 caracteres'),
+  
   diagnostico: yup
     .string()
     .required('El diagnóstico es requerido')
     .min(2, 'El diagnóstico debe tener al menos 2 caracteres')
-    .max(500, 'El diagnóstico no puede exceder 500 caracteres'),
+    .max(2000, 'El diagnóstico no puede exceder 2000 caracteres'),
   
   tratamiento: yup
     .string()
     .required('El tratamiento es requerido')
     .min(2, 'El tratamiento debe tener al menos 2 caracteres')
-    .max(1000, 'El tratamiento no puede exceder 1000 caracteres'),
+    .max(2000, 'El tratamiento no puede exceder 2000 caracteres'),
   
   observaciones: yup
     .string()

@@ -68,10 +68,42 @@ function MedicalRecordCreatePage() {
         veterinario: data.veterinario,
         fechaConsulta: data.fechaConsulta,
         motivoConsulta: data.motivoConsulta,
+        anamnesicos: data.anamnesicos || undefined,
         sintomas: data.sintomas || undefined,
+        
+        // Examen Físico
+        examenFisico: {
+          muscosas: data.muscosas || undefined,
+          deshidratacion: data.deshidratacion ? Number(data.deshidratacion) : undefined,
+          condicionCorporal: data.condicionCorporal ? Number(data.condicionCorporal) : undefined,
+          actitudPropietario: data.actitudPropietario || undefined,
+          actitudVeterinario: data.actitudVeterinario || undefined,
+        },
+        
+        // Sistemas Afectados
+        sistemasAfectados: {
+          descripcion: data.sistemasAfectadosDescripcion || undefined,
+          pulso: data.pulso || undefined,
+          tllc: data.tllc || undefined,
+          trpc: data.trpc || undefined,
+          examenesComplementarios: data.examenesComplementarios || undefined,
+          listaProblemas: data.listaProblemas || undefined,
+          listaMaestra: data.listaMaestra || undefined,
+        },
+        
+        // Evaluación Clínica
+        evaluacionClinica: {
+          pronostico: data.pronostico || undefined,
+          diagnostico: data.diagnostico,
+          tratamiento: data.tratamiento,
+        },
+        
+        // Mantener campos legacy
         diagnostico: data.diagnostico,
         tratamiento: data.tratamiento,
         observaciones: data.observaciones || undefined,
+        
+        // Signos vitales
         peso: data.peso ? Number(data.peso) : undefined,
         temperatura: data.temperatura ? Number(data.temperatura) : undefined,
         frecuenciaCardiaca: data.frecuenciaCardiaca ? Number(data.frecuenciaCardiaca) : undefined,
@@ -234,10 +266,188 @@ function MedicalRecordCreatePage() {
                 />
 
                 <Textarea
+                  label="Anamnésicos"
+                  {...register('anamnesicos')}
+                  error={errors.anamnesicos?.message}
+                  placeholder="Historia del paciente, antecedentes, información relevante..."
+                  rows={4}
+                />
+
+                <Textarea
                   label="Síntomas y Signos Clínicos"
                   {...register('sintomas')}
                   error={errors.sintomas?.message}
                   placeholder="Describe los síntomas observados y signos clínicos..."
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            {/* Examen Físico */}
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Examen Físico
+              </h3>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <Controller
+                  name="muscosas"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      label="Mucosas"
+                      {...field}
+                      error={errors.muscosas?.message}
+                      options={[
+                        { value: '', label: 'Selecciona una opción' },
+                        { value: 'Rosadas', label: 'Rosadas' },
+                        { value: 'Pálidas', label: 'Pálidas' },
+                        { value: 'Congestionadas', label: 'Congestionadas' },
+                        { value: 'Cianóticas', label: 'Cianóticas' },
+                        { value: 'Ictéricas', label: 'Ictéricas' },
+                        { value: 'Otro', label: 'Otro' },
+                      ]}
+                    />
+                  )}
+                />
+
+                <Input
+                  label="Deshidratación (1-5)"
+                  type="number"
+                  min="1"
+                  max="5"
+                  {...register('deshidratacion')}
+                  error={errors.deshidratacion?.message}
+                  placeholder="Escala del 1 al 5"
+                />
+
+                <Input
+                  label="Condición Corporal (1-5)"
+                  type="number"
+                  min="1"
+                  max="5"
+                  {...register('condicionCorporal')}
+                  error={errors.condicionCorporal?.message}
+                  placeholder="Escala del 1 al 5"
+                />
+
+                <Controller
+                  name="actitudPropietario"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      label="Actitud (Propietario)"
+                      {...field}
+                      error={errors.actitudPropietario?.message}
+                      options={[
+                        { value: '', label: 'Selecciona una opción' },
+                        { value: 'Amigable', label: 'Amigable' },
+                        { value: 'Nervioso', label: 'Nervioso' },
+                        { value: 'Agresivo', label: 'Agresivo' },
+                        { value: 'Temeroso', label: 'Temeroso' },
+                        { value: 'Colaborador', label: 'Colaborador' },
+                        { value: 'Otro', label: 'Otro' },
+                      ]}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="actitudVeterinario"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      label="Actitud (Veterinario)"
+                      {...field}
+                      error={errors.actitudVeterinario?.message}
+                      options={[
+                        { value: '', label: 'Selecciona una opción' },
+                        { value: 'Amigable', label: 'Amigable' },
+                        { value: 'Nervioso', label: 'Nervioso' },
+                        { value: 'Agresivo', label: 'Agresivo' },
+                        { value: 'Temeroso', label: 'Temeroso' },
+                        { value: 'Colaborador', label: 'Colaborador' },
+                        { value: 'Otro', label: 'Otro' },
+                      ]}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* Sistemas Afectados */}
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Sistemas Afectados
+              </h3>
+              <div className="space-y-4">
+                <Textarea
+                  label="Descripción de Sistemas Afectados"
+                  {...register('sistemasAfectadosDescripcion')}
+                  error={errors.sistemasAfectadosDescripcion?.message}
+                  placeholder="Describe los sistemas corporales afectados..."
+                  rows={3}
+                />
+
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                  <Input
+                    label="Pulso"
+                    {...register('pulso')}
+                    error={errors.pulso?.message}
+                    placeholder="Ej: 120 lpm"
+                  />
+
+                  <Input
+                    label="TLLC (Tiempo de Llenado Capilar)"
+                    {...register('tllc')}
+                    error={errors.tllc?.message}
+                    placeholder="Ej: 2 segundos"
+                  />
+
+                  <Input
+                    label="TRPC (Tiempo de Respuesta Pupilar)"
+                    {...register('trpc')}
+                    error={errors.trpc?.message}
+                    placeholder="Ej: Normal"
+                  />
+                </div>
+
+                <Textarea
+                  label="Exámenes Complementarios"
+                  {...register('examenesComplementarios')}
+                  error={errors.examenesComplementarios?.message}
+                  placeholder="Resultados de laboratorio, imágenes, etc..."
+                  rows={3}
+                />
+
+                <Textarea
+                  label="Lista de Problemas"
+                  {...register('listaProblemas')}
+                  error={errors.listaProblemas?.message}
+                  placeholder="Enumera los problemas identificados..."
+                  rows={3}
+                />
+
+                <Textarea
+                  label="Lista Maestra"
+                  {...register('listaMaestra')}
+                  error={errors.listaMaestra?.message}
+                  placeholder="Registro de problemas crónicos o históricos..."
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            {/* Evaluación Clínica */}
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Evaluación Clínica
+              </h3>
+              <div className="space-y-4">
+                <Textarea
+                  label="Pronóstico"
+                  {...register('pronostico')}
+                  error={errors.pronostico?.message}
+                  placeholder="Describe el pronóstico del paciente..."
                   rows={3}
                 />
 
@@ -260,7 +470,7 @@ function MedicalRecordCreatePage() {
                 />
 
                 <Textarea
-                  label="Observaciones"
+                  label="Observaciones Adicionales"
                   {...register('observaciones')}
                   error={errors.observaciones?.message}
                   placeholder="Notas adicionales o recomendaciones..."

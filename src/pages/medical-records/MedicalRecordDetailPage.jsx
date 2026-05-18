@@ -175,21 +175,154 @@ function MedicalRecordDetailPage() {
                 <p className="text-sm text-gray-900 dark:text-white">{record.motivoConsulta}</p>
               </div>
 
+              {record.anamnesicos && (
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Anamnésicos</h4>
+                  <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.anamnesicos}</p>
+                </div>
+              )}
+
               {record.sintomas && (
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Síntomas y Signos Clínicos</h4>
                   <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sintomas}</p>
                 </div>
               )}
+            </Card.Content>
+          </Card>
 
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+          {/* Examen Físico */}
+          {(record.examenFisico?.muscosas || record.examenFisico?.deshidratacion || record.examenFisico?.condicionCorporal || 
+            record.examenFisico?.actitudPropietario || record.examenFisico?.actitudVeterinario) && (
+            <Card>
+              <Card.Header>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Examen Físico</h2>
+              </Card.Header>
+              <Card.Content className="p-6">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {record.examenFisico?.muscosas && (
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Mucosas</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{record.examenFisico.muscosas}</p>
+                    </div>
+                  )}
+                  {record.examenFisico?.deshidratacion && (
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Deshidratación</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{record.examenFisico.deshidratacion} / 5</p>
+                    </div>
+                  )}
+                  {record.examenFisico?.condicionCorporal && (
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Condición Corporal</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{record.examenFisico.condicionCorporal} / 5</p>
+                    </div>
+                  )}
+                  {record.examenFisico?.actitudPropietario && (
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Actitud (Propietario)</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{record.examenFisico.actitudPropietario}</p>
+                    </div>
+                  )}
+                  {record.examenFisico?.actitudVeterinario && (
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Actitud (Veterinario)</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{record.examenFisico.actitudVeterinario}</p>
+                    </div>
+                  )}
+                </div>
+              </Card.Content>
+            </Card>
+          )}
+
+          {/* Sistemas Afectados */}
+          {(record.sistemasAfectados?.descripcion || record.sistemasAfectados?.pulso || record.sistemasAfectados?.tllc || 
+            record.sistemasAfectados?.trpc || record.sistemasAfectados?.examenesComplementarios || 
+            record.sistemasAfectados?.listaProblemas || record.sistemasAfectados?.listaMaestra) && (
+            <Card>
+              <Card.Header>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sistemas Afectados</h2>
+              </Card.Header>
+              <Card.Content className="p-6 space-y-4">
+                {record.sistemasAfectados?.descripcion && (
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Descripción</h4>
+                    <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sistemasAfectados.descripcion}</p>
+                  </div>
+                )}
+
+                {(record.sistemasAfectados?.pulso || record.sistemasAfectados?.tllc || record.sistemasAfectados?.trpc) && (
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700 grid grid-cols-3 gap-4">
+                    {record.sistemasAfectados?.pulso && (
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Pulso</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">{record.sistemasAfectados.pulso}</p>
+                      </div>
+                    )}
+                    {record.sistemasAfectados?.tllc && (
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">TLLC</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">{record.sistemasAfectados.tllc}</p>
+                      </div>
+                    )}
+                    {record.sistemasAfectados?.trpc && (
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">TRPC</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">{record.sistemasAfectados.trpc}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {record.sistemasAfectados?.examenesComplementarios && (
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Exámenes Complementarios</h4>
+                    <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sistemasAfectados.examenesComplementarios}</p>
+                  </div>
+                )}
+
+                {record.sistemasAfectados?.listaProblemas && (
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Lista de Problemas</h4>
+                    <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sistemasAfectados.listaProblemas}</p>
+                  </div>
+                )}
+
+                {record.sistemasAfectados?.listaMaestra && (
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Lista Maestra</h4>
+                    <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.sistemasAfectados.listaMaestra}</p>
+                  </div>
+                )}
+              </Card.Content>
+            </Card>
+          )}
+
+          {/* Evaluación Clínica */}
+          <Card>
+            <Card.Header>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Evaluación Clínica</h2>
+            </Card.Header>
+            <Card.Content className="p-6 space-y-4">
+              {record.evaluacionClinica?.pronostico && (
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pronóstico</h4>
+                  <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.evaluacionClinica.pronostico}</p>
+                </div>
+              )}
+
+              <div className={record.evaluacionClinica?.pronostico ? "pt-4 border-t border-gray-200 dark:border-gray-700" : ""}>
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Diagnóstico</h4>
-                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.diagnostico}</p>
+                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">
+                  {record.evaluacionClinica?.diagnostico || record.diagnostico}
+                </p>
               </div>
 
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tratamiento</h4>
-                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">{record.tratamiento}</p>
+                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line">
+                  {record.evaluacionClinica?.tratamiento || record.tratamiento}
+                </p>
               </div>
 
               {record.observaciones && (
