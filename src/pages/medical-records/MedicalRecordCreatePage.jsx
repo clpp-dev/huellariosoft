@@ -310,24 +310,46 @@ function MedicalRecordCreatePage() {
                   )}
                 />
 
-                <Input
-                  label="Deshidratación (1-5)"
-                  type="number"
-                  min="1"
-                  max="5"
-                  {...register('deshidratacion')}
-                  error={errors.deshidratacion?.message}
-                  placeholder="Escala del 1 al 5"
+                <Controller
+                  name="deshidratacion"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      label="Deshidratación (0-5)"
+                      {...field}
+                      error={errors.deshidratacion?.message}
+                      options={[
+                        { value: '', label: 'Selecciona una opción' },
+                        { value: '0', label: '0 - Sin deshidratación' },
+                        { value: '1', label: '1 - Muy leve' },
+                        { value: '2', label: '2 - Leve' },
+                        { value: '3', label: '3 - Moderada' },
+                        { value: '4', label: '4 - Severa' },
+                        { value: '5', label: '5 - Muy severa' },
+                      ]}
+                    />
+                  )}
                 />
 
-                <Input
-                  label="Condición Corporal (1-5)"
-                  type="number"
-                  min="1"
-                  max="5"
-                  {...register('condicionCorporal')}
-                  error={errors.condicionCorporal?.message}
-                  placeholder="Escala del 1 al 5"
+                <Controller
+                  name="condicionCorporal"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      label="Condición Corporal (0-5)"
+                      {...field}
+                      error={errors.condicionCorporal?.message}
+                      options={[
+                        { value: '', label: 'Selecciona una opción' },
+                        { value: '0', label: '0' },
+                        { value: '1', label: '1' },
+                        { value: '2', label: '2' },
+                        { value: '3', label: '3' },
+                        { value: '4', label: '4' },
+                        { value: '5', label: '5' },
+                      ]}
+                    />
+                  )}
                 />
 
                 <Controller
@@ -466,7 +488,6 @@ function MedicalRecordCreatePage() {
                   error={errors.tratamiento?.message}
                   placeholder="Describe el tratamiento indicado, medicamentos, dosis..."
                   rows={4}
-                  required
                 />
 
                 <Textarea

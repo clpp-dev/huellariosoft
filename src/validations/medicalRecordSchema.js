@@ -94,8 +94,8 @@ export const createMedicalRecordSchema = yup.object({
     })
     .nullable()
     .typeError('Ingresa un número válido')
-    .min(1, 'Debe ser entre 1 y 5')
-    .max(5, 'Debe ser entre 1 y 5'),
+    .min(0, 'Debe ser entre 0 y 5')
+    .max(5, 'Debe ser entre 0 y 5'),
   
   condicionCorporal: yup
     .number()
@@ -104,8 +104,8 @@ export const createMedicalRecordSchema = yup.object({
     })
     .nullable()
     .typeError('Ingresa un número válido')
-    .min(1, 'Debe ser entre 1 y 5')
-    .max(5, 'Debe ser entre 1 y 5'),
+    .min(0, 'Debe ser entre 0 y 5')
+    .max(5, 'Debe ser entre 0 y 5'),
   
   actitudPropietario: yup
     .string()
@@ -167,8 +167,7 @@ export const createMedicalRecordSchema = yup.object({
   
   tratamiento: yup
     .string()
-    .required('El tratamiento es requerido')
-    .min(2, 'El tratamiento debe tener al menos 2 caracteres')
+    .nullable()
     .max(2000, 'El tratamiento no puede exceder 2000 caracteres'),
   
   observaciones: yup
